@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1A0A12">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Perde">
+<meta name="description" content="Kim olduğunu söylemeden tanış. Ülkeni seç, karşı cinsten biriyle isimsiz sohbet et.">
+<title>Perde</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A0A12;          /* Gece bordosu */
+    --surface:#2A1320;     /* Kadife */
+    --surface2:#391B2A;    /* Kadife, açık */
+    --line:#4D2B3D;
+    --ivory:#F4EADF;       /* Fildişi */
+    --muted:#B89DA4;       /* Dumanlı gül */
+    --ruj:#D7335B;         /* Ruj */
+    --ruj-d:#B32549;
+    --champ:#E8C48F;       /* Şampanya */
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(80% 42% at 50% -6%,#3C1629 0%,transparent 72%);
+    background-attachment:fixed;
+    color:var(--ivory);font:500 16px/1.5 var(--sans);
+    -webkit-font-smoothing:antialiased;overscroll-behavior:none;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.012em;margin:0}
+  p{margin:0}
+  button{font:inherit;color:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--champ);outline-offset:3px}
+  [hidden]{display:none!important}
+
+  /* ---------- İskelet ---------- */
+  .screen{display:none;flex-direction:column;min-height:100dvh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  .screen.on{display:flex}
+  .wrap{width:100%;max-width:440px;margin:0 auto;padding:0 22px}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:440px;margin:0 auto;padding:14px 22px}
+  .brand{display:flex;align-items:center;gap:10px;font:600 23px var(--serif);letter-spacing:-.01em}
+  .brand .venn{width:38px;display:block}
+
+  /* ---------- Venn (imza öğe) ---------- */
+  .venn{overflow:visible;display:block}
+  .venn .c1{fill:var(--ruj)}
+  .venn .c2{fill:#EADCCB}
+  .venn .lens{fill:var(--bg)}
+  .venn .c1,.venn .vk{transform:translateX(0);transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+  .venn .c2{transform:translateX(0);transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+  .venn .lens{transform:translateX(0);transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+  .vennBtn:active .c1,.vennBtn:active .vk{transform:translateX(7px)}
+  .vennBtn:active .c2{transform:translateX(-7px)}
+  .vennBtn:active .lens{transform:translateX(-14px)}
+  @media (hover:hover){
+    .vennBtn:hover .c1,.vennBtn:hover .vk{transform:translateX(7px)}
+    .vennBtn:hover .c2{transform:translateX(-7px)}
+    .vennBtn:hover .lens{transform:translateX(-14px)}
+  }
+  @keyframes kl{from{transform:translateX(-34px)}to{transform:translateX(8px)}}
+  @keyframes kr{from{transform:translateX(34px)}to{transform:translateX(-8px)}}
+  @keyframes kk{from{transform:translateX(68px)}to{transform:translateX(-16px)}}
+  .venn.seek .c1,.venn.seek .vk{animation:kl 2.1s ease-in-out infinite alternate}
+  .venn.seek .c2{animation:kr 2.1s ease-in-out infinite alternate}
+  .venn.seek .lens{animation:kk 2.1s ease-in-out infinite alternate}
+  .venn.seek.hold *{animation-play-state:paused}
+
+  /* ---------- Form öğeleri ---------- */
+  label{display:block;font-size:13px;color:var(--muted);margin:0 0 6px;font-weight:600}
+  input,select{
+    width:100%;padding:14px 15px;border-radius:12px;border:1px solid var(--line);
+    background:var(--surface);color:var(--ivory);font:inherit;font-size:16px;outline:none;appearance:none;-webkit-appearance:none;
+  }
+  input::placeholder{color:#7F6670}
+  input:focus,select:focus{border-color:var(--champ)}
+  input:focus-visible,select:focus-visible{outline:none}
+  select{
+    padding-right:40px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1.5l6 6 6-6' fill='none' stroke='%23B89DA4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 15px center;
+  }
+  .field{margin-bottom:14px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    padding:15px 20px;border-radius:999px;border:0;font-weight:700;font-size:16px;
+    background:var(--surface2);color:var(--ivory);transition:transform .15s,background .2s;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:var(--ruj);color:#fff}
+  .btn.primary:hover{background:var(--ruj-d)}
+  .btn.quiet{background:transparent;border:1px solid var(--line)}
+  .btn.danger{background:transparent;color:#FF93A9;border:1px solid #6E2C3F}
+  .btn[disabled]{opacity:.55;pointer-events:none}
+  .err{color:#FF93A9;font-size:14px;min-height:21px;margin-top:12px}
+  .check{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--muted);margin:2px 0 6px;cursor:pointer}
+  .check input{width:20px;height:20px;padding:0;margin:1px 0 0;flex:none;accent-color:var(--ruj);appearance:auto;-webkit-appearance:checkbox}
+  .check span{line-height:1.4}
+
+  /* ---------- Açılış ---------- */
+  #sSplash{align-items:center;justify-content:center}
+  #sSplash .venn{width:150px}
+
+  /* ---------- Giriş ---------- */
+  .authMain{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:26px}
+  .hero{font-size:clamp(34px,10.4vw,46px);line-height:1.06;margin:14px 0 12px;font-weight:500}
+  .lede{color:var(--muted);margin-bottom:24px;max-width:36ch}
+  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .tab{background:none;border:0;padding:10px 0;color:var(--muted);font-weight:700;position:relative}
+  .tab[aria-selected=true]{color:var(--ivory)}
+  .tab[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ruj)}
+  .foot{color:#8C727B;font-size:13px;margin-top:18px;line-height:1.5}
+  .demoBadge{display:inline-block;align-self:flex-start;margin-top:14px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--champ);font-size:13px;font-weight:600}
+
+  /* ---------- Ana ekran ---------- */
+  .avBtn{background:none;border:0;padding:0;border-radius:50%}
+  .av{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--t,var(--ruj));color:var(--bg);font:600 18px var(--serif)}
+  .av.big{width:92px;height:92px;font-size:42px;margin:4px auto 20px}
+  .homeMain{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding-bottom:18px}
+  .headline{font-size:clamp(31px,9.3vw,40px);line-height:1.1;margin:6px 0 10px}
+  .status{color:var(--muted);font-size:15px;min-height:24px}
+  .stage{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0}
+  .vennBtn{position:relative;display:block;width:min(84vw,340px);background:none;border:0;padding:0;border-radius:40px}
+  .vennBtn .venn{width:100%}
+  .lensLabel{position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:italic 500 23px var(--serif);color:var(--champ);pointer-events:none}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px}
+  .panel .who{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;color:var(--muted);font-size:14px}
+  .panel .who b{color:var(--ivory);font-weight:700}
+  .panel select{background-color:var(--bg)}
+  .inst{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px dashed var(--line);color:var(--muted);font-size:14px;line-height:1.4}
+  .inst p{flex:1}
+  .inst .btn{width:auto;padding:9px 16px;font-size:14px}
+  .inst .x{background:none;border:0;color:var(--muted);font-size:22px;line-height:1;padding:0 4px}
+
+  /* ---------- Bekleme ---------- */
+  .overlay{position:fixed;inset:0;z-index:40;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:30px;background:var(--bg)}
+  .overlay.on{display:flex}
+  .overlay .venn{width:min(78vw,300px);margin-bottom:22px}
+  .overlay h2{font-size:28px}
+  .overlay p{color:var(--muted);max-width:30ch}
+  .overlay .btn{width:auto;min-width:160px;margin-top:20px}
+
+  /* ---------- Sohbet ---------- */
+  #sChat{padding-bottom:0}
+  #sChat.on{height:100dvh}
+  .chatBar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .ibtn{width:42px;height:42px;flex:none;border-radius:14px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
+  .ibtn svg{width:20px;height:20px;stroke:var(--ivory);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .ibtn:active{transform:scale(.94)}
+  .ctitle{flex:1;min-width:0;text-align:center}
+  .ctitle b{display:block;font:600 18px var(--serif)}
+  .ctitle span{font-size:13px;color:var(--muted)}
+  .msgs{flex:1;overflow-y:auto;padding:16px 16px 8px;display:flex;flex-direction:column;gap:8px;overscroll-behavior:contain}
+  .note{align-self:center;text-align:center;font:italic 400 15px/1.45 var(--serif);color:var(--muted);max-width:30ch;margin:8px 0 12px}
+  .m{max-width:80%;padding:10px 14px;border-radius:18px;line-height:1.4;word-break:break-word;white-space:pre-wrap}
+  .m.me{align-self:flex-end;background:var(--ruj);color:#fff;border-bottom-right-radius:6px}
+  .m.them{align-self:flex-start;background:var(--surface2);border:1px solid var(--line);border-bottom-left-radius:6px}
+  .composer{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
+  .composer input{border-radius:999px;padding:13px 18px}
+  .send{width:48px;height:48px;flex:none;border-radius:50%;border:0;background:var(--ruj);display:grid;place-items:center}
+  .send svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .send:active{transform:scale(.93)}
+
+  /* ---------- Profil ---------- */
+  .pBody{flex:1;padding-top:8px;padding-bottom:36px}
+  .pBody h1{font-size:30px;margin:4px 0 4px}
+  .pBody .lede{margin-bottom:20px}
+  .tones{display:flex;gap:12px;justify-content:center;margin:-4px 0 22px}
+  .tone{width:30px;height:30px;border-radius:50%;border:2px solid transparent;background:var(--t);padding:0}
+  .tone[aria-pressed=true]{border-color:var(--ivory);box-shadow:0 0 0 3px var(--bg) inset}
+  .seg{display:flex;gap:8px}
+  .seg button{flex:1;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:700;color:var(--muted)}
+  .seg button[aria-pressed=true]{border-color:var(--ruj);color:var(--ivory);background:#3A1626}
+  .row2{display:grid;grid-template-columns:1fr 2fr;gap:12px}
+  .zone{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+
+  /* ---------- Toast & diyalog ---------- */
+  #toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;pointer-events:none;z-index:90;
+    background:var(--surface2);border:1px solid var(--line);padding:12px 18px;border-radius:14px;font-size:14px;max-width:88vw;text-align:center;transition:.25s}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+  .dlg{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;background:rgba(10,3,7,.72)}
+  .dlgBox{width:100%;max-width:360px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px}
+  .dlgBox h3{font-size:22px;margin-bottom:8px}
+  .dlgBox p{color:var(--muted);font-size:15px;margin-bottom:20px}
+  .dlgBtns{display:flex;gap:10px}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ AÇILIŞ ============ -->
+<section id="sSplash" class="screen on" aria-label="Yükleniyor">
+  <div data-venn></div>
+</section>
+
+<!-- ============ GİRİŞ / KAYIT ============ -->
+<section id="sAuth" class="screen">
+  <div class="bar"><div class="brand"><span data-venn></span><span data-brand>Perde</span></div></div>
+  <div class="wrap authMain">
+    <h1 class="hero">Kim olduğunu söylemeden tanış.</h1>
+    <p class="lede">Telefon numaranla hesap aç, ülkeni seç, karşı cinsten biriyle isimsiz sohbet et.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" id="tabLogin" role="tab" aria-selected="true" type="button">Giriş yap</button>
+      <button class="tab" id="tabReg" role="tab" aria-selected="false" type="button">Hesap aç</button>
+    </div>
+
+    <form id="authForm" novalidate>
+      <div class="field">
+        <label for="inPhone">Telefon numarası</label>
+        <input id="inPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0532 123 45 67">
+      </div>
+      <div class="field">
+        <label for="inPass">Şifre</label>
+        <input id="inPass" type="password" autocomplete="current-password" placeholder="En az 6 karakter">
+      </div>
+      <div id="regOnly" hidden>
+        <div class="field">
+          <label for="inPass2">Şifre (tekrar)</label>
+          <input id="inPass2" type="password" autocomplete="new-password" placeholder="Şifreni tekrar yaz">
+        </div>
+        <label class="check"><input id="inAge" type="checkbox"><span>18 yaşından büyüğüm ve kuralları kabul ediyorum.</span></label>
+      </div>
+      <p class="err" id="authErr" role="alert"></p>
+      <button class="btn primary" id="authGo" type="submit">Giriş yap</button>
+    </form>
+
+    <p class="foot">Numaran sohbette hiçbir zaman gösterilmez. Karşındaki yalnızca ülkeni görür.</p>
+    <span class="demoBadge" id="demoBadge" hidden>Önizleme modu · veriler yalnızca bu tarayıcıda</span>
+  </div>
+</section>
+
+<!-- ============ ANA EKRAN ============ -->
+<section id="sHome" class="screen">
+  <div class="bar">
+    <div class="brand"><span data-venn></span><span data-brand>Perde</span></div>
+    <button class="avBtn" id="btnProfile" aria-label="Profilim"></button>
+  </div>
+  <div class="wrap homeMain">
+    <div>
+      <h1 class="headline">Perdenin ardında kim var?</h1>
+      <p class="status" id="homeStatus"></p>
+    </div>
+
+    <div class="stage">
+      <button class="vennBtn" id="btnMatch" aria-label="Eşleş">
+        <span data-venn="main"></span>
+        <span class="lensLabel">Eşleş</span>
+      </button>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="who"><span>Karşı cinsten biriyle</span><b>isimsiz</b></div>
+        <label for="wantSel">Hangi ülkeden olsun?</label>
+        <select id="wantSel"></select>
+      </div>
+      <div class="inst" id="inst" hidden style="margin-top:12px">
+        <p id="instTxt"></p>
+        <button class="btn primary" id="instGo" type="button" hidden>Ekle</button>
+        <button class="x" id="instX" type="button" aria-label="Kapat">&times;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEKLEME ============ -->
+<div id="wait" class="overlay" role="status" aria-live="polite">
+  <div data-venn="seek"></div>
+  <h2 id="waitTitle">Aranıyor…</h2>
+  <p id="waitSub">Seçtiğin ülkeden, karşı cinsten biri bekleniyor.</p>
+  <button class="btn quiet" id="btnCancel" type="button">Vazgeç</button>
+</div>
+
+<!-- ============ SOHBET ============ -->
+<section id="sChat" class="screen">
+  <div class="chatBar">
+    <button class="ibtn" id="btnLeave" aria-label="Sohbetten ayrıl"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="ctitle"><b>Gizli biri</b><span id="chatSub"></span></div>
+    <button class="ibtn" id="btnReport" aria-label="Şikâyet et"><svg viewBox="0 0 24 24"><path d="M6 21V4M6 5h11l-2 4 2 4H6"/></svg></button>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <form class="composer" id="msgForm" autocomplete="off">
+    <input id="msgIn" maxlength="500" placeholder="Bir şey yaz…" aria-label="Mesaj">
+    <button class="send" type="submit" aria-label="Gönder"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </form>
+</section>
+
+<!-- ============ PROFİL ============ -->
+<section id="sProfile" class="screen">
+  <div class="bar">
+    <button class="ibtn" id="pBack" aria-label="Geri"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="brand"><span data-brand>Perde</span></div>
+    <span style="width:42px"></span>
+  </div>
+  <div class="wrap pBody">
+    <h1 id="pTitle">Profilim</h1>
+    <p class="lede" id="pLede">Takma adın ve bilgilerin sohbette gösterilmez. Karşındaki yalnızca ülkeni görür.</p>
+
+    <div class="av big" id="pAv"></div>
+    <div class="tones" id="pTones" role="group" aria-label="Renk"></div>
+
+    <div class="field"><label for="pNick">Takma ad</label><input id="pNick" maxlength="20" placeholder="Örn. Gece Kuşu"></div>
+    <div class="field"><label>Cinsiyet</label>
+      <div class="seg" id="pGender"><button type="button" data-v="erkek" aria-pressed="false">Erkek</button><button type="button" data-v="kadin" aria-pressed="false">Kadın</button></div>
+    </div>
+    <div class="row2 field">
+      <div><label for="pAge">Yaş</label><input id="pAge" type="number" inputmode="numeric" min="18" max="99" placeholder="18+"></div>
+      <div><label for="pCountry">Ülke</label><select id="pCountry"></select></div>
+    </div>
+    <button class="btn primary" id="pSave" type="button">Kaydet</button>
+
+    <div class="zone" id="pZone">
+      <button class="btn quiet" id="btnLogout" type="button">Çıkış yap</button>
+      <button class="btn danger" id="btnDelete" type="button">Hesabı sil</button>
+    </div>
+  </div>
+</section>
+
+<div id="toast" role="status"></div>
+
+<div class="dlg" id="dlg" hidden>
+  <div class="dlgBox" role="dialog" aria-modal="true" aria-labelledby="dlgT">
+    <h3 id="dlgT"></h3><p id="dlgP"></p>
+    <div class="dlgBtns"><button class="btn quiet" id="dlgNo" type="button">Vazgeç</button><button class="btn primary" id="dlgYes" type="button">Tamam</button></div>
+  </div>
+</div>
+
+<script type="module">
+/* =========================================================
+   AYARLAR — burayı kendi Firebase bilgilerinle doldur
+   (boş bırakırsan uygulama "önizleme modunda" çalışır)
+   ========================================================= */
+const BRAND = { name: "Perde" };
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDWMxk4Saga2wLkjBK9NsLtaiROq7ccKxg",
+  authDomain: "perde-b2196.firebaseapp.com",
+  projectId: "perde-b2196",
+  appId: "1:954587892611:web:97247df71d5e883f06c4b6"
+};
+
+/* ---------- Sabitler ---------- */
+const EMAIL_DOMAIN = "users.perde.app";   // telefon → sahte e-posta (gerçek e-posta değildir)
+const QUEUE_TTL = 150000;                 // sıradaki kayıt en çok 150 sn geçerli
+const WAIT_LIMIT = 120000;                // aramayı 120 sn sonra bırak
+const DEMO = !FIREBASE_CONFIG.apiKey;
+const TONES = ['#D7335B', '#E8C48F', '#A48CC2', '#6FB3A8', '#E9946A', '#7C9BD6'];
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ---------- Ülkeler (Türkçe adlar tarayıcıdan gelir) ---------- */
+const CODES = "TR DE FR GB NL US AZ RU IT ES GR BG BR IN JP CA AU AT BE CH SE NO DK FI PL RO UA GE KZ UZ KG TM IR IQ SA AE EG MA TN DZ PT IE CZ HU RS BA AL MK KR CN MX AR".split(" ");
+let dn = null; try { dn = new Intl.DisplayNames(['tr'], { type: 'region' }); } catch (e) {}
+const flag = c => c === 'ANY' ? '🌍' : String.fromCodePoint(...[...c].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65));
+const cname = c => c === 'ANY' ? 'Herhangi bir ülke' : ((dn && dn.of(c)) || c);
+const COUNTRIES = [...CODES].sort((a, b) => a === 'TR' ? -1 : b === 'TR' ? 1 : cname(a).localeCompare(cname(b), 'tr'));
+function fillCountries(sel, { any = false, value } = {}) {
+  const opts = (any ? ['ANY'] : []).concat(COUNTRIES).map(c => `<option value="${c}">${flag(c)}  ${cname(c)}</option>`);
+  sel.innerHTML = opts.join('');
+  if (value) sel.value = value;
+}
+
+/* ---------- Venn çizimi ---------- */
+let vid = 0;
+function vennSvg(cls = '') {
+  const id = 'cl' + (++vid);
+  return `<svg class="venn ${cls}" viewBox="0 0 280 170" aria-hidden="true" focusable="false">
+    <defs><clipPath id="${id}"><circle cx="105" cy="85" r="70"/></clipPath></defs>
+    <circle class="c1" cx="105" cy="85" r="70"/>
+    <circle class="c2" cx="175" cy="85" r="70"/>
+    <g class="vk" clip-path="url(#${id})"><circle class="lens" cx="175" cy="85" r="70"/></g>
+  </svg>`;
+}
+
+/* ---------- Yardımcılar ---------- */
+function normPhone(raw) {
+  let d = (raw || '').replace(/\D/g, '');
+  if (d.startsWith('00')) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith('0')) d = '90' + d.slice(1);
+  else if (d.length === 10 && d.startsWith('5')) d = '90' + d;
+  return d;
+}
+async function sha(str) {
+  try {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  } catch (e) { return 'x' + str.length + str.charCodeAt(0); }
+}
+const ERR = {
+  'auth/email-already-in-use': 'Bu numara zaten kayıtlı. Giriş yapmayı dene.',
+  'demo/exists': 'Bu numara zaten kayıtlı. Giriş yapmayı dene.',
+  'auth/invalid-credential': 'Numara ya da şifre hatalı.',
+  'auth/user-not-found': 'Bu numarayla kayıt bulunamadı.',
+  'auth/wrong-password': 'Numara ya da şifre hatalı.',
+  'demo/bad': 'Numara ya da şifre hatalı.',
+  'auth/weak-password': 'Şifre en az 6 karakter olmalı.',
+  'auth/too-many-requests': 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.',
+  'auth/network-request-failed': 'Bağlantı yok. İnternetini kontrol et.',
+  'auth/operation-not-allowed': 'Firebase’de E-posta/Şifre girişi kapalı. README’deki 2. adımı yap.'
+};
+const LEAK = /(\+?\d[\d\s().-]{8,}\d)|(https?:\/\/|www\.)|(@[a-z0-9_.]{3,})|\b(instagram|insta|snapchat|snap|whatsapp|telegram)\b/i;
+
+let toastT;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200);
+}
+function ask(title, text, yes = 'Tamam') {
+  return new Promise(res => {
+    $('#dlgT').textContent = title; $('#dlgP').textContent = text; $('#dlgYes').textContent = yes;
+    $('#dlg').hidden = false; $('#dlgYes').focus();
+    const done = v => { $('#dlg').hidden = true; $('#dlgYes').onclick = $('#dlgNo').onclick = null; res(v); };
+    $('#dlgYes').onclick = () => done(true);
+    $('#dlgNo').onclick = () => done(false);
+  });
+}
+function show(id) { $$('.screen').forEach(s => s.classList.toggle('on', s.id === id)); window.scrollTo(0, 0); }
+
+/* =========================================================
+   ARKA UÇ 1 — ÖNİZLEME (Firebase olmadan tasarımı denemek için)
+   ========================================================= */
+function demoBackend() {
+  const K = 'perde_demo';
+  const load = () => { try { return JSON.parse(localStorage.getItem(K)) || { users: {}, session: null }; } catch (e) { return { users: {}, session: null }; } };
+  const save = d => localStorage.setItem(K, JSON.stringify(d));
+  const err = code => Object.assign(new Error(code), { code });
+  const REPLIES = ['Selam, nasılsın?', 'Nerelisin tam olarak?', 'Bugün neler yaptın?', 'Haha, güzelmiş 😄', 'Bence de.', 'Müzik dinlemeyi sever misin?', 'Biraz yorgunum ama iyiyim.', 'Anlat biraz kendinden.'];
+  let cb = null, timers = [], room = null, sub = null;
+  const userOf = d => d.session ? { uid: d.session, profile: d.users[d.session].profile || null } : null;
+  const emit = () => { if (sub && room) { sub.onRoom({ ...room, msgs: undefined }); sub.onMessages([...room.msgs]); } };
+  return {
+    init(onUser) { cb = onUser; setTimeout(() => cb(userOf(load())), 350); },
+    async register(phone, pass) {
+      const d = load(); if (d.users[phone]) throw err('demo/exists');
+      d.users[phone] = { hash: await sha(pass), profile: null }; d.session = phone; save(d); cb(userOf(d));
+    },
+    async login(phone, pass) {
+      const d = load(), u = d.users[phone];
+      if (!u || u.hash !== await sha(pass)) throw err('demo/bad');
+      d.session = phone; save(d); cb(userOf(d));
+    },
+    async logout() { const d = load(); d.session = null; save(d); cb(null); },
+    async saveProfile(uid, p) { const d = load(); d.users[uid].profile = p; save(d); return p; },
+    async deleteAccount(uid) { const d = load(); delete d.users[uid]; d.session = null; save(d); cb(null); },
+    async startMatch(me, { onMatched }) {
+      timers.push(setTimeout(() => {
+        room = { id: 'demo', members: [me.uid, 'bot'], info: { bot: { country: me.want === 'ANY' ? 'DE' : me.want } }, status: 'open', msgs: [] };
+        onMatched('demo');
+      }, 2800));
+    },
+    async cancelMatch() { timers.forEach(clearTimeout); timers = []; },
+    openRoom(id, h) {
+      sub = h; emit();
+      timers.push(setTimeout(() => { room.msgs.push({ id: 'g', from: 'bot', text: 'Selam 🙂' }); emit(); }, 1300));
+      return () => { sub = null; timers.forEach(clearTimeout); timers = []; };
+    },
+    async send(id, uid, text) {
+      room.msgs.push({ id: 'm' + Date.now(), from: uid, text }); emit();
+      timers.push(setTimeout(() => { room.msgs.push({ id: 'b' + Date.now(), from: 'bot', text: REPLIES[Math.floor(Math.random() * REPLIES.length)] }); emit(); }, 1200 + Math.random() * 1400));
+    },
+    async endRoom() { if (room) room.status = 'ended'; },
+    async report() {}
+  };
+}
+
+/* =========================================================
+   ARKA UÇ 2 — FIREBASE (Auth + Firestore)
+   ========================================================= */
+async function firebaseBackend() {
+  const V = '10.14.1';
+  const [{ initializeApp }, A, F] = await Promise.all([
+    import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`),
+    import(`https://www.gstatic.com/firebasejs/${V}/firebase-auth.js`),
+    import(`https://www.gstatic.com/firebasejs/${V}/firebase-firestore.js`)
+  ]);
+  const app = initializeApp(FIREBASE_CONFIG);
+  const auth = A.getAuth(app);
+  const db = F.getFirestore(app);
+  const emailOf = p => `p${p}@${EMAIL_DOMAIN}`;
+
+  let queued = false, myUnsub = null, candUnsub = null, retryT = null;
+
+  const B = {
+    init(onUser) {
+      A.onAuthStateChanged(auth, async u => {
+        if (!u) return onUser(null);
+        let profile = null;
+        try { const s = await F.getDoc(F.doc(db, 'users', u.uid)); profile = s.exists() ? s.data() : null; } catch (e) { console.error(e); }
+        onUser({ uid: u.uid, profile });
+      });
+    },
+    register: (phone, pass) => A.createUserWithEmailAndPassword(auth, emailOf(phone), pass),
+    login: (phone, pass) => A.signInWithEmailAndPassword(auth, emailOf(phone), pass),
+    async logout() { await B.cancelMatch(); await A.signOut(auth); },
+    async saveProfile(uid, p) {
+      const data = { ...p }; if (!data.createdAt) data.createdAt = Date.now();
+      await F.setDoc(F.doc(db, 'users', uid), data, { merge: true });
+      return data;
+    },
+    async deleteAccount(uid) {
+      await B.cancelMatch();
+      await F.deleteDoc(F.doc(db, 'users', uid));
+      await F.deleteDoc(F.doc(db, 'queue', uid)).catch(() => {});
+      await A.deleteUser(auth.currentUser);
+    },
+
+    /* ---- Eşleştirme: kuyruk + işlem (transaction) ---- */
+    async startMatch(me, { onMatched }) {
+      await B.cancelMatch();
+      const myRef = F.doc(db, 'queue', me.uid);
+      const opp = me.profile.gender === 'erkek' ? 'kadin' : 'erkek';
+      const blocked = me.profile.blocked || [];
+      await F.setDoc(myRef, { uid: me.uid, gender: me.profile.gender, myCountry: me.profile.country, want: me.want, status: 'waiting', ts: Date.now(), roomId: null });
+      queued = true;
+
+      let matching = false, lastSnap = null, lastKnown = null;
+      const finish = rid => {
+        if (!queued) return; queued = false; stop();
+        F.deleteDoc(myRef).catch(() => {});
+        onMatched(rid);
+      };
+      const attempt = async snap => {
+        const now = Date.now();
+        const cands = snap.docs.map(d => d.data())
+          .filter(c => c.uid !== me.uid && now - c.ts < QUEUE_TTL &&
+            (c.want === 'ANY' || c.want === me.profile.country) && !blocked.includes(c.uid))
+          .sort((a, b) => a.ts - b.ts).slice(0, 3);
+        for (const c of cands) {
+          try {
+            const rid = await F.runTransaction(db, async tx => {
+              const cRef = F.doc(db, 'queue', c.uid);
+              const mine = await tx.get(myRef), theirs = await tx.get(cRef);
+              if (!mine.exists() || mine.data().status !== 'waiting') throw new Error('stale-mine');
+              if (!theirs.exists() || theirs.data().status !== 'waiting') throw new Error('stale');
+              const roomRef = F.doc(F.collection(db, 'rooms'));
+              tx.set(roomRef, {
+                members: [me.uid, c.uid],
+                info: { [me.uid]: { country: me.profile.country }, [c.uid]: { country: c.myCountry } },
+                status: 'open', createdAt: F.serverTimestamp()
+              });
+              tx.update(myRef, { status: 'matched', roomId: roomRef.id });
+              tx.update(cRef, { status: 'matched', roomId: roomRef.id });
+              return roomRef.id;
+            });
+            finish(rid); return true;
+          } catch (e) {
+            if (e.message === 'stale-mine') return true;   // başkası bizi eşleştirdi
+          }
+        }
+        return false;
+      };
+      const run = async () => {
+        if (matching || !queued) return; matching = true;
+        try {
+          while (queued && lastSnap) { const s = lastSnap; lastSnap = null; if (await attempt(s)) break; }
+        } finally { matching = false; }
+      };
+      function stop() {
+        myUnsub && myUnsub(); candUnsub && candUnsub(); clearInterval(retryT);
+        myUnsub = candUnsub = retryT = null;
+      }
+
+      myUnsub = F.onSnapshot(myRef, s => {
+        const d = s.data(); if (d && d.status === 'matched' && d.roomId) finish(d.roomId);
+      });
+      const cons = [F.where('status', '==', 'waiting'), F.where('gender', '==', opp)];
+      if (me.want !== 'ANY') cons.push(F.where('myCountry', '==', me.want));
+      candUnsub = F.onSnapshot(F.query(F.collection(db, 'queue'), ...cons, F.limit(30)),
+        s => { lastKnown = s; lastSnap = s; run(); }, e => console.error(e));
+      retryT = setInterval(() => { if (lastKnown) { lastSnap = lastKnown; run(); } }, 6000);
+    },
+    async cancelMatch() {
+      const was = queued; queued = false;
+      myUnsub && myUnsub(); candUnsub && candUnsub(); clearInterval(retryT);
+      myUnsub = candUnsub = retryT = null;
+      const u = auth.currentUser;
+      if (was && u) await F.deleteDoc(F.doc(db, 'queue', u.uid)).catch(() => {});
+    },
+
+    /* ---- Oda ---- */
+    openRoom(id, h) {
+      const u1 = F.onSnapshot(F.doc(db, 'rooms', id), s => { if (s.exists()) h.onRoom({ id, ...s.data() }); }, e => console.error(e));
+      const mq = F.query(F.collection(db, 'rooms', id, 'messages'), F.orderBy('createdAt', 'desc'), F.limit(200));
+      const u2 = F.onSnapshot(mq, s => h.onMessages(s.docs.map(d => ({ id: d.id, ...d.data() })).reverse()), e => console.error(e));
+      return () => { u1(); u2(); };
+    },
+    send: (id, uid, text) => F.addDoc(F.collection(db, 'rooms', id, 'messages'), { from: uid, text, createdAt: F.serverTimestamp() }),
+    async endRoom(id, uid) {
+      await F.updateDoc(F.doc(db, 'rooms', id), { status: 'ended', endedBy: uid });
+      try {   // mesajları sil — sohbet geçicidir
+        const snap = await F.getDocs(F.collection(db, 'rooms', id, 'messages'));
+        const b = F.writeBatch(db); snap.docs.forEach(d => b.delete(d.ref)); await b.commit();
+      } catch (e) { console.warn(e); }
+    },
+    async report(id, me, partnerUid, msgs) {
+      await F.addDoc(F.collection(db, 'reports'), {
+        reporter: me.uid, reported: partnerUid, roomId: id,
+        messages: msgs.slice(-30).map(m => ({ from: m.from, text: m.text })), createdAt: F.serverTimestamp()
+      });
+      await F.setDoc(F.doc(db, 'users', me.uid), { blocked: F.arrayUnion(partnerUid) }, { merge: true });
+    }
+  };
+  return B;
+}
+
+/* =========================================================
+   UYGULAMA
+   ========================================================= */
+let B = null;
+const S = { user: null, roomId: null, room: null, msgs: [], unsub: null, mode: 'login', gender: '', tone: 0, waitT: null, leaving: false };
+
+const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TONES[(p && p.tone) || 0]}">${((p && p.nickname) || '?').trim().charAt(0).toUpperCase()}</span>`;
+
+function onUser(u) {
+  S.user = u;
+  if (!u) { show('sAuth'); return; }
+  u.profile ? goHome() : openProfile(true);
+}
+
+/* ---------- Giriş / kayıt ---------- */
+function setMode(m) {
+  S.mode = m;
+  $('#tabLogin').setAttribute('aria-selected', m === 'login');
+  $('#tabReg').setAttribute('aria-selected', m === 'register');
+  $('#regOnly').hidden = m !== 'register';
+  $('#authGo').textContent = m === 'register' ? 'Hesap aç' : 'Giriş yap';
+  $('#inPass').autocomplete = m === 'register' ? 'new-password' : 'current-password';
+  $('#authErr').textContent = '';
+}
+$('#tabLogin').onclick = () => setMode('login');
+$('#tabReg').onclick = () => setMode('register');
+
+$('#authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('#authErr'); err.textContent = '';
+  const phone = normPhone($('#inPhone').value), pass = $('#inPass').value;
+  if (phone.length < 10 || phone.length > 15) return void (err.textContent = 'Geçerli bir telefon numarası gir. Örnek: 0532 123 45 67');
+  if (pass.length < 6) return void (err.textContent = 'Şifre en az 6 karakter olmalı.');
+  if (S.mode === 'register') {
+    if (pass !== $('#inPass2').value) return void (err.textContent = 'Şifreler uyuşmuyor.');
+    if (!$('#inAge').checked) return void (err.textContent = 'Devam etmek için 18 yaşından büyük olduğunu onayla.');
+  }
+  const btn = $('#authGo'); btn.disabled = true;
+  try {
+    await (S.mode === 'register' ? B.register(phone, pass) : B.login(phone, pass));
+    $('#inPass').value = $('#inPass2').value = '';
+  } catch (ex) {
+    console.error(ex);
+    err.textContent = ERR[ex.code] || 'Bir sorun çıktı. Biraz sonra tekrar dene.';
+  } finally { btn.disabled = false; }
+});
+
+/* ---------- Ana ekran ---------- */
+function goHome() {
+  const p = S.user.profile;
+  $('#btnProfile').innerHTML = avatar(p);
+  $('#homeStatus').textContent = `Hoş geldin ${p.nickname}. Hazır olunca eşleş.`;
+  show('sHome');
+  maybeInstall();
+}
+
+$('#btnProfile').onclick = () => openProfile(false);
+
+function showWait() {
+  $('#waitTitle').textContent = 'Aranıyor…';
+  $('#waitSub').textContent = 'Seçtiğin ülkeden, karşı cinsten biri bekleniyor.';
+  $('#btnCancel').hidden = false;
+  const v = $('#wait .venn'); v.classList.add('seek'); v.classList.remove('hold');
+  $('#wait').classList.add('on');
+}
+function hideWait() { clearTimeout(S.waitT); $('#wait').classList.remove('on'); }
+
+$('#btnMatch').onclick = async () => {
+  const p = S.user.profile; if (!p) return openProfile(true);
+  const want = $('#wantSel').value; localStorage.setItem('perde_want', want);
+  showWait();
+  try {
+    await B.startMatch({ uid: S.user.uid, profile: p, want }, { onMatched: rid => matched(rid) });
+    S.waitT = setTimeout(async () => { await B.cancelMatch(); hideWait(); toast('Şu an uygun kimse yok. Biraz sonra tekrar dene.'); }, WAIT_LIMIT);
+  } catch (e) { console.error(e); hideWait(); toast('Eşleşme başlatılamadı. Bağlantını kontrol et.'); }
+};
+$('#btnCancel').onclick = async () => { await B.cancelMatch(); hideWait(); $('#homeStatus').textContent = 'Arama bırakıldı.'; };
+
+function matched(rid) {
+  clearTimeout(S.waitT);
+  $('#waitTitle').textContent = 'Eşleştiniz';
+  $('#waitSub').textContent = 'Perde açılıyor…';
+  $('#btnCancel').hidden = true;
+  $('#wait .venn').classList.add('hold');
+  setTimeout(() => { hideWait(); enterRoom(rid); }, 900);
+}
+
+/* ---------- Sohbet ---------- */
+function enterRoom(rid) {
+  S.roomId = rid; S.msgs = []; S.room = null; S.leaving = false;
+  $('#chatSub').textContent = '';
+  renderMsgs();
+  show('sChat');
+  S.unsub = B.openRoom(rid, {
+    onRoom: r => {
+      S.room = r;
+      const partner = r.members.find(x => x !== S.user.uid);
+      const c = r.info && r.info[partner] && r.info[partner].country;
+      if (c) $('#chatSub').textContent = `${flag(c)} ${cname(c)}`;
+      if (r.status === 'ended' && r.endedBy !== S.user.uid && !S.leaving) { leaveRoom(); toast('Karşı taraf sohbeti bitirdi.'); }
+    },
+    onMessages: m => { S.msgs = m; renderMsgs(); }
+  });
+}
+function renderMsgs() {
+  const box = $('#msgs');
+  const near = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
+  box.innerHTML = '<p class="note">İkiniz de kimliğinizi gizli tutuyorsunuz.<br>İyi sohbetler.</p>';
+  S.msgs.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'm ' + (m.from === S.user.uid ? 'me' : 'them');
+    el.textContent = m.text; box.appendChild(el);
+  });
+  if (near || S.msgs.length < 2) box.scrollTop = box.scrollHeight;
+}
+function leaveRoom() {
+  if (S.unsub) S.unsub(); S.unsub = null;
+  S.roomId = null; S.room = null; S.msgs = [];
+  goHome();
+}
+$('#msgForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const input = $('#msgIn'), text = input.value.trim();
+  if (!text || !S.roomId) return;
+  if (LEAK.test(text)) return toast('Kimliğini korumak için telefon, bağlantı ve sosyal medya bilgisi paylaşılamaz.');
+  if (S.room && S.room.status === 'ended') return;
+  input.value = ''; input.focus();
+  try { await B.send(S.roomId, S.user.uid, text); }
+  catch (ex) { console.error(ex); input.value = text; toast('Mesaj gönderilemedi.'); }
+});
+async function endChat() {
+  const rid = S.roomId; S.leaving = true;
+  try { if (!S.room || S.room.status !== 'ended') await B.endRoom(rid, S.user.uid); } catch (e) { console.error(e); }
+  leaveRoom(); S.leaving = false;
+}
+$('#btnLeave').onclick = async () => {
+  if (await ask('Sohbeti bitir?', 'Mesajlar silinir ve geri alınamaz.', 'Bitir')) endChat();
+};
+$('#btnReport').onclick = async () => {
+  if (!await ask('Bu kişiyi şikâyet et?', 'Son mesajlar incelenmek üzere iletilir, sohbet biter ve bu kişiyle bir daha eşleşmezsin.', 'Şikâyet et')) return;
+  const partner = S.room && S.room.members.find(x => x !== S.user.uid);
+  try {
+    if (partner) await B.report(S.roomId, S.user, partner, S.msgs);
+    S.user.profile.blocked = [...(S.user.profile.blocked || []), partner];
+    toast('Şikâyetin alındı.');
+  } catch (e) { console.error(e); toast('Şikâyet gönderilemedi.'); }
+  endChat();
+};
+
+/* ---------- Profil ---------- */
+function paintProfile() {
+  $('#pAv').outerHTML = avatar({ tone: S.tone, nickname: $('#pNick').value || '?' }, true).replace('class="av big"', 'class="av big" id="pAv"');
+  $$('#pTones .tone').forEach((b, i) => b.setAttribute('aria-pressed', i === S.tone));
+  $$('#pGender button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.gender));
+}
+$('#pTones').innerHTML = TONES.map((c, i) => `<button class="tone" type="button" data-i="${i}" style="--t:${c}" aria-label="Renk ${i + 1}" aria-pressed="false"></button>`).join('');
+$('#pTones').onclick = e => { const b = e.target.closest('.tone'); if (b) { S.tone = +b.dataset.i; paintProfile(); } };
+$('#pGender').onclick = e => { const b = e.target.closest('button'); if (b) { S.gender = b.dataset.v; paintProfile(); } };
+$('#pNick').addEventListener('input', paintProfile);
+
+function openProfile(first) {
+  const p = S.user.profile || {};
+  S.tone = p.tone || 0; S.gender = p.gender || '';
+  $('#pNick').value = p.nickname || '';
+  $('#pAge').value = p.age || '';
+  fillCountries($('#pCountry'), { value: p.country || 'TR' });
+  $('#pTitle').textContent = first ? 'Profilini tamamla' : 'Profilim';
+  $('#pBack').style.visibility = first ? 'hidden' : 'visible';
+  $('#pZone').hidden = first;
+  paintProfile(); show('sProfile');
+}
+$('#pBack').onclick = goHome;
+$('#pSave').onclick = async () => {
+  const nick = $('#pNick').value.trim(), age = parseInt($('#pAge').value, 10);
+  if (nick.length < 2) return toast('Takma ad en az 2 karakter olmalı.');
+  if (!S.gender) return toast('Cinsiyetini seç.');
+  if (!age || age < 18 || age > 99) return toast('Yaş 18 ile 99 arasında olmalı.');
+  const data = { ...(S.user.profile || {}), nickname: nick, gender: S.gender, age, country: $('#pCountry').value, tone: S.tone };
+  const btn = $('#pSave'); btn.disabled = true;
+  try { S.user.profile = await B.saveProfile(S.user.uid, data); toast('Profil kaydedildi.'); goHome(); }
+  catch (e) { console.error(e); toast('Kaydedilemedi. Bağlantını kontrol et.'); }
+  finally { btn.disabled = false; }
+};
+$('#btnLogout').onclick = async () => { if (await ask('Çıkış yapılsın mı?', 'İstediğin zaman numaran ve şifrenle tekrar girebilirsin.', 'Çıkış yap')) B.logout(); };
+$('#btnDelete').onclick = async () => {
+  if (!await ask('Hesap silinsin mi?', 'Profilin ve hesabın kalıcı olarak silinir. Bu işlem geri alınamaz.', 'Hesabı sil')) return;
+  try { await B.deleteAccount(S.user.uid); toast('Hesabın silindi.'); }
+  catch (e) { console.error(e); toast(e.code === 'auth/requires-recent-login' ? 'Güvenlik için çıkış yapıp yeniden gir, sonra tekrar dene.' : 'Hesap silinemedi.'); }
+};
+
+/* ---------- Ana ekrana ekle ---------- */
+let deferred = null;
+const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; });
+function maybeInstall() {
+  if (standalone || localStorage.getItem('perde_inst')) return;
+  if (deferred) { $('#instTxt').textContent = 'Perde’yi ana ekranına ekle, uygulama gibi aç.'; $('#instGo').hidden = false; $('#inst').hidden = false; }
+  else if (isIOS) { $('#instTxt').textContent = 'Ana ekrana eklemek için Safari’de Paylaş düğmesine, sonra “Ana Ekrana Ekle”ye dokun.'; $('#inst').hidden = false; }
+}
+$('#instGo').onclick = async () => { if (deferred) { deferred.prompt(); await deferred.userChoice; deferred = null; $('#inst').hidden = true; } };
+$('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst').hidden = true; };
+
+/* ---------- Başlat ---------- */
+(async function boot() {
+  document.title = BRAND.name;
+  $$('[data-brand]').forEach(el => el.textContent = BRAND.name);
+  $$('[data-venn]').forEach(el => { el.innerHTML = vennSvg(el.dataset.venn || ''); });
+  fillCountries($('#wantSel'), { any: true, value: localStorage.getItem('perde_want') || 'ANY' });
+  $('#demoBadge').hidden = !DEMO;
+  setMode('login');
+
+  addEventListener('pagehide', () => { try { B && B.cancelMatch(); } catch (e) {} });
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+  try { B = DEMO ? demoBackend() : await firebaseBackend(); }
+  catch (e) { console.error(e); show('sAuth'); $('#authErr').textContent = 'Sunucuya bağlanılamadı. İnternetini kontrol edip sayfayı yenile.'; return; }
+  B.init(onUser);
+})();
+</script>
+</body>
+</html>
