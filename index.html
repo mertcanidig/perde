@@ -137,6 +137,8 @@
   .vennBtn{position:relative;display:block;width:min(84vw,340px);background:none;border:0;padding:0;border-radius:40px}
   .vennBtn .venn{width:100%}
   .lensLabel{position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:italic 500 23px var(--serif);color:var(--champ);pointer-events:none}
+  .stats{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:14px;margin-top:10px;min-height:22px}
+  .stats .dot{width:8px;height:8px;border-radius:50%;background:#7BD3A8;flex:none}
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px}
   .panel .who{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;color:var(--muted);font-size:14px}
   .panel .who b{color:var(--ivory);font-weight:700}
@@ -280,6 +282,7 @@
         <span data-venn="main"></span>
         <span class="lensLabel">Eşleş</span>
       </button>
+      <p class="stats" id="stats" hidden><span class="dot"></span><span></span></p>
     </div>
 
     <div>
@@ -302,6 +305,7 @@
   <div data-venn="seek"></div>
   <h2 id="waitTitle">Aranıyor…</h2>
   <p id="waitSub">Seçtiğin ülkeden, karşı cinsten biri bekleniyor.</p>
+  <p class="stats" id="waitStat" hidden><span class="dot"></span><span></span></p>
   <button class="btn quiet" id="btnCancel" type="button">Vazgeç</button>
 </div>
 
@@ -374,6 +378,7 @@ const FIREBASE_CONFIG = {
 
 /* ---------- Sabitler ---------- */
 const QUEUE_TTL = 150000;                 // sıradaki kayıt en çok 150 sn geçerli
+const ONLINE_WINDOW = 150000;             // son 150 sn içinde sinyal veren kişi "çevrimiçi"
 const WAIT_LIMIT = 120000;                // aramayı 120 sn sonra bırak
 const DEMO = !FIREBASE_CONFIG.apiKey;
 const TONES = ['#D7335B', '#E8C48F', '#A48CC2', '#6FB3A8', '#E9946A', '#7C9BD6'];
@@ -474,6 +479,8 @@ function demoBackend() {
     async resendVerification() {},
     async checkVerified() { const d = load(); d.users[d.session].verified = true; save(d); cb(userOf(d)); return true; },
     async resetPassword() {},
+    startPresence() {}, stopPresence() {},
+    async getStats() { return { online: 18, searching: 4 }; },
     async logout() { const d = load(); d.session = null; save(d); cb(null); },
     async saveProfile(uid, p) { const d = load(); d.users[uid].profile = p; save(d); return p; },
     async deleteAccount(uid) { const d = load(); delete d.users[uid]; d.session = null; save(d); cb(null); },
@@ -518,7 +525,7 @@ async function firebaseBackend() {
     return { uid: u.uid, profile };
   };
 
-  let queued = false, myUnsub = null, candUnsub = null, retryT = null;
+  let queued = false, myUnsub = null, candUnsub = null, retryT = null, hbT = null, hbVis = null;
 
   const B = {
     init(onUser) {
@@ -544,7 +551,7 @@ async function firebaseBackend() {
       return true;
     },
     resetPassword: email => A.sendPasswordResetEmail(auth, email),
-    async logout() { await B.cancelMatch(); await A.signOut(auth); },
+    async logout() { await B.cancelMatch(); await B.stopPresence(); await A.signOut(auth); },
     async saveProfile(uid, p) {
       const data = { ...p }; if (!data.createdAt) data.createdAt = Date.now();
       await F.setDoc(F.doc(db, 'users', uid), data, { merge: true });
@@ -554,6 +561,7 @@ async function firebaseBackend() {
       await B.cancelMatch();
       await F.deleteDoc(F.doc(db, 'users', uid));
       await F.deleteDoc(F.doc(db, 'queue', uid)).catch(() => {});
+      await B.stopPresence();
       await A.deleteUser(auth.currentUser);
     },
 
@@ -630,6 +638,33 @@ async function firebaseBackend() {
       if (was && u) await F.deleteDoc(F.doc(db, 'queue', u.uid)).catch(() => {});
     },
 
+    /* ---- Çevrimiçi sayacı ---- */
+    startPresence(uid) {
+      B.stopPresenceTimer();
+      const ref = F.doc(db, 'presence', uid);
+      const beat = () => { if (document.visibilityState === 'visible') F.setDoc(ref, { lastSeen: Date.now() }).catch(() => {}); };
+      hbVis = beat; beat();
+      hbT = setInterval(beat, 60000);
+      document.addEventListener('visibilitychange', hbVis);
+    },
+    stopPresenceTimer() {
+      clearInterval(hbT); hbT = null;
+      if (hbVis) document.removeEventListener('visibilitychange', hbVis); hbVis = null;
+    },
+    async stopPresence() {
+      B.stopPresenceTimer();
+      const u = auth.currentUser;
+      if (u) await F.deleteDoc(F.doc(db, 'presence', u.uid)).catch(() => {});
+    },
+    async getStats() {
+      const now = Date.now();
+      const [a, b] = await Promise.all([
+        F.getCountFromServer(F.query(F.collection(db, 'presence'), F.where('lastSeen', '>', now - ONLINE_WINDOW))),
+        F.getCountFromServer(F.query(F.collection(db, 'queue'), F.where('ts', '>', now - QUEUE_TTL)))
+      ]);
+      return { online: a.data().count, searching: b.data().count };
+    },
+
     /* ---- Oda ---- */
     openRoom(id, h) {
       const u1 = F.onSnapshot(F.doc(db, 'rooms', id), s => { if (s.exists()) h.onRoom({ id, ...s.data() }); }, e => console.error(e));
@@ -666,10 +701,28 @@ const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TO
 
 function onUser(u) {
   S.user = u;
+  if (!u || u.unverified) stopLoops();
   if (!u) { setMode('login'); show('sAuth'); return; }
   if (u.unverified) { $('#verifyMail').textContent = u.email; show('sVerify'); return; }
   u.profile ? goHome() : openProfile(true);
 }
+
+/* ---------- Çevrimiçi sayacı ---------- */
+let loopT = null, presenceOn = false;
+async function refreshStats() {
+  if (!S.user || !S.user.profile) return;
+  if (!$('#sHome').classList.contains('on') && !$('#wait').classList.contains('on')) return;
+  try {
+    const s = await B.getStats();
+    const t = s.searching > 0 ? `${s.online} kişi çevrimiçi, ${s.searching} kişi eşleşme arıyor` : `${s.online} kişi çevrimiçi`;
+    ['#stats', '#waitStat'].forEach(id => { const el = $(id); el.hidden = false; el.lastElementChild.textContent = t; });
+  } catch (e) { console.warn(e); }
+}
+function startLoops() {
+  if (!presenceOn) { presenceOn = true; B.startPresence(S.user.uid); loopT = setInterval(refreshStats, 45000); }
+  refreshStats();
+}
+function stopLoops() { presenceOn = false; clearInterval(loopT); loopT = null; }
 
 /* ---------- Giriş / kayıt ---------- */
 function setMode(m) {
@@ -731,6 +784,7 @@ function goHome() {
   $('#btnProfile').innerHTML = avatar(p);
   $('#homeStatus').textContent = `Hoş geldin ${p.nickname}. Hazır olunca eşleş.`;
   show('sHome');
+  startLoops();
   maybeInstall();
 }
 
