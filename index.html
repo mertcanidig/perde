@@ -253,6 +253,66 @@
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
   }
+
+  /* ---------- Yeni Perde deneyimi ---------- */
+  .homeMain{justify-content:flex-start;gap:16px;padding-bottom:100px}
+  .homeMain>.stage{padding:0}
+  .homeMain>.stage .vennBtn{width:min(58vw,220px)}
+  .homeMain>.stage .venn{width:100%}
+  .homeMain>.stage .stats{margin-top:0}
+  .bottomNav{position:fixed;z-index:25;bottom:0;left:0;right:0;padding:9px 12px calc(9px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(26,10,18,.96);backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+  .bottomNav button{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:700;padding:7px 2px;border-radius:13px;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .bottomNav button span{font-size:20px;line-height:1.1}
+  .bottomNav button.active{color:var(--champ);background:var(--surface)}
+  .discoverWrap{width:100%;max-width:440px;margin:0 auto;padding:6px 18px 110px;overflow-y:auto;max-height:calc(100dvh - 74px)}
+  .discoverHead{display:flex;justify-content:space-between;align-items:center;margin:6px 0 14px}
+  .discoverHead h2{font-size:29px}
+  .eyebrow{color:var(--champ);font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}
+  .storyRail{display:flex;gap:12px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none}
+  .storyRail::-webkit-scrollbar{display:none}
+  .storyBubble{flex:0 0 72px;border:0;background:none;color:var(--ivory);padding:0;text-align:center;font-size:11px}
+  .storyRing{width:62px;height:62px;margin:0 auto 5px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--ruj),var(--champ));display:grid;place-items:center}
+  .storyRing i{font-style:normal;background:var(--surface2);border:2px solid var(--bg);border-radius:50%;width:100%;height:100%;display:grid;place-items:center;font-size:23px}
+  .storyBubble.add .storyRing{background:var(--line);border:1px dashed var(--champ)}
+  .dailyCard{background:linear-gradient(135deg,#482034,#2A1320 70%);border:1px solid #754052;border-radius:22px;padding:17px;margin:5px 0 16px}
+  .dailyCard h3{font-size:22px;margin:5px 0 8px}
+  .dailyCard p{color:var(--muted);font-size:13px}
+  .dailyCard textarea,.composeCard textarea{width:100%;min-height:82px;resize:vertical;border:1px solid var(--line);border-radius:13px;background:rgba(20,7,14,.65);color:var(--ivory);padding:12px;font:inherit;font-size:14px;margin-top:12px}
+  .dailyAnswer{display:flex;gap:8px;margin-top:10px}
+  .dailyAnswer .btn{flex:1}
+  .sectionTitle{display:flex;align-items:center;justify-content:space-between;margin:15px 0 9px}
+  .sectionTitle h3{font-size:22px}
+  .composeCard,.postCard,.storyCard,.chatRow,.premiumCard{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:14px;margin-bottom:11px}
+  .composeCard textarea{min-height:74px;margin-top:0}
+  .postMeta{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;margin-bottom:10px}
+  .postAvatar{width:34px;height:34px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--champ);font-size:16px}
+  .postText{font:400 18px/1.45 var(--serif);white-space:pre-wrap;overflow-wrap:anywhere}
+  .postActions{display:flex;gap:10px;margin-top:12px;align-items:center}
+  .postActions button{border:1px solid var(--line);background:transparent;border-radius:99px;padding:7px 12px;font-size:12px;color:var(--muted)}
+  .postActions button:last-child{margin-left:auto}
+  .miniLabel{font-size:12px;color:var(--muted)}
+  .chatRow{display:flex;align-items:center;gap:11px}
+  .chatRow .postAvatar{width:42px;height:42px;flex:none}
+  .chatRow .chatInfo{flex:1;min-width:0}
+  .chatRow strong{display:block}
+  .chatRow small{color:var(--muted)}
+  .emptyState{text-align:center;color:var(--muted);padding:25px 12px;font-size:14px}
+  .pill{display:inline-flex;padding:5px 9px;border-radius:99px;background:var(--surface2);color:var(--champ);font-size:11px;font-weight:800}
+  .premiumHero{padding:23px 18px;border-radius:24px;background:radial-gradient(circle at 90% 10%,#70402f,transparent 45%),linear-gradient(145deg,#482034,#24101a);border:1px solid #79503f;text-align:center;margin:10px 0 15px}
+  .premiumHero .crown{font-size:34px}
+  .premiumHero h2{font-size:30px;margin:5px 0}
+  .premiumHero p{color:#D7BDBB;font-size:13px}
+  .premiumFeature{padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .premiumFeature:last-child{border:0}
+  .premiumCard .btn{margin-top:12px}
+  .subtleNote{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+  .storyModal{position:fixed;z-index:60;inset:0;background:rgba(12,4,8,.94);display:none;align-items:center;justify-content:center;padding:24px}
+  .storyModal.on{display:flex}
+  .storyModal .storyCard{width:min(100%,390px);padding:24px;text-align:center;background:linear-gradient(150deg,#482034,#211019);border-color:#8b5268}
+  .storyModal .storyText{font:400 26px/1.4 var(--serif);margin:25px 0;overflow-wrap:anywhere}
+  .storyModal .btn{margin-top:12px}
+  @media(min-width:700px){.discoverWrap{max-height:calc(100dvh - 74px)}}
+
 </style>
 </head>
 <body>
@@ -321,7 +381,7 @@
     <div class="brand"><span data-venn></span><span data-brand>Perde</span></div>
     <button class="avBtn" id="btnProfile" aria-label="Profilim"></button>
   </div>
-  <div class="wrap homeMain">
+  <div class="wrap homeMain" id="homeMain">
     <div>
       <h1 class="headline">Perdenin ardında kim var?</h1>
       <p class="status" id="homeStatus"></p>
@@ -354,6 +414,47 @@
       </div>
     </div>
   </div>
+  <div class="discoverWrap" id="discoverView" hidden>
+    <div class="discoverHead"><div><div class="eyebrow">Perde topluluğu</div><h2>Keşfet</h2></div><span class="pill">Anonim alan</span></div>
+    <div class="sectionTitle"><h3>24 saatlik notlar</h3><button class="ghost" id="storyCreateBtn" type="button">+ Ekle</button></div>
+    <div class="storyRail" id="storyRail"><div class="emptyState">Notlar yükleniyor…</div></div>
+    <div class="dailyCard">
+      <div class="eyebrow">Günün sorusu</div><h3 id="dailyQuestion">Bugün kendine hangi konuda teşekkür ederdin?</h3>
+      <p>Yanıtın anonim paylaşılır. Kişisel iletişim bilgisi yazma.</p>
+      <textarea id="dailyAnswerText" maxlength="240" placeholder="Aklından geçenleri yaz…"></textarea>
+      <div class="dailyAnswer"><button class="btn primary sm" id="dailySend" type="button">Yanıtla</button><button class="btn quiet sm" id="dailySee" type="button">Yanıtları gör</button></div>
+      <div id="dailyAnswers" hidden></div>
+    </div>
+    <div class="sectionTitle"><h3>Topluluktan</h3><span class="miniLabel">Son paylaşımlar</span></div>
+    <div class="composeCard">
+      <textarea id="postText" maxlength="280" placeholder="Aklından geçen kısa bir şey paylaş…"></textarea>
+      <div class="postActions"><span class="miniLabel">Kimliğin ve e-postan görünmez.</span><button id="postSend" type="button">Paylaş ↗</button></div>
+    </div>
+    <div id="postFeed"><div class="emptyState">Paylaşımlar yükleniyor…</div></div>
+    <div class="premiumHero"><div class="crown">♛</div><div class="eyebrow">Perde Plus</div><h2>Daha fazlasını keşfet.</h2><p>Perde deneyimini kişiselleştiren ayrıcalıklar yakında.</p><button class="btn primary" id="openPremium" type="button">Üyeliği keşfet</button></div>
+  </div>
+  <div class="discoverWrap" id="chatsView" hidden>
+    <div class="discoverHead"><div><div class="eyebrow">Bağlantıların</div><h2>Sohbetler</h2></div></div>
+    <div id="recentChats"><div class="emptyState">Sohbetlerin yükleniyor…</div></div>
+    <div class="sectionTitle"><h3>Bekleyen davetler</h3></div><div id="pendingInvites"></div>
+  </div>
+  <div class="discoverWrap" id="premiumView" hidden>
+    <div class="discoverHead"><button class="ghost" id="premiumBack">← Geri</button><span class="pill">PLUS</span></div>
+    <div class="premiumHero"><div class="crown">♛</div><div class="eyebrow">Perde Plus</div><h2>Perde'nin daha fazlası.</h2><p>Deneyimini kişiselleştir, topluluğu daha yakından keşfet.</p></div>
+    <div class="premiumCard">
+      <div class="premiumFeature">✦ Özel profil temaları ve rozetler</div>
+      <div class="premiumFeature">✦ Özel sohbet arayüzleri ve renkler</div>
+      <div class="premiumFeature">✦ Gelişmiş keşfet filtreleri</div>
+      <div class="premiumFeature">✦ Reklamsız kullanım (reklam altyapısı eklendiğinde)</div>
+      <p class="subtleNote">Bu sürümde ödeme alınmaz. Abonelik ve mağaza doğrulaması henüz bağlanmadı. Güvenlik, engelleme ve şikâyet özellikleri her zaman ücretsiz kalır.</p>
+    </div>
+  </div>
+  <nav class="bottomNav" id="bottomNav" aria-label="Ana gezinme">
+    <button class="active" data-nav="home"><span>⌂</span>Ana sayfa</button>
+    <button data-nav="discover"><span>✧</span>Keşfet</button>
+    <button data-nav="chats"><span>♡</span>Sohbetler</button>
+    <button data-nav="profile"><span>◉</span>Profil</button>
+  </nav>
 </section>
 
 <!-- ============ PERDE ARKASI ============ -->
@@ -443,6 +544,7 @@
   </div>
 </section>
 
+<div class="storyModal" id="storyModal"><div class="storyCard"><div class="eyebrow">24 saatlik not</div><div class="storyText" id="storyModalText"></div><div class="miniLabel" id="storyModalMeta"></div><button class="btn quiet" id="storyModalClose" type="button">Kapat</button></div></div>
 <div id="toast" role="status"></div>
 
 <div class="dlg" id="dlg" hidden>
@@ -684,6 +786,16 @@ function demoBackend() {
     async report() {}
   };
   Object.assign(B_demo, api);
+  const localRead = k => { try { return JSON.parse(localStorage.getItem(k)||'[]'); } catch(e) { return []; } };
+  const localWrite = (k,v) => localStorage.setItem(k,JSON.stringify(v));
+  api.createPost = async (me,text) => { const a=localRead('perde_posts'); a.unshift({id:'p'+Date.now(),author:me.uid,country:me.profile.country,text,createdAt:Date.now()}); localWrite('perde_posts',a); };
+  api.listPosts = async () => localRead('perde_posts');
+  api.reportPost = async () => {};
+  api.createStory = async (me,text) => { const a=localRead('perde_stories'); a.unshift({id:'s'+Date.now(),author:me.uid,country:me.profile.country,text,createdAt:Date.now(),expiresAt:Date.now()+DAY}); localWrite('perde_stories',a); };
+  api.listStories = async () => localRead('perde_stories').filter(x=>x.expiresAt>Date.now());
+  api.answerDaily = async (me,qid,text) => { const a=localRead('perde_daily_'+qid); if(a.some(x=>x.author===me.uid)) throw new Error('already-answered'); a.unshift({id:me.uid,author:me.uid,text,createdAt:Date.now()}); localWrite('perde_daily_'+qid,a); };
+  api.listDailyAnswers = async qid => localRead('perde_daily_'+qid);
+  api.recentChats = async () => [];
   return api;
 }
 
@@ -988,6 +1100,34 @@ async function firebaseBackend() {
         messages: msgs.slice(-30).map(m => ({ from: m.from, text: m.text })), createdAt: F.serverTimestamp()
       });
       await F.setDoc(F.doc(db, 'users', me.uid), { blocked: F.arrayUnion(partnerUid) }, { merge: true });
+    },
+    async createPost(me, text) {
+      return F.addDoc(F.collection(db,'discoverPosts'),{author:me.uid,country:me.profile.country,text,createdAt:Date.now(),status:'published'});
+    },
+    async listPosts() {
+      const q=F.query(F.collection(db,'discoverPosts'),F.orderBy('createdAt','desc'),F.limit(40));
+      const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()}));
+    },
+    async reportPost(me, post) {
+      return F.addDoc(F.collection(db,'reports'),{reporter:me.uid,reported:post.author,roomId:'post:'+post.id,messages:[{from:post.author,text:post.text}],createdAt:F.serverTimestamp(),kind:'post'});
+    },
+    async createStory(me,text) {
+      return F.addDoc(F.collection(db,'stories'),{author:me.uid,country:me.profile.country,text,createdAt:Date.now(),expiresAt:Date.now()+DAY});
+    },
+    async listStories() {
+      const q=F.query(F.collection(db,'stories'),F.orderBy('createdAt','desc'),F.limit(60));
+      const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.expiresAt>Date.now());
+    },
+    async answerDaily(me,questionId,text) {
+      return F.setDoc(F.doc(db,'dailyQuestions',questionId,'answers',me.uid),{author:me.uid,text,createdAt:Date.now()},{merge:false});
+    },
+    async listDailyAnswers(questionId) {
+      const q=F.query(F.collection(db,'dailyQuestions',questionId,'answers'),F.orderBy('createdAt','desc'),F.limit(40));
+      const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()}));
+    },
+    async recentChats(me) {
+      const q=F.query(F.collection(db,'rooms'),F.where('members','array-contains',me.uid),F.limit(30));
+      const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()}));
     }
   };
   return B;
@@ -1088,6 +1228,7 @@ function goHome() {
   $('#btnProfile').innerHTML = avatar(p);
   $('#homeStatus').textContent = `Hoş geldin ${p.nickname}. Hazır olunca eşleş.`;
   show('sHome');
+  setHomeTab('home');
   renderCards();
   startLoops();
   maybeInstall();
@@ -1504,6 +1645,127 @@ $('#btnDelete').onclick = async () => {
   try { await B.deleteAccount(S.user.uid); toast('Hesabın silindi.'); }
   catch (e) { console.error(e); toast(e.code === 'auth/requires-recent-login' ? 'Güvenlik için çıkış yapıp yeniden gir, sonra tekrar dene.' : 'Hesap silinemedi.'); }
 };
+
+
+/* ---------- Keşfet / hikâyeler / günün sorusu ---------- */
+let discoverLoaded = false;
+const DAILY_QUESTIONS = [
+  'Bugün kendine hangi konuda teşekkür ederdin?',
+  'Birine söyleyemediğin ama içinde kalan güzel bir şey ne?',
+  'Son zamanlarda seni en çok ne gülümsetti?',
+  'Bir günlüğüne hiçbir sorumluluğun olmasa ne yapardın?',
+  'Kendinde son zamanlarda fark ettiğin güzel bir şey ne?',
+  'Şu an hayatında neyin daha fazla olmasını isterdin?',
+  'Geçmişteki kendine tek cümle söyleyebilseydin ne derdin?'
+];
+const dayKey = () => new Date().toISOString().slice(0,10);
+const todayQuestion = () => DAILY_QUESTIONS[Math.floor(Date.now()/DAY)%DAILY_QUESTIONS.length];
+function setHomeTab(tab) {
+  const home = $('#sHome');
+  $('#homeMain').hidden = tab !== 'home';
+  $('#discoverView').hidden = tab !== 'discover';
+  $('#chatsView').hidden = tab !== 'chats';
+  $('#premiumView').hidden = true;
+  $$('#bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===tab));
+  if (tab==='discover') loadDiscover();
+  if (tab==='chats') loadRecentChats();
+}
+async function loadDiscover(force=false) {
+  if (discoverLoaded && !force) return;
+  discoverLoaded = true;
+  $('#dailyQuestion').textContent = todayQuestion();
+  try {
+    const [posts,stories] = await Promise.all([B.listPosts(),B.listStories()]);
+    renderPostFeed(posts);
+    renderStories(stories);
+  } catch(e) {
+    console.error(e);
+    $('#postFeed').innerHTML='<div class="emptyState">Akış yüklenemedi. Firestore kurallarını ve bağlantını kontrol et.</div>';
+    $('#storyRail').innerHTML='<div class="emptyState">Notlar yüklenemedi.</div>';
+  }
+}
+function renderPostFeed(posts) {
+  const el=$('#postFeed');
+  if(!posts.length){el.innerHTML='<div class="emptyState">Henüz paylaşım yok. İlk sözü sen bırak. ✨</div>';return;}
+  el.innerHTML=posts.map(p=>`<article class="postCard" data-post="${esc(p.id)}">
+    <div class="postMeta"><span class="postAvatar">✦</span><span><b>İsimsiz biri</b><br>${esc(cname(p.country||'TR'))} · ${esc(relTime(p.createdAt||Date.now()))}</span></div>
+    <div class="postText">${esc(p.text)}</div>
+    <div class="postActions"><span class="miniLabel">Perde topluluğundan</span><button type="button" data-post-report="${esc(p.id)}">⚑ Şikâyet</button></div>
+  </article>`).join('');
+}
+function renderStories(stories) {
+  const el=$('#storyRail');
+  const own=stories.filter(x=>x.author===S.user.uid);
+  const add=`<button class="storyBubble add" type="button" id="storyAddBubble"><span class="storyRing"><i>＋</i></span>Not ekle</button>`;
+  const cards=stories.map(x=>`<button class="storyBubble" type="button" data-story="${esc(x.id)}" data-text="${esc(x.text)}" data-country="${esc(x.country||'TR')}"><span class="storyRing"><i>✦</i></span>${x.author===S.user.uid?'Sen':esc(cname(x.country||'TR'))}</button>`).join('');
+  el.innerHTML=add+cards;
+  $('#storyAddBubble').onclick=createStory;
+  el.querySelectorAll('[data-story]').forEach(b=>b.onclick=()=>openStory(b.dataset.text,b.dataset.country));
+}
+function openStory(text,country) {
+  $('#storyModalText').textContent=text;
+  $('#storyModalMeta').textContent=cname(country)+' · 24 saatlik not';
+  $('#storyModal').classList.add('on');
+}
+$('#storyModalClose').onclick=()=>$('#storyModal').classList.remove('on');
+$('#storyModal').addEventListener('click',e=>{if(e.target.id==='storyModal')$('#storyModal').classList.remove('on');});
+async function createStory() {
+  const text=prompt('24 saat sonra kaybolacak kısa notunu yaz (en fazla 160 karakter):');
+  if(text===null)return;
+  const value=text.trim();
+  if(value.length<2||value.length>160)return toast('Not 2–160 karakter olmalı.');
+  if(LEAK.test(value))return toast('İletişim bilgisi veya sosyal medya adresi paylaşma.');
+  try { await B.createStory(S.user,value); toast('24 saatlik notun paylaşıldı.'); await loadDiscover(true); }
+  catch(e){console.error(e);toast('Not paylaşılamadı.');}
+}
+$('#storyCreateBtn').onclick=createStory;
+$('#postSend').onclick=async()=>{
+  const value=$('#postText').value.trim();
+  if(value.length<3||value.length>280)return toast('Paylaşım 3–280 karakter olmalı.');
+  if(LEAK.test(value))return toast('Telefon, e-posta, bağlantı veya sosyal medya bilgisi paylaşma.');
+  const b=$('#postSend');b.disabled=true;
+  try{await B.createPost(S.user,value);$('#postText').value='';toast('Paylaşımın yayınlandı.');await loadDiscover(true);}
+  catch(e){console.error(e);toast('Paylaşım yapılamadı.');}
+  finally{b.disabled=false;}
+};
+$('#postFeed').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-post-report]');if(!b)return;
+  const post=(await B.listPosts()).find(x=>x.id===b.dataset.postReport);if(!post)return;
+  if(!await ask('Paylaşımı şikâyet et?','İçerik incelenmek üzere yönetime iletilir.','Şikâyet et'))return;
+  try{await B.reportPost(S.user,post);toast('Şikâyetin alındı.');}catch(err){console.error(err);toast('Şikâyet gönderilemedi.');}
+});
+$('#dailySend').onclick=async()=>{
+  const value=$('#dailyAnswerText').value.trim(),qid=dayKey();
+  if(value.length<2||value.length>240)return toast('Yanıt 2–240 karakter olmalı.');
+  if(LEAK.test(value))return toast('İletişim bilgisi paylaşma.');
+  const b=$('#dailySend');b.disabled=true;
+  try{await B.answerDaily(S.user,qid,value);$('#dailyAnswerText').value='';toast('Yanıtın anonim olarak eklendi.');await showDailyAnswers();}
+  catch(e){console.error(e);toast(e.message==='already-answered'?'Bugünün sorusunu zaten yanıtladın.':'Yanıt gönderilemedi.');}
+  finally{b.disabled=false;}
+};
+async function showDailyAnswers(){
+  const box=$('#dailyAnswers');box.hidden=false;box.innerHTML='<p class="miniLabel">Yanıtlar yükleniyor…</p>';
+  try{const rows=await B.listDailyAnswers(dayKey());box.innerHTML=rows.length?rows.map(x=>`<div class="postCard"><div class="postMeta">✦ İsimsiz yanıt</div><div class="postText">${esc(x.text)}</div></div>`).join(''):'<p class="miniLabel">Henüz yanıt yok. İlk yanıtı sen verebilirsin.</p>';}
+  catch(e){console.error(e);box.innerHTML='<p class="miniLabel">Yanıtlar yüklenemedi.</p>';}
+}
+$('#dailySee').onclick=showDailyAnswers;
+async function loadRecentChats(){
+  const box=$('#recentChats');box.innerHTML='<div class="emptyState">Yükleniyor…</div>';
+  try{
+    const rows=(await B.recentChats(S.user)).filter(x=>x.status==='open'||x.status==='ended').sort((a,b)=>(b.createdAt?.toMillis?.()||b.createdAt||0)-(a.createdAt?.toMillis?.()||a.createdAt||0));
+    box.innerHTML=rows.length?rows.map(x=>`<div class="chatRow"><span class="postAvatar">✦</span><div class="chatInfo"><strong>Gizli sohbet</strong><small>${x.status==='open'?'Sohbet açık':'Sohbet sona erdi'}</small></div><span class="pill">${x.status==='open'?'Devam et':'Geçmiş'}</span></div>`).join(''):'<div class="emptyState">Henüz sohbet geçmişin yok.<br>Bir eşleşme başlatarak tanışabilirsin.</div>';
+  }catch(e){console.error(e);box.innerHTML='<div class="emptyState">Sohbetler yüklenemedi. Firestore izinlerini kontrol et.</div>';}
+  const inv=$('#pendingInvites');
+  inv.innerHTML=(incomingInvites||[]).filter(x=>x.status==='pending').map(x=>`<div class="chatRow"><span class="postAvatar">♡</span><div class="chatInfo"><strong>Anonim davet</strong><small>${esc(x.note||'Seninle sohbet etmek istiyor.')}</small></div><span class="pill">Bekliyor</span></div>`).join('')||'<p class="miniLabel">Bekleyen davet yok.</p>';
+}
+$('#bottomNav').addEventListener('click',e=>{
+  const b=e.target.closest('[data-nav]');if(!b)return;
+  const tab=b.dataset.nav;
+  if(tab==='profile'){openProfile(false);return;}
+  setHomeTab(tab);
+});
+$('#openPremium').onclick=()=>{$('#homeMain').hidden=true;$('#discoverView').hidden=true;$('#chatsView').hidden=true;$('#premiumView').hidden=false;};
+$('#premiumBack').onclick=()=>setHomeTab('discover');
 
 /* ---------- Ana ekrana ekle ---------- */
 let deferred = null;
