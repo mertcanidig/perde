@@ -134,9 +134,24 @@
   .headline{font-size:clamp(31px,9.3vw,40px);line-height:1.1;margin:6px 0 10px}
   .status{color:var(--muted);font-size:15px;min-height:24px}
   .stage{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0}
-  .vennBtn{position:relative;display:block;width:min(84vw,340px);background:none;border:0;padding:0;border-radius:40px}
+  .vennBtn{position:relative;display:block;width:min(72vw,296px);background:none;border:0;padding:0;border-radius:40px}
   .vennBtn .venn{width:100%}
   .lensLabel{position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:italic 500 23px var(--serif);color:var(--champ);pointer-events:none}
+  .cards{display:flex;flex-direction:column;gap:10px}
+  .cards:empty{display:none}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+  .card.hot{border-color:var(--ruj)}
+  .card p{font-size:14px;color:var(--muted);line-height:1.45}
+  .card p b{color:var(--ivory);font-weight:700}
+  .card h3{font-size:17px;margin-bottom:4px}
+  .two{display:flex;gap:8px;margin-top:12px}
+  .btn.sm{width:auto;padding:9px 16px;font-size:14px}
+  .two .btn.sm{flex:1}
+  .pp{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+  .pp:first-of-type{border-top:0}
+  .pp small{display:block;color:var(--muted);font-size:12px}
+  .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .quick .btn{padding:12px 10px;font-size:15px}
   .stats{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:14px;margin-top:10px;min-height:22px}
   .stats .dot{width:8px;height:8px;border-radius:50%;background:#7BD3A8;flex:none}
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px}
@@ -171,6 +186,41 @@
   .m{max-width:80%;padding:10px 14px;border-radius:18px;line-height:1.4;word-break:break-word;white-space:pre-wrap}
   .m.me{align-self:flex-end;background:var(--ruj);color:#fff;border-bottom-right-radius:6px}
   .m.them{align-self:flex-start;background:var(--surface2);border:1px solid var(--line);border-bottom-left-radius:6px}
+  .m .tick{display:inline-block;vertical-align:-1px;margin-left:8px;opacity:.6}
+  .m .tick svg{width:17px;height:11px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .m .tick.read{opacity:1}
+  .m .tick.pending{opacity:.35}
+  .typingB{display:flex;gap:5px;align-items:center;padding:14px 16px}
+  .typingB i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tdot 1.2s ease-in-out infinite}
+  .typingB i:nth-child(2){animation-delay:.18s}
+  .typingB i:nth-child(3){animation-delay:.36s}
+  @keyframes tdot{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .next{display:flex;align-items:center;gap:6px;height:42px;padding:0 14px 0 16px;border-radius:999px;border:0;background:var(--ruj);color:#fff;font-weight:700;font-size:15px;flex:none}
+  .next svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .next:active{transform:scale(.96)}
+  .m .who{display:block;font-size:12px;font-weight:700;margin-bottom:2px;color:var(--w,var(--muted))}
+  .confBody{flex:1;padding-top:4px;padding-bottom:40px}
+  .confBody .seg{margin:6px 0 16px}
+  .cf{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+  .cfh{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-bottom:8px}
+  .cfh .em{font-size:20px;line-height:1}
+  .cfh time{margin-left:auto}
+  .cft{font:400 19px/1.45 var(--serif);word-break:break-word;white-space:pre-wrap}
+  .cff{display:flex;align-items:center;gap:8px;margin-top:14px}
+  .heart{display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;color:var(--ivory)}
+  .heart svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round}
+  .heart.on{border-color:var(--ruj);color:#FF8FA6}
+  .heart.on svg{fill:currentColor}
+  .heart[disabled]{opacity:.9}
+  .ghost{background:none;border:0;color:var(--muted);font-size:13px;padding:6px 4px}
+  .ghost.sp{margin-left:auto}
+  .emojis{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .emojis button{width:44px;height:44px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-size:22px;line-height:1}
+  .emojis button[aria-pressed=true]{border-color:var(--ruj);background:#3A1626}
+  textarea{width:100%;padding:14px 15px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ivory);font:inherit;font-size:17px;line-height:1.45;resize:none;outline:none;min-height:130px}
+  textarea:focus{border-color:var(--champ)}
+  .count{text-align:right;color:var(--muted);font-size:13px;margin:6px 2px 14px}
+  .empty{text-align:center;color:var(--muted);font:italic 400 16px/1.5 var(--serif);padding:34px 20px}
   .composer{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
   .composer input{border-radius:999px;padding:13px 18px}
   .send{width:48px;height:48px;flex:none;border-radius:50%;border:0;background:var(--ruj);display:grid;place-items:center}
@@ -277,6 +327,8 @@
       <p class="status" id="homeStatus"></p>
     </div>
 
+    <div class="cards" id="homeCards"></div>
+
     <div class="stage">
       <button class="vennBtn" id="btnMatch" aria-label="Eşleş">
         <span data-venn="main"></span>
@@ -291,12 +343,48 @@
         <label for="wantSel">Hangi ülkeden olsun?</label>
         <select id="wantSel"></select>
       </div>
+      <div class="quick">
+        <button class="btn quiet" id="btnGroup" type="button">Grup sohbeti</button>
+        <button class="btn quiet" id="btnConf" type="button">Perde arkası</button>
+      </div>
       <div class="inst" id="inst" hidden style="margin-top:12px">
         <p id="instTxt"></p>
         <button class="btn primary" id="instGo" type="button" hidden>Ekle</button>
         <button class="x" id="instX" type="button" aria-label="Kapat">&times;</button>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ PERDE ARKASI ============ -->
+<section id="sConf" class="screen">
+  <div class="bar">
+    <button class="ibtn" id="cBack" aria-label="Geri"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="brand"><span>Perde arkası</span></div>
+    <span style="width:42px"></span>
+  </div>
+  <div class="wrap confBody">
+    <div class="seg" id="cTabs" role="tablist">
+      <button type="button" data-t="feed" aria-pressed="true">Akış</button>
+      <button type="button" data-t="write" aria-pressed="false">Yaz</button>
+      <button type="button" data-t="mine" aria-pressed="false">Yazdıklarım</button>
+    </div>
+
+    <div id="cFeed">
+      <p class="lede" style="margin-bottom:14px">Karşı cinsten gelen kısa itiraflar. Bir kalp bırakırsan yazan kişiye sohbet daveti gider.</p>
+      <div class="field"><select id="cCountry" aria-label="Ülke filtresi"></select></div>
+      <div id="cList"></div>
+    </div>
+
+    <div id="cWrite" hidden>
+      <p class="lede" style="margin-bottom:14px">Yalnızca ülken ve seçtiğin emoji görünür. Telefon, e-posta ve sosyal medya bilgisi yazılamaz.</p>
+      <div class="emojis" id="cEmojis"></div>
+      <textarea id="cText" maxlength="140" placeholder="Aklında ne var?"></textarea>
+      <p class="count"><span id="cCount">0</span>/140</p>
+      <button class="btn primary" id="cPost" type="button">Perde arkasına bırak</button>
+    </div>
+
+    <div id="cMine" hidden><div id="cMineList"></div></div>
   </div>
 </section>
 
@@ -313,8 +401,9 @@
 <section id="sChat" class="screen">
   <div class="chatBar">
     <button class="ibtn" id="btnLeave" aria-label="Sohbetten ayrıl"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <div class="ctitle"><b>Gizli biri</b><span id="chatSub"></span></div>
+    <div class="ctitle"><b id="chatTitle">Gizli biri</b><span id="chatSub"></span></div>
     <button class="ibtn" id="btnReport" aria-label="Şikâyet et"><svg viewBox="0 0 24 24"><path d="M6 21V4M6 5h11l-2 4 2 4H6"/></svg></button>
+    <button class="next" id="btnNext" aria-label="Sonraki kişi"><span>Sonraki</span><svg viewBox="0 0 24 24"><path d="M5 12h13M12 6l6 6-6 6"/></svg></button>
   </div>
   <div class="msgs" id="msgs"></div>
   <form class="composer" id="msgForm" autocomplete="off">
@@ -379,8 +468,12 @@ const FIREBASE_CONFIG = {
 /* ---------- Sabitler ---------- */
 const QUEUE_TTL = 150000;                 // sıradaki kayıt en çok 150 sn geçerli
 const ONLINE_WINDOW = 150000;             // son 150 sn içinde sinyal veren kişi "çevrimiçi"
+const GROUP_ALIVE = 180000;               // grup üyesi: son 3 dakikada sinyal verdiyse "canlı"
+const DAY = 86400000;
 const WAIT_LIMIT = 120000;                // aramayı 120 sn sonra bırak
 const DEMO = !FIREBASE_CONFIG.apiKey;
+const CF = g => g === 'erkek' ? 'confessions_erkek' : 'confessions_kadin';   // itiraflar yazarın cinsiyetine göre ayrı koleksiyonda
+const OPP = g => g === 'erkek' ? 'kadin' : 'erkek';
 const TONES = ['#D7335B', '#E8C48F', '#A48CC2', '#6FB3A8', '#E9946A', '#7C9BD6'];
 
 const $ = s => document.querySelector(s);
@@ -411,6 +504,8 @@ function vennSvg(cls = '') {
 }
 
 /* ---------- Yardımcılar ---------- */
+const esc = t => String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const relTime = ts => { const m = Math.max(0, Math.floor((Date.now() - ts) / 60000)); return m < 1 ? 'az önce' : m < 60 ? `${m} dk önce` : m < 1440 ? `${Math.floor(m / 60)} sa önce` : `${Math.floor(m / 1440)} gün önce`; };
 const validEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
 async function sha(str) {
   try {
@@ -438,9 +533,9 @@ function toast(msg) {
   const t = $('#toast'); t.textContent = msg; t.classList.add('on');
   clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200);
 }
-function ask(title, text, yes = 'Tamam') {
+function ask(title, text, yes = 'Tamam', no = 'Vazgeç') {
   return new Promise(res => {
-    $('#dlgT').textContent = title; $('#dlgP').textContent = text; $('#dlgYes').textContent = yes;
+    $('#dlgT').textContent = title; $('#dlgP').textContent = text; $('#dlgYes').textContent = yes; $('#dlgNo').textContent = no;
     $('#dlg').hidden = false; $('#dlgYes').focus();
     const done = v => { $('#dlg').hidden = true; $('#dlgYes').onclick = $('#dlgNo').onclick = null; res(v); };
     $('#dlgYes').onclick = () => done(true);
@@ -459,13 +554,30 @@ function demoBackend() {
   const err = code => Object.assign(new Error(code), { code });
   const REPLIES = ['Selam, nasılsın?', 'Nerelisin tam olarak?', 'Bugün neler yaptın?', 'Haha, güzelmiş 😄', 'Bence de.', 'Müzik dinlemeyi sever misin?', 'Biraz yorgunum ama iyiyim.', 'Anlat biraz kendinden.'];
   let cb = null, timers = [], room = null, sub = null;
+  let incoming = [], sent = [], invT = [], cbIn = null, cbSent = null, shownDemoInvite = false;
+  let grp = null, grpSub = null, grpT = [];
+  const confWatch = new Set();
+  const CK = 'perde_demo_conf';
+  const confs = () => {
+    try { const l = JSON.parse(localStorage.getItem(CK)); if (l) return l; } catch (e) {}
+    const now = Date.now(), seed = [
+      { id: 's1', author: 'x1', g: 'kadin', country: 'FR', emoji: '🌙', text: 'Gece 3’te uyanıp kimseye yazamamak garip bir yalnızlık.', createdAt: now - 12 * 60000, hearts: 4 },
+      { id: 's2', author: 'x2', g: 'erkek', country: 'DE', emoji: '🎧', text: 'Bugün tanımadığım biriyle bir saat müzik konuştum. Adını bile bilmiyorum, yine de iyi geldi.', createdAt: now - 95 * 60000, hearts: 9 },
+      { id: 's3', author: 'x3', g: 'kadin', country: 'TR', emoji: '🍷', text: 'Kimse bilmiyor ama şiir yazıyorum.', createdAt: now - 5 * 3600000, hearts: 2 },
+      { id: 's4', author: 'x4', g: 'erkek', country: 'GB', emoji: '💭', text: 'Bazen sadece dinlenmek istiyorum, tavsiye değil.', createdAt: now - 9 * 3600000, hearts: 6 }
+    ];
+    localStorage.setItem(CK, JSON.stringify(seed)); return seed;
+  };
+  const saveConfs = l => localStorage.setItem(CK, JSON.stringify(l));
+  const emitG = () => { if (grpSub && grp) { grpSub.onGroup({ ...grp, msgs: undefined }); grpSub.onMessages([...grp.msgs]); } };
   const userOf = d => {
     if (!d.session) return null;
     const u = d.users[d.session];
     return u.verified ? { uid: d.session, profile: u.profile || null } : { uid: d.session, email: d.session, unverified: true };
   };
   const emit = () => { if (sub && room) { sub.onRoom({ ...room, msgs: undefined }); sub.onMessages([...room.msgs]); } };
-  return {
+  const B_demo = {};
+  const api = {
     init(onUser) { cb = onUser; setTimeout(() => cb(userOf(load())), 350); },
     async register(email, pass) {
       const d = load(); if (d.users[email]) throw err('demo/exists');
@@ -497,12 +609,82 @@ function demoBackend() {
       return () => { sub = null; timers.forEach(clearTimeout); timers = []; };
     },
     async send(id, uid, text) {
-      room.msgs.push({ id: 'm' + Date.now(), from: uid, text }); emit();
-      timers.push(setTimeout(() => { room.msgs.push({ id: 'b' + Date.now(), from: 'bot', text: REPLIES[Math.floor(Math.random() * REPLIES.length)] }); emit(); }, 1200 + Math.random() * 1400));
+      const mine = { id: 'm' + Date.now(), from: uid, text }; room.msgs.push(mine); emit();
+      timers.push(setTimeout(() => { mine.readAt = 1; emit(); }, 700));
+      timers.push(setTimeout(() => { room.typing = { bot: Date.now() }; emit(); }, 1000));
+      timers.push(setTimeout(() => { room.msgs.push({ id: 'b' + Date.now(), from: 'bot', text: REPLIES[Math.floor(Math.random() * REPLIES.length)] }); emit(); }, 2600 + Math.random() * 1200));
     },
+    async typing() {},
+    async markRead() {},
+
+    /* --- Davetler --- */
+    watchInvites(uid, { onIncoming, onSent }) {
+      cbIn = onIncoming; cbSent = onSent; onIncoming(incoming); onSent(sent);
+      invT.push(setTimeout(() => {
+        if (shownDemoInvite || incoming.length) return; shownDemoInvite = true;
+        incoming = [{ id: 'i1', from: 'bot', type: 'confession', fromCountry: 'FR', note: '🌙 Bazen geceleri sadece biri “iyi misin” desin istiyorum.', status: 'pending', createdAt: Date.now() }];
+        cbIn(incoming);
+      }, 6000));
+      return () => { invT.forEach(clearTimeout); invT = []; cbIn = cbSent = null; };
+    },
+    async sendInvite(me, { to, type, note }) {
+      const inv = { id: 's' + Date.now(), from: me.uid, to, type, note: note || '', status: 'pending', createdAt: Date.now() };
+      sent.push(inv); cbSent && cbSent([...sent]);
+      invT.push(setTimeout(() => {
+        room = { id: 'demo', members: [me.uid, 'bot'], info: { bot: { country: 'DE' } }, status: 'open', msgs: [] };
+        inv.status = 'accepted'; inv.roomId = 'demo'; cbSent && cbSent([...sent]);
+      }, 2600));
+      return inv.id;
+    },
+    async cancelInvite(id) { sent = sent.filter(x => x.id !== id); cbSent && cbSent([...sent]); },
+    async acceptInvite(inv, me) {
+      room = { id: 'demo', members: [me.uid, 'bot'], info: { bot: { country: inv.fromCountry || 'FR' } }, status: 'open', msgs: [] };
+      incoming = incoming.filter(x => x.id !== inv.id); return 'demo';
+    },
+    async declineInvite(inv) { incoming = incoming.filter(x => x.id !== inv.id); },
+
+    /* --- Perde arkası --- */
+    watchConfessions(me, cb) {
+      const f = () => cb(confs().filter(c => c.g !== me.profile.gender).sort((a, b) => b.createdAt - a.createdAt));
+      confWatch.add(f); f(); return () => confWatch.delete(f);
+    },
+    watchMine(me, cb) {
+      const f = () => cb(confs().filter(c => c.author === me.uid).sort((a, b) => b.createdAt - a.createdAt));
+      confWatch.add(f); f(); return () => confWatch.delete(f);
+    },
+    async postConfession(me, { emoji, text }) {
+      const l = confs(); l.push({ id: 'c' + Date.now(), author: me.uid, g: me.profile.gender, country: me.profile.country, emoji, text, createdAt: Date.now(), hearts: 0 });
+      saveConfs(l); confWatch.forEach(f => f());
+    },
+    async deleteConfession(me, id) { saveConfs(confs().filter(c => c.id !== id)); confWatch.forEach(f => f()); },
+    async heart(me, conf) {
+      const l = confs(), c = l.find(x => x.id === conf.id); if (c) c.hearts++; saveConfs(l); confWatch.forEach(f => f());
+      return B_demo.sendInvite(me, { to: conf.author, type: 'confession' });
+    },
+    async reportConfession() {},
+
+    /* --- Grup --- */
+    async joinGroup(me) {
+      grp = { id: 'demo-g', members: [me.uid, 'b1', 'b2'], nums: { [me.uid]: 1, b1: 2, b2: 3 },
+        info: { [me.uid]: { country: me.profile.country }, b1: { country: 'DE' }, b2: { country: 'FR' } }, seen: {}, msgs: [] };
+      return 'demo-g';
+    },
+    watchGroup(id, h) {
+      grpSub = h; emitG();
+      const say = (ms, from, n, text) => grpT.push(setTimeout(() => { if (grp) { grp.msgs.push({ id: 'g' + ms, from, n, text }); emitG(); } }, ms));
+      say(1200, 'b1', 2, 'Selam herkese!'); say(2600, 'b2', 3, 'Merhaba 🙂 Ne konuşuyoruz?');
+      return () => { grpSub = null; grpT.forEach(clearTimeout); grpT = []; };
+    },
+    async sendGroup(id, uid, n, text) {
+      grp.msgs.push({ id: 'm' + Date.now(), from: uid, n, text }); emitG();
+      grpT.push(setTimeout(() => { if (grp) { grp.msgs.push({ id: 'r' + Date.now(), from: 'b1', n: 2, text: REPLIES[Math.floor(Math.random() * REPLIES.length)] }); emitG(); } }, 1500));
+    },
+    async groupBeat() {}, async pruneGroup() {}, async leaveGroup() { grp = null; }, async reportGroup() {},
     async endRoom() { if (room) room.status = 'ended'; },
     async report() {}
   };
+  Object.assign(B_demo, api);
+  return api;
 }
 
 /* =========================================================
@@ -665,14 +847,134 @@ async function firebaseBackend() {
       return { online: a.data().count, searching: b.data().count };
     },
 
+    /* ---- Davetler (tekrar eşleş / kalp) ---- */
+    async sendInvite(me, { to, type, note, confId }) {
+      const id = type === 'confession' ? `c_${confId}_${me.uid}` : F.doc(F.collection(db, 'invites')).id;
+      await F.setDoc(F.doc(db, 'invites', id), { from: me.uid, to, type, note: note || '', fromCountry: me.profile.country, status: 'pending', roomId: null, createdAt: Date.now() });
+      return id;
+    },
+    cancelInvite: id => F.deleteDoc(F.doc(db, 'invites', id)).catch(() => {}),
+    watchInvites(uid, { onIncoming, onSent }) {
+      const mk = (field, cb) => F.onSnapshot(F.query(F.collection(db, 'invites'), F.where(field, '==', uid)),
+        s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => console.warn(e));
+      const a = mk('to', onIncoming), b = mk('from', onSent);
+      return () => { a(); b(); };
+    },
+    acceptInvite: (inv, me) => F.runTransaction(db, async tx => {
+      const ref = F.doc(db, 'invites', inv.id), s = await tx.get(ref);
+      if (!s.exists() || s.data().status !== 'pending') throw new Error('gone');
+      const roomRef = F.doc(F.collection(db, 'rooms'));
+      tx.set(roomRef, {
+        members: [inv.from, me.uid],
+        info: { [inv.from]: { country: inv.fromCountry }, [me.uid]: { country: me.profile.country } },
+        status: 'open', createdAt: F.serverTimestamp()
+      });
+      tx.update(ref, { status: 'accepted', roomId: roomRef.id });
+      return roomRef.id;
+    }),
+    declineInvite: inv => F.updateDoc(F.doc(db, 'invites', inv.id), { status: 'declined' }),
+
+    /* ---- Perde arkası (itiraf duvarı) ---- */
+    watchConfessions(me, cb) {
+      const q = F.query(F.collection(db, CF(OPP(me.profile.gender))), F.orderBy('createdAt', 'desc'), F.limit(60));
+      return F.onSnapshot(q, s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => console.warn(e));
+    },
+    watchMine(me, cb) {
+      const q = F.query(F.collection(db, CF(me.profile.gender)), F.where('author', '==', me.uid), F.limit(30));
+      return F.onSnapshot(q, s => cb(s.docs.map(d => ({ id: d.id, ...d.data() }))), e => console.warn(e));
+    },
+    postConfession: (me, { emoji, text }) => F.addDoc(F.collection(db, CF(me.profile.gender)),
+      { author: me.uid, country: me.profile.country, emoji, text, createdAt: Date.now(), hearts: 0 }),
+    deleteConfession: (me, id) => F.deleteDoc(F.doc(db, CF(me.profile.gender), id)),
+    async heart(me, conf) {
+      const b = F.writeBatch(db);
+      b.set(F.doc(db, 'invites', `c_${conf.id}_${me.uid}`), {
+        from: me.uid, to: conf.author, type: 'confession', note: `${conf.emoji} ${conf.text}`.slice(0, 90),
+        fromCountry: me.profile.country, status: 'pending', roomId: null, createdAt: Date.now()
+      });
+      b.update(F.doc(db, CF(OPP(me.profile.gender)), conf.id), { hearts: F.increment(1) });
+      await b.commit();
+    },
+    reportConfession: (me, conf) => F.addDoc(F.collection(db, 'reports'), {
+      reporter: me.uid, reported: conf.author, roomId: 'confession:' + conf.id,
+      messages: [{ from: conf.author, text: conf.text }], createdAt: F.serverTimestamp()
+    }),
+
+    /* ---- Grup sohbeti (en fazla 4 kişi) ---- */
+    async joinGroup(me, want) {
+      const now = Date.now(), uid = me.uid, country = me.profile.country;
+      const alive = g => (g.members || []).filter(u => now - ((g.seen && g.seen[u]) || 0) < GROUP_ALIVE);
+      const snap = await F.getDocs(F.query(F.collection(db, 'groups'), F.where('status', '==', 'open'), F.limit(20)));
+      const cands = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+        .filter(g => (g.members || []).length < 4 && !g.members.includes(uid) && alive(g).length >= 1 &&
+          (want === 'ANY' || g.scope === want || g.scope === 'ANY'))
+        .sort((a, b) => alive(b).length - alive(a).length);
+      for (const c of cands.slice(0, 3)) {
+        try {
+          return await F.runTransaction(db, async tx => {
+            const ref = F.doc(db, 'groups', c.id), s = await tx.get(ref);
+            if (!s.exists()) throw new Error('gone');
+            const g = s.data();
+            if ((g.members || []).length >= 4) throw new Error('full');
+            const used = Object.values(g.nums || {}); let n = 1; while (used.includes(n)) n++;
+            tx.update(ref, { members: F.arrayUnion(uid), ['nums.' + uid]: n, ['info.' + uid]: { country }, ['seen.' + uid]: Date.now() });
+            return c.id;
+          });
+        } catch (e) { /* sıradaki grubu dene */ }
+      }
+      const ref = await F.addDoc(F.collection(db, 'groups'), {
+        status: 'open', scope: want, members: [uid], nums: { [uid]: 1 }, info: { [uid]: { country } }, seen: { [uid]: now }, createdAt: now
+      });
+      return ref.id;
+    },
+    watchGroup(id, h) {
+      const u1 = F.onSnapshot(F.doc(db, 'groups', id), s => h.onGroup(s.exists() ? { id, ...s.data() } : null), e => console.error(e));
+      const mq = F.query(F.collection(db, 'groups', id, 'messages'), F.orderBy('createdAt', 'desc'), F.limit(200));
+      const u2 = F.onSnapshot(mq, s => h.onMessages(s.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: 'estimate' }) })).reverse()), e => console.error(e));
+      return () => { u1(); u2(); };
+    },
+    sendGroup: (id, uid, n, text) => F.addDoc(F.collection(db, 'groups', id, 'messages'), { from: uid, n, text, createdAt: F.serverTimestamp() }),
+    groupBeat: (id, uid) => F.updateDoc(F.doc(db, 'groups', id), { ['seen.' + uid]: Date.now() }).catch(() => {}),
+    pruneGroup(id, ghosts) {
+      const upd = { members: F.arrayRemove(...ghosts) };
+      ghosts.forEach(g => { upd['nums.' + g] = F.deleteField(); upd['info.' + g] = F.deleteField(); upd['seen.' + g] = F.deleteField(); });
+      return F.updateDoc(F.doc(db, 'groups', id), upd).catch(() => {});
+    },
+    async leaveGroup(id, uid) {
+      const ref = F.doc(db, 'groups', id);
+      const snap = await F.getDoc(ref); if (!snap.exists()) return;
+      const rest = (snap.data().members || []).filter(x => x !== uid);
+      if (!rest.length) {           // son çıkan: mesajları ve grubu sil
+        try {
+          const ms = await F.getDocs(F.collection(db, 'groups', id, 'messages'));
+          const b = F.writeBatch(db); ms.docs.forEach(d => b.delete(d.ref)); await b.commit();
+        } catch (e) { console.warn(e); }
+        await F.deleteDoc(ref);
+      } else {
+        await F.updateDoc(ref, { members: F.arrayRemove(uid), ['nums.' + uid]: F.deleteField(), ['info.' + uid]: F.deleteField(), ['seen.' + uid]: F.deleteField() });
+      }
+    },
+    reportGroup: (me, id, msgs) => F.addDoc(F.collection(db, 'reports'), {
+      reporter: me.uid, reported: 'group', roomId: 'group:' + id,
+      messages: msgs.slice(-30).map(m => ({ from: m.from, text: m.text })), createdAt: F.serverTimestamp()
+    }),
+
     /* ---- Oda ---- */
     openRoom(id, h) {
       const u1 = F.onSnapshot(F.doc(db, 'rooms', id), s => { if (s.exists()) h.onRoom({ id, ...s.data() }); }, e => console.error(e));
       const mq = F.query(F.collection(db, 'rooms', id, 'messages'), F.orderBy('createdAt', 'desc'), F.limit(200));
-      const u2 = F.onSnapshot(mq, s => h.onMessages(s.docs.map(d => ({ id: d.id, ...d.data() })).reverse()), e => console.error(e));
+      const u2 = F.onSnapshot(mq, { includeMetadataChanges: true },
+        s => h.onMessages(s.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: 'estimate' }), pending: d.metadata.hasPendingWrites })).reverse()),
+        e => console.error(e));
       return () => { u1(); u2(); };
     },
     send: (id, uid, text) => F.addDoc(F.collection(db, 'rooms', id, 'messages'), { from: uid, text, createdAt: F.serverTimestamp() }),
+    typing: (id, uid) => F.updateDoc(F.doc(db, 'rooms', id), { ['typing.' + uid]: Date.now() }).catch(() => {}),
+    async markRead(id, ids) {
+      const b = F.writeBatch(db);
+      ids.forEach(mid => b.update(F.doc(db, 'rooms', id, 'messages', mid), { readAt: F.serverTimestamp() }));
+      await b.commit();
+    },
     async endRoom(id, uid) {
       await F.updateDoc(F.doc(db, 'rooms', id), { status: 'ended', endedBy: uid });
       try {   // mesajları sil — sohbet geçicidir
@@ -695,7 +997,8 @@ async function firebaseBackend() {
    UYGULAMA
    ========================================================= */
 let B = null;
-const S = { user: null, roomId: null, room: null, msgs: [], unsub: null, mode: 'login', gender: '', tone: 0, waitT: null, leaving: false };
+const S = { user: null, roomId: null, room: null, msgs: [], unsub: null, mode: 'login', gender: '', tone: 0, waitT: null, leaving: false,
+  incoming: [], sent: [], ready: null, handled: new Set(), inviteWait: null, group: false, gid: null, g: null, cTab: 'feed' };
 
 const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TONES[(p && p.tone) || 0]}">${((p && p.nickname) || '?').trim().charAt(0).toUpperCase()}</span>`;
 
@@ -720,9 +1023,10 @@ async function refreshStats() {
 }
 function startLoops() {
   if (!presenceOn) { presenceOn = true; B.startPresence(S.user.uid); loopT = setInterval(refreshStats, 45000); }
+  startInviteWatch();
   refreshStats();
 }
-function stopLoops() { presenceOn = false; clearInterval(loopT); loopT = null; }
+function stopLoops() { presenceOn = false; clearInterval(loopT); loopT = null; stopInviteWatch(); }
 
 /* ---------- Giriş / kayıt ---------- */
 function setMode(m) {
@@ -784,6 +1088,7 @@ function goHome() {
   $('#btnProfile').innerHTML = avatar(p);
   $('#homeStatus').textContent = `Hoş geldin ${p.nickname}. Hazır olunca eşleş.`;
   show('sHome');
+  renderCards();
   startLoops();
   maybeInstall();
 }
@@ -799,7 +1104,7 @@ function showWait() {
 }
 function hideWait() { clearTimeout(S.waitT); $('#wait').classList.remove('on'); }
 
-$('#btnMatch').onclick = async () => {
+async function startSearch() {
   const p = S.user.profile; if (!p) return openProfile(true);
   const want = $('#wantSel').value; localStorage.setItem('perde_want', want);
   showWait();
@@ -807,8 +1112,9 @@ $('#btnMatch').onclick = async () => {
     await B.startMatch({ uid: S.user.uid, profile: p, want }, { onMatched: rid => matched(rid) });
     S.waitT = setTimeout(async () => { await B.cancelMatch(); hideWait(); toast('Şu an uygun kimse yok. Biraz sonra tekrar dene.'); }, WAIT_LIMIT);
   } catch (e) { console.error(e); hideWait(); toast('Eşleşme başlatılamadı. Bağlantını kontrol et.'); }
-};
-$('#btnCancel').onclick = async () => { await B.cancelMatch(); hideWait(); $('#homeStatus').textContent = 'Arama bırakıldı.'; };
+}
+$('#btnMatch').onclick = startSearch;
+$('#btnCancel').onclick = async () => { await B.cancelMatch(); if (S.inviteWait) { B.cancelInvite(S.inviteWait); S.inviteWait = null; } hideWait(); $('#homeStatus').textContent = 'Arama bırakıldı.'; };
 
 function matched(rid) {
   clearTimeout(S.waitT);
@@ -821,7 +1127,9 @@ function matched(rid) {
 
 /* ---------- Sohbet ---------- */
 function enterRoom(rid) {
-  S.roomId = rid; S.msgs = []; S.room = null; S.leaving = false;
+  S.roomId = rid; S.msgs = []; S.room = null; S.leaving = false; S.group = false; S.gid = null; S.g = null;
+  $('#chatTitle').textContent = 'Gizli biri'; $('#btnNext').hidden = false;
+  S.typing = false; S.lastTyping = undefined; S.lastTheirs = undefined; S.marked = new Set(); clearTimeout(S.typT);
   $('#chatSub').textContent = '';
   renderMsgs();
   show('sChat');
@@ -831,21 +1139,78 @@ function enterRoom(rid) {
       const partner = r.members.find(x => x !== S.user.uid);
       const c = r.info && r.info[partner] && r.info[partner].country;
       if (c) $('#chatSub').textContent = `${flag(c)} ${cname(c)}`;
-      if (r.status === 'ended' && r.endedBy !== S.user.uid && !S.leaving) { leaveRoom(); toast('Karşı taraf sohbeti bitirdi.'); }
+      if (r.status === 'ended' && r.endedBy !== S.user.uid && !S.leaving) { rememberPartner(); leaveRoom(); toast('Karşı taraf ayrıldı. Yeni biri için Eşleş’e bas.'); return; }
+      onTyping(r, partner);
     },
-    onMessages: m => { S.msgs = m; renderMsgs(); }
+    onMessages: m => {
+      S.msgs = m;
+      const theirs = m.filter(x => x.from !== S.user.uid), last = theirs[theirs.length - 1];
+      if (last && last.id !== S.lastTheirs) {          // yeni mesaj geldi → "yazıyor" biter
+        if (S.lastTheirs !== undefined) { clearTimeout(S.typT); S.typing = false; }
+        S.lastTheirs = last.id;
+      }
+      renderMsgs(); markRead();
+    }
   });
 }
+/* "Yazıyor…" — saat farkından etkilenmez: değer değişince 3,5 sn göster */
+function onTyping(r, partner) {
+  const tp = (r.typing && r.typing[partner]) || 0;
+  if (S.lastTyping === undefined) { S.lastTyping = tp; return; }   // ilk anlık görüntüde gösterme
+  if (tp && tp !== S.lastTyping) {
+    S.lastTyping = tp;
+    clearTimeout(S.typT); S.typT = setTimeout(() => setTyping(false), 3500);
+    setTyping(true);
+  }
+}
+function setTyping(v) { if (S.typing !== v) { S.typing = v; renderMsgs(); } }
+let lastTypeSent = 0;
+$('#msgIn').addEventListener('input', () => {
+  if (!S.roomId || !$('#msgIn').value || (S.room && S.room.status === 'ended')) return;
+  const n = Date.now(); if (n - lastTypeSent > 2000) { lastTypeSent = n; B.typing(S.roomId, S.user.uid); }
+});
+
+/* Okundu bilgisi */
+function markRead() {
+  if (!S.roomId || document.visibilityState !== 'visible' || !$('#sChat').classList.contains('on')) return;
+  const ids = S.msgs.filter(m => m.from !== S.user.uid && !m.readAt && !S.marked.has(m.id)).map(m => m.id);
+  if (!ids.length) return;
+  ids.forEach(i => S.marked.add(i));
+  Promise.resolve(B.markRead(S.roomId, ids)).catch(() => ids.forEach(i => S.marked.delete(i)));
+}
+document.addEventListener('visibilitychange', markRead);
+const TICK1 = '<svg viewBox="0 0 18 12"><path d="M2 6.5l3.5 3.5L12 2.5"/></svg>';
+const TICK2 = '<svg viewBox="0 0 18 12"><path d="M1 6.5l3.5 3.5L11 2.5M7.5 9.5l1 1L16 2.5"/></svg>';
+
 function renderMsgs() {
   const box = $('#msgs');
   const near = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
-  box.innerHTML = '<p class="note">İkiniz de kimliğinizi gizli tutuyorsunuz.<br>İyi sohbetler.</p>';
+  box.innerHTML = S.group
+    ? `<p class="note">Anonim grup sohbeti. Herkes bir Maske numarasıyla yazar.${S.g && S.g.members.length < 2 ? '<br>Diğerleri katılınca burada görünecek.' : ''}</p>`
+    : '<p class="note">İkiniz de kimliğinizi gizli tutuyorsunuz.<br>İyi sohbetler.</p>';
   S.msgs.forEach(m => {
     const el = document.createElement('div');
     el.className = 'm ' + (m.from === S.user.uid ? 'me' : 'them');
-    el.textContent = m.text; box.appendChild(el);
+    if (S.group && m.from !== S.user.uid) {
+      const w = document.createElement('span'), c = S.g && S.g.info && S.g.info[m.from] && S.g.info[m.from].country;
+      w.className = 'who'; w.style.setProperty('--w', TONES[((m.n || 1) - 1) % TONES.length]);
+      w.textContent = `${c ? flag(c) + ' ' : ''}Maske ${m.n || '?'}`; el.appendChild(w);
+    }
+    const t = document.createElement('span'); t.textContent = m.text; el.appendChild(t);
+    if (m.from === S.user.uid && !S.group) {
+      const st = m.readAt ? 'read' : m.pending ? 'pending' : 'sent';
+      const k = document.createElement('span');
+      k.className = 'tick ' + st; k.setAttribute('role', 'img');
+      k.setAttribute('aria-label', st === 'read' ? 'Okundu' : st === 'sent' ? 'İletildi' : 'Gönderiliyor');
+      k.innerHTML = st === 'read' ? TICK2 : TICK1; el.appendChild(k);
+    }
+    box.appendChild(el);
   });
-  if (near || S.msgs.length < 2) box.scrollTop = box.scrollHeight;
+  if (S.typing) {
+    const tb = document.createElement('div'); tb.className = 'm them typingB'; tb.setAttribute('aria-label', 'Yazıyor');
+    tb.innerHTML = '<i></i><i></i><i></i>'; box.appendChild(tb);
+  }
+  if (near || S.msgs.length < 2 || S.typing) box.scrollTop = box.scrollHeight;
 }
 function leaveRoom() {
   if (S.unsub) S.unsub(); S.unsub = null;
@@ -855,22 +1220,37 @@ function leaveRoom() {
 $('#msgForm').addEventListener('submit', async e => {
   e.preventDefault();
   const input = $('#msgIn'), text = input.value.trim();
-  if (!text || !S.roomId) return;
+  if (!text || !(S.roomId || S.gid)) return;
   if (LEAK.test(text)) return toast('Kimliğini korumak için telefon, e-posta, bağlantı ve sosyal medya bilgisi paylaşılamaz.');
   if (S.room && S.room.status === 'ended') return;
   input.value = ''; input.focus();
-  try { await B.send(S.roomId, S.user.uid, text); }
+  try { await (S.group ? B.sendGroup(S.gid, S.user.uid, (S.g && S.g.nums && S.g.nums[S.user.uid]) || 1, text) : B.send(S.roomId, S.user.uid, text)); }
   catch (ex) { console.error(ex); input.value = text; toast('Mesaj gönderilemedi.'); }
 });
 async function endChat() {
   const rid = S.roomId; S.leaving = true;
   try { if (!S.room || S.room.status !== 'ended') await B.endRoom(rid, S.user.uid); } catch (e) { console.error(e); }
-  leaveRoom(); S.leaving = false;
+  rememberPartner(); leaveRoom(); S.leaving = false;
 }
+let nexting = false;
+async function nextChat() {
+  if (nexting || !S.roomId) return; nexting = true;
+  const rid = S.roomId; S.leaving = true;
+  try { if (!S.room || S.room.status !== 'ended') await B.endRoom(rid, S.user.uid); } catch (e) { console.error(e); }
+  rememberPartner(); leaveRoom(); S.leaving = false; nexting = false;
+  startSearch();                                   // tek dokunuşla yeni arama
+}
+$('#btnNext').onclick = nextChat;
 $('#btnLeave').onclick = async () => {
+  if (S.group) { if (await ask('Gruptan ayrıl?', 'Ayrılınca grup mesajlarına erişimin kapanır.', 'Ayrıl')) leaveGroupUI(); return; }
   if (await ask('Sohbeti bitir?', 'Mesajlar silinir ve geri alınamaz.', 'Bitir')) endChat();
 };
 $('#btnReport').onclick = async () => {
+  if (S.group) {
+    if (!await ask('Grubu şikâyet et?', 'Son mesajlar incelenmek üzere iletilir ve gruptan ayrılırsın.', 'Şikâyet et')) return;
+    try { await B.reportGroup(S.user, S.gid, S.msgs); } catch (e) { console.error(e); }
+    leaveGroupUI('Şikâyetin alındı.'); return;
+  }
   if (!await ask('Bu kişiyi şikâyet et?', 'Son mesajlar incelenmek üzere iletilir, sohbet biter ve bu kişiyle bir daha eşleşmezsin.', 'Şikâyet et')) return;
   const partner = S.room && S.room.members.find(x => x !== S.user.uid);
   try {
@@ -880,6 +1260,209 @@ $('#btnReport').onclick = async () => {
   } catch (e) { console.error(e); toast('Şikâyet gönderilemedi.'); }
   endChat();
 };
+
+/* ---------- Davetler ve son sohbetler ---------- */
+let unsubInv = null;
+function startInviteWatch() {
+  if (unsubInv) return;
+  unsubInv = B.watchInvites(S.user.uid, {
+    onIncoming: l => {
+      const blocked = (S.user.profile && S.user.profile.blocked) || [];
+      S.incoming = l.filter(i => i.status === 'pending' && Date.now() - i.createdAt < DAY && !blocked.includes(i.from))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      renderCards();
+    },
+    onSent: handleSent
+  });
+}
+function stopInviteWatch() { if (unsubInv) unsubInv(); unsubInv = null; S.incoming = []; S.sent = []; S.ready = null; }
+const idleForJoin = () => !S.roomId && !S.gid && ['#sHome', '#sConf', '#wait'].some(id => $(id).classList.contains('on'));
+function handleSent(list) {
+  S.sent = list;
+  for (const inv of list) {
+    if (S.handled.has(inv.id)) continue;
+    if (inv.status === 'accepted' && inv.roomId) {
+      S.handled.add(inv.id); B.cancelInvite(inv.id);
+      if (idleForJoin()) { clearTimeout(S.waitT); S.inviteWait = null; stopConf(); showWait(); matched(inv.roomId); }
+      else { S.ready = inv.roomId; renderCards(); toast('Bir davetin kabul edildi.'); }
+    } else if (inv.status === 'declined') {
+      S.handled.add(inv.id); B.cancelInvite(inv.id);
+      if (S.inviteWait === inv.id) { hideWait(); S.inviteWait = null; }
+      toast('Davetin kabul edilmedi.');
+    }
+  }
+}
+function renderCards() {
+  const box = $('#homeCards'); if (!box || !S.user) return;
+  const out = [];
+  if (S.ready) out.push(`<div class="card hot"><h3>Sohbet hazır</h3><p>Davetin kabul edildi.</p><div class="two"><button class="btn primary sm" data-act="enter" type="button">Sohbete gir</button></div></div>`);
+  S.incoming.slice(0, 2).forEach(inv => {
+    const who = inv.fromCountry ? `${flag(inv.fromCountry)} ${esc(cname(inv.fromCountry))}` : 'Gizli biri';
+    const what = inv.type === 'rematch' ? 'Daha önce sohbet ettiğin biri seninle tekrar eşleşmek istiyor.' : 'Perde arkası’ndaki yazına kalp bırakan biri seninle sohbet etmek istiyor.';
+    out.push(`<div class="card hot"><h3>${who}</h3><p>${what}${inv.note ? `<br><b>${esc(inv.note)}</b>` : ''}</p><div class="two"><button class="btn quiet sm" data-act="decline" data-id="${esc(inv.id)}" type="button">Şimdi değil</button><button class="btn primary sm" data-act="accept" data-id="${esc(inv.id)}" type="button">Kabul et</button></div></div>`);
+  });
+  const p = S.user.profile, now = Date.now();
+  const past = ((p && p.pastPartners) || []).filter(x => now - x.ts < DAY);
+  if (past.length) {
+    const used = p.lastRematch && now - p.lastRematch < DAY;
+    out.push(`<div class="card"><h3>Son sohbetlerin</h3>${past.map(x => `<div class="pp"><span>${x.country ? flag(x.country) + ' ' + esc(cname(x.country)) : 'Gizli biri'}<small>${relTime(x.ts)}</small></span><button class="btn quiet sm" data-act="rematch" data-uid="${esc(x.uid)}" type="button"${used ? ' disabled' : ''}>Tekrar eşleş</button></div>`).join('')}${used ? '<p style="margin-top:8px">Tekrar eşleşme hakkını 24 saatte bir kullanabilirsin.</p>' : ''}</div>`);
+  }
+  box.innerHTML = out.join('');
+}
+$('#homeCards').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const act = b.dataset.act, id = b.dataset.id, inv = S.incoming.find(i => i.id === id);
+  if (act === 'accept' && inv) {
+    b.disabled = true;
+    try { const rid = await B.acceptInvite(inv, S.user); S.incoming = S.incoming.filter(i => i.id !== id); enterRoom(rid); }
+    catch (err) { console.error(err); toast('Bu davet artık geçerli değil.'); S.incoming = S.incoming.filter(i => i.id !== id); renderCards(); }
+  } else if (act === 'decline' && inv) {
+    S.incoming = S.incoming.filter(i => i.id !== id); renderCards(); B.declineInvite(inv).catch(() => {});
+  } else if (act === 'enter') { const rid = S.ready; S.ready = null; enterRoom(rid); }
+  else if (act === 'rematch') rematch(b.dataset.uid);
+});
+function rememberPartner() {
+  const r = S.room; if (!r || S.msgs.length < 2) return;
+  const pu = r.members.find(x => x !== S.user.uid), p = S.user.profile;
+  if (!pu || (p.blocked || []).includes(pu)) return;
+  const c = (r.info && r.info[pu] && r.info[pu].country) || '';
+  p.pastPartners = [{ uid: pu, country: c, ts: Date.now() }, ...(p.pastPartners || []).filter(x => x.uid !== pu && Date.now() - x.ts < DAY)].slice(0, 5);
+  Promise.resolve(B.saveProfile(S.user.uid, p)).catch(() => {});
+}
+async function rematch(uid) {
+  const p = S.user.profile, now = Date.now();
+  if (p.lastRematch && now - p.lastRematch < DAY) return toast('Tekrar eşleşme hakkını 24 saatte bir kullanabilirsin.');
+  try {
+    const id = await B.sendInvite(S.user, { to: uid, type: 'rematch' });
+    p.lastRematch = now; p.pastPartners = (p.pastPartners || []).filter(x => x.uid !== uid);
+    Promise.resolve(B.saveProfile(S.user.uid, p)).catch(() => {});
+    S.inviteWait = id; showWait();
+    $('#waitTitle').textContent = 'Davet gönderildi';
+    $('#waitSub').textContent = 'Karşı tarafın onayı bekleniyor…';
+    S.waitT = setTimeout(() => { hideWait(); S.inviteWait = null; renderCards(); toast('Davet gönderildi. Kabul edilirse sana haber vereceğiz.'); }, WAIT_LIMIT);
+  } catch (e) { console.error(e); toast('Davet gönderilemedi.'); }
+}
+
+/* ---------- Perde arkası ---------- */
+const EMOJIS = ['🌙', '🔥', '💭', '🥀', '🎧', '🍷', '✨', '🌧️'];
+const HEART = 'M12 21s-8-4.7-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 6.3-8 11-8 11z';
+let unsubFeed = null, unsubMine = null, feedL = [], mineL = [], cEmoji = EMOJIS[0];
+const hearted = () => { try { return new Set(JSON.parse(localStorage.getItem('perde_hearts') || '[]')); } catch (e) { return new Set(); } };
+function setCTab(t) {
+  S.cTab = t;
+  $$('#cTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === t));
+  $('#cFeed').hidden = t !== 'feed'; $('#cWrite').hidden = t !== 'write'; $('#cMine').hidden = t !== 'mine';
+}
+function stopConf() { if (unsubFeed) unsubFeed(); if (unsubMine) unsubMine(); unsubFeed = unsubMine = null; }
+function openConf() {
+  fillCountries($('#cCountry'), { any: true, value: 'ANY' });
+  $('#cCountry').options[0].textContent = '🌍  Tüm ülkeler';
+  setCTab('feed'); show('sConf'); stopConf();
+  unsubFeed = B.watchConfessions(S.user, l => { feedL = l; renderConf(); });
+  unsubMine = B.watchMine(S.user, l => { mineL = l; renderConf(); });
+}
+function confCard(c, own) {
+  const n = c.hearts || 0, done = !own && hearted().has(c.id), svg = `<svg viewBox="0 0 24 24"><path d="${HEART}"/></svg>`;
+  return `<article class="cf"><div class="cfh"><span class="em">${esc(c.emoji)}</span><span>${flag(c.country)} ${esc(cname(c.country))}</span><time>${relTime(c.createdAt)}</time></div>
+    <p class="cft">${esc(c.text)}</p>
+    <div class="cff">${own
+      ? `<span class="heart on" aria-label="${n} kalp">${svg}${n}</span><button class="ghost sp" data-del="${esc(c.id)}" type="button">Sil</button>`
+      : `<button class="heart${done ? ' on' : ''}" data-heart="${esc(c.id)}" type="button"${done ? ' disabled' : ''} aria-label="Kalp bırak">${svg}${n}</button><button class="ghost sp" data-rep="${esc(c.id)}" type="button">Şikâyet</button>`}</div></article>`;
+}
+function renderConf() {
+  const cc = $('#cCountry').value, now = Date.now();
+  const f = feedL.filter(c => now - c.createdAt < 2 * DAY && (cc === 'ANY' || c.country === cc));
+  $('#cList').innerHTML = f.length ? f.map(c => confCard(c, false)).join('') : '<p class="empty">Henüz bir yazı yok. İlk itirafı sen bırak.</p>';
+  $('#cMineList').innerHTML = mineL.length ? [...mineL].sort((a, b) => b.createdAt - a.createdAt).map(c => confCard(c, true)).join('') : '<p class="empty">Henüz bir şey yazmadın.</p>';
+}
+$('#cCountry').addEventListener('change', renderConf);
+$('#cTabs').onclick = e => { const b = e.target.closest('button'); if (b) setCTab(b.dataset.t); };
+$('#cEmojis').innerHTML = EMOJIS.map((m, i) => `<button type="button" data-i="${i}" aria-pressed="${i === 0}" aria-label="Emoji ${m}">${m}</button>`).join('');
+$('#cEmojis').onclick = e => { const b = e.target.closest('button'); if (!b) return; cEmoji = EMOJIS[+b.dataset.i]; $$('#cEmojis button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
+$('#cText').addEventListener('input', () => { $('#cCount').textContent = $('#cText').value.length; });
+$('#cPost').onclick = async () => {
+  const text = $('#cText').value.trim();
+  if (text.length < 3) return toast('Biraz daha yaz.');
+  if (LEAK.test(text)) return toast('Telefon, e-posta, bağlantı ve sosyal medya bilgisi yazılamaz.');
+  if (Date.now() - (+localStorage.getItem('perde_lastpost') || 0) < 600000) return toast('Yeni bir yazı için biraz bekle (10 dakikada bir).');
+  const b = $('#cPost'); b.disabled = true;
+  try {
+    await B.postConfession(S.user, { emoji: cEmoji, text });
+    localStorage.setItem('perde_lastpost', Date.now());
+    $('#cText').value = ''; $('#cCount').textContent = '0'; toast('Perde arkasına bırakıldı.'); setCTab('mine');
+  } catch (e) { console.error(e); toast('Paylaşılamadı. Bağlantını kontrol et.'); }
+  finally { b.disabled = false; }
+};
+async function onConfClick(e) {
+  const h = e.target.closest('[data-heart]'), r = e.target.closest('[data-rep]'), d = e.target.closest('[data-del]');
+  if (h) {
+    const c = feedL.find(x => x.id === h.dataset.heart); if (!c) return;
+    const mark = () => { const set = hearted(); set.add(c.id); localStorage.setItem('perde_hearts', JSON.stringify([...set].slice(-200))); };
+    try { await B.heart(S.user, c); mark(); toast('Kalp gönderildi. Kabul ederse sohbet başlar.'); renderConf(); }
+    catch (err) { console.error(err); if (err.code === 'permission-denied') { mark(); renderConf(); toast('Bu yazıya zaten kalp bıraktın.'); } else toast('Gönderilemedi.'); }
+  } else if (r) {
+    const c = feedL.find(x => x.id === r.dataset.rep); if (!c) return;
+    if (!await ask('Bu yazıyı şikâyet et?', 'Yazı incelenmek üzere iletilir.', 'Şikâyet et')) return;
+    try { await B.reportConfession(S.user, c); toast('Şikâyetin alındı.'); } catch (err) { console.error(err); toast('Gönderilemedi.'); }
+  } else if (d) {
+    if (!await ask('Yazı silinsin mi?', 'Perde arkasından kalıcı olarak kaldırılır.', 'Sil')) return;
+    try { await B.deleteConfession(S.user, d.dataset.del); } catch (err) { console.error(err); toast('Silinemedi.'); }
+  }
+}
+$('#cList').addEventListener('click', onConfClick);
+$('#cMineList').addEventListener('click', onConfClick);
+$('#btnConf').onclick = openConf;
+$('#cBack').onclick = () => { stopConf(); goHome(); };
+
+/* ---------- Grup sohbeti ---------- */
+let gBeatT = null;
+async function startGroup() {
+  const want = $('#wantSel').value; localStorage.setItem('perde_want', want);
+  const b = $('#btnGroup'); b.disabled = true;
+  try { enterGroup(await B.joinGroup(S.user, want)); }
+  catch (e) { console.error(e); toast('Gruba katılınamadı. Bağlantını kontrol et.'); }
+  finally { b.disabled = false; }
+}
+$('#btnGroup').onclick = startGroup;
+function enterGroup(gid) {
+  S.gid = gid; S.group = true; S.g = null; S.roomId = null; S.room = null; S.msgs = [];
+  $('#chatTitle').textContent = 'Grup sohbeti'; $('#chatSub').textContent = ''; $('#btnNext').hidden = true;
+  renderMsgs(); show('sChat');
+  S.unsub = B.watchGroup(gid, {
+    onGroup: g => {
+      if (!g) return leaveGroupUI('Grup kapandı.');
+      const prev = S.g; S.g = g;
+      if (!g.members.includes(S.user.uid)) return leaveGroupUI('Gruptan çıkarıldın. Etkin olmadığın için bağlantın kopmuş olabilir.');
+      const sc = g.scope && g.scope !== 'ANY' ? ` ${flag(g.scope)}` : '';
+      $('#chatSub').textContent = `${g.members.length} kişi${sc}`;
+      if (prev) {
+        const joined = g.members.filter(x => !prev.members.includes(x)), left = prev.members.filter(x => !g.members.includes(x));
+        if (joined.length) toast(`Maske ${(g.nums && g.nums[joined[0]]) || '?'} katıldı.`);
+        else if (left.length) toast('Biri gruptan ayrıldı.');
+      }
+      renderMsgs();
+    },
+    onMessages: m => { S.msgs = m; renderMsgs(); }
+  });
+  clearInterval(gBeatT); gBeatT = setInterval(groupTick, 60000); groupTick();
+}
+function groupTick() {
+  if (!S.group || !S.gid || document.visibilityState !== 'visible') return;
+  B.groupBeat(S.gid, S.user.uid);
+  const g = S.g; if (!g) return;
+  const now = Date.now(), ghosts = g.members.filter(u => u !== S.user.uid && now - ((g.seen && g.seen[u]) || 0) > GROUP_ALIVE + 60000);
+  if (ghosts.length) B.pruneGroup(S.gid, ghosts);
+}
+async function leaveGroupUI(msg) {
+  if (!S.group) return;
+  const gid = S.gid; clearInterval(gBeatT); gBeatT = null;
+  if (S.unsub) S.unsub(); S.unsub = null;
+  S.group = false; S.gid = null; S.g = null; S.msgs = [];
+  $('#chatTitle').textContent = 'Gizli biri'; $('#btnNext').hidden = false;
+  goHome(); if (msg) toast(msg);
+  try { await B.leaveGroup(gid, S.user.uid); } catch (e) { console.warn(e); }
+}
+document.addEventListener('visibilitychange', groupTick);
 
 /* ---------- Profil ---------- */
 function paintProfile() {
