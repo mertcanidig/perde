@@ -313,6 +313,108 @@
   .storyModal .btn{margin-top:12px}
   @media(min-width:700px){.discoverWrap{max-height:calc(100dvh - 74px)}}
 
+
+
+  /* ---------- Perde sosyal medya arayüzü / kompakt tipografi ---------- */
+  :root{
+    --bg:#160B11;
+    --surface:#21131B;
+    --surface2:#2D1924;
+    --line:#3D2934;
+    --ivory:#F5EDF0;
+    --muted:#B6A2AA;
+    --ruj:#D94368;
+    --ruj-d:#B92D52;
+    --champ:#E7C89E;
+  }
+  body{font-size:14px;line-height:1.45;background-image:radial-gradient(75% 32% at 50% -8%,#3A1B2B 0%,transparent 72%)}
+  h1,h2,h3{font-family:var(--sans);font-weight:750;letter-spacing:-.035em}
+  .wrap{max-width:520px;padding-left:16px;padding-right:16px}
+  .bar{max-width:520px;padding:10px 16px}
+  .brand{font:750 19px var(--sans);letter-spacing:-.04em;gap:8px}
+  .brand .venn{width:31px}
+  .av{width:36px;height:36px;font:700 15px var(--sans)}
+  .av.big{width:78px;height:78px;font-size:32px}
+  .btn{font-size:13px;padding:12px 16px;font-weight:750}
+  .btn.sm{font-size:12px;padding:8px 12px}
+  input,select{font-size:14px;padding:11px 13px;border-radius:11px}
+  textarea{font-size:14px;padding:12px;min-height:100px}
+  label{font-size:12px}
+  .hero{font-size:30px}
+  .headline{font-size:25px;line-height:1.18;margin:3px 0 4px}
+  .status{font-size:12px;min-height:18px}
+  .lede{font-size:13px;margin-bottom:16px}
+  .card{border-radius:15px;padding:12px 13px}
+  .card h3{font-size:15px}
+  .card p,.pp{font-size:12px}
+  .panel{border-radius:16px;padding:13px}
+  .panel .who{font-size:12px}
+  .quick{gap:8px;margin-top:9px}
+  .quick .btn{font-size:12px;padding:10px 8px}
+  .homeMain{gap:13px;padding-bottom:92px}
+  .homeMain>.stage .vennBtn{width:min(48vw,178px)}
+  .lensLabel{font-size:19px}
+  .stats{font-size:11px;margin-top:5px}
+  .bottomNav{padding:7px 10px calc(7px + env(safe-area-inset-bottom));background:rgba(22,11,17,.97);border-top:1px solid rgba(231,200,158,.13)}
+  .bottomNav button{font-size:10px;padding:6px 2px;gap:2px}
+  .bottomNav button span{font-size:19px}
+  .discoverWrap{max-width:520px;padding:5px 14px 100px;max-height:calc(100dvh - 62px)}
+  .discoverHead{position:sticky;top:0;z-index:8;margin:0 -14px 8px;padding:10px 14px;background:rgba(22,11,17,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(231,200,158,.10)}
+  .discoverHead h2{font-size:21px;margin-top:1px}
+  .eyebrow{font-size:9px;letter-spacing:.11em}
+  .pill{font-size:10px;padding:4px 8px}
+  .sectionTitle{margin:12px 1px 8px}
+  .sectionTitle h3{font-size:15px}
+  .miniLabel{font-size:10px}
+  .storyRail{gap:10px;padding:3px 0 10px}
+  .storyBubble{flex-basis:62px;font-size:10px}
+  .storyRing{width:54px;height:54px;padding:2px}
+  .storyRing i{font-size:19px}
+  .dailyCard{border-radius:16px;padding:13px;margin:4px 0 12px}
+  .dailyCard h3{font-size:16px;margin:4px 0 5px}
+  .dailyCard p{font-size:11px}
+  .dailyCard textarea,.composeCard textarea{font-size:13px;min-height:66px;padding:10px;margin-top:9px;border-radius:11px}
+  .dailyAnswer{margin-top:8px}
+  .composeCard,.postCard,.storyCard,.chatRow,.premiumCard{border-radius:15px;padding:12px;margin-bottom:9px}
+  .composeCard textarea{min-height:58px;margin-top:0}
+  .postMeta{font-size:10px;gap:8px;margin-bottom:8px}
+  .postAvatar{width:31px;height:31px;font-size:14px}
+  .postText{font:500 14px/1.55 var(--sans);letter-spacing:0;white-space:pre-wrap}
+  .postActions{gap:7px;margin-top:10px}
+  .postActions button{font-size:11px;padding:6px 10px;border-radius:30px}
+  .chatRow .postAvatar{width:38px;height:38px}
+  .chatRow strong{font-size:13px}
+  .chatRow small{font-size:11px}
+  .emptyState{font-size:12px;padding:20px 10px}
+  .premiumHero{padding:18px 14px;border-radius:17px;margin:9px 0 12px}
+  .premiumHero .crown{font-size:27px}
+  .premiumHero h2{font-size:21px}
+  .premiumHero p{font-size:11px}
+  .premiumFeature{font-size:12px;padding:9px 0}
+  .subtleNote{font-size:10px}
+  .storyModal .storyText{font:500 19px/1.45 var(--sans);margin:20px 0}
+  .ctitle b{font:700 15px var(--sans)}
+  .ctitle span{font-size:11px}
+  .msgs{padding:12px 13px 7px;gap:7px}
+  .m{font-size:13px;padding:9px 12px;border-radius:15px}
+  .note{font:italic 12px/1.45 var(--sans)}
+  .next{height:38px;font-size:12px;padding:0 12px}
+  .composer{gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+  .composer input{padding:11px 14px;font-size:13px}
+  .send{width:42px;height:42px}
+  .cf{border-radius:15px;padding:13px;margin-bottom:9px}
+  .cfh{font-size:11px}
+  .cft{font:500 15px/1.5 var(--sans)}
+  .heart{font-size:12px;padding:6px 11px}
+  .empty{font:italic 13px/1.5 var(--sans);padding:26px 16px}
+  .dlgBox{border-radius:17px;padding:18px}
+  .dlgBox h3{font-size:17px}
+  .dlgBox p{font-size:13px}
+  @media(min-width:700px){
+    .discoverWrap{max-height:calc(100dvh - 62px)}
+    .discoverHead{border-radius:0}
+  }
+
 </style>
 </head>
 <body>
@@ -1756,7 +1858,7 @@ async function loadRecentChats(){
     box.innerHTML=rows.length?rows.map(x=>`<div class="chatRow"><span class="postAvatar">✦</span><div class="chatInfo"><strong>Gizli sohbet</strong><small>${x.status==='open'?'Sohbet açık':'Sohbet sona erdi'}</small></div><span class="pill">${x.status==='open'?'Devam et':'Geçmiş'}</span></div>`).join(''):'<div class="emptyState">Henüz sohbet geçmişin yok.<br>Bir eşleşme başlatarak tanışabilirsin.</div>';
   }catch(e){console.error(e);box.innerHTML='<div class="emptyState">Sohbetler yüklenemedi. Firestore izinlerini kontrol et.</div>';}
   const inv=$('#pendingInvites');
-  inv.innerHTML=(incomingInvites||[]).filter(x=>x.status==='pending').map(x=>`<div class="chatRow"><span class="postAvatar">♡</span><div class="chatInfo"><strong>Anonim davet</strong><small>${esc(x.note||'Seninle sohbet etmek istiyor.')}</small></div><span class="pill">Bekliyor</span></div>`).join('')||'<p class="miniLabel">Bekleyen davet yok.</p>';
+  inv.innerHTML=(S.incoming||[]).filter(x=>x.status==='pending').map(x=>`<div class="chatRow"><span class="postAvatar">♡</span><div class="chatInfo"><strong>Anonim davet</strong><small>${esc(x.note||'Seninle sohbet etmek istiyor.')}</small></div><span class="pill">Bekliyor</span></div>`).join('')||'<p class="miniLabel">Bekleyen davet yok.</p>';
 }
 $('#bottomNav').addEventListener('click',e=>{
   const b=e.target.closest('[data-nav]');if(!b)return;
