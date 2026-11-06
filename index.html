@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1A0A12">
+<meta name="theme-color" content="#160B11">
+<meta name="color-scheme" content="dark">
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -415,6 +416,113 @@
     .discoverHead{border-radius:0}
   }
 
+
+/* ===== PERDE / PREMIUM MOTION LAYER ===== */
+:root{
+  --glow:rgba(217,67,104,.18);
+  --glass:rgba(35,18,28,.82);
+}
+html{scroll-behavior:smooth}
+body{
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 36% at 8% 0%,rgba(137,43,76,.24),transparent 72%),
+    radial-gradient(ellipse 55% 34% at 100% 26%,rgba(105,61,75,.13),transparent 70%);
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.32;
+  background-image:radial-gradient(rgba(245,237,240,.15) .55px,transparent .55px);
+  background-size:19px 19px;mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
+.screen.on{animation:screenIn .48s cubic-bezier(.2,.75,.25,1) both}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.bar{position:relative}
+.brand{transition:transform .25s ease}
+.brand:active{transform:scale(.97)}
+.brand .venn{filter:drop-shadow(0 3px 12px rgba(217,67,104,.18))}
+.homeMain>.stage{position:relative}
+.homeMain>.stage::before{
+  content:"";position:absolute;width:min(60vw,230px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,var(--glow),transparent 68%);filter:blur(8px);
+  animation:haloBreath 4.8s ease-in-out infinite;pointer-events:none
+}
+@keyframes haloBreath{0%,100%{transform:scale(.86);opacity:.55}50%{transform:scale(1.16);opacity:1}}
+.vennBtn{z-index:1;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s}
+.vennBtn:active{transform:scale(.94)}
+@media(hover:hover){.vennBtn:hover{transform:translateY(-4px);filter:drop-shadow(0 12px 24px rgba(217,67,104,.18))}}
+.btn,.ibtn,.heart,.postActions button,.storyBubble,.bottomNav button{transition:transform .2s ease,background .25s ease,border-color .25s ease,color .25s ease,box-shadow .25s ease}
+.btn:active,.ibtn:active,.heart:active,.postActions button:active{transform:scale(.96)}
+.btn.primary{box-shadow:0 7px 22px rgba(217,67,104,.18)}
+.btn.primary:hover{box-shadow:0 10px 28px rgba(217,67,104,.28);transform:translateY(-1px)}
+.card,.panel,.dailyCard,.composeCard,.postCard,.chatRow,.premiumCard,.cf{
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  animation:cardEnter .42s both;
+}
+@keyframes cardEnter{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.postCard:nth-child(2){animation-delay:.045s}.postCard:nth-child(3){animation-delay:.09s}
+.storyBubble{transform-origin:center bottom}
+.storyBubble:active{transform:scale(.93)}
+.storyRing{position:relative;box-shadow:0 0 0 1px rgba(231,200,158,.1);transition:filter .25s,transform .25s}
+.storyBubble:not(.add) .storyRing{animation:ringGlow 3.8s ease-in-out infinite}
+.storyBubble:nth-child(3n) .storyRing{animation-delay:1.1s}
+@keyframes ringGlow{0%,100%{filter:saturate(.92);box-shadow:0 0 0 1px rgba(231,200,158,.08)}50%{filter:saturate(1.2);box-shadow:0 0 0 4px rgba(217,67,104,.08)}}
+.dailyCard{position:relative;overflow:hidden}
+.dailyCard::after{
+  content:"";position:absolute;top:-45%;right:-18%;width:190px;height:190px;border-radius:50%;
+  border:1px solid rgba(231,200,158,.12);box-shadow:0 0 0 18px rgba(231,200,158,.025),0 0 0 38px rgba(231,200,158,.018);
+  pointer-events:none
+}
+.postCard{transition:transform .22s,border-color .22s}
+.postCard:hover{border-color:rgba(231,200,158,.32);transform:translateY(-2px)}
+.postActions button:first-child{color:#F28AA4}
+.postActions button:hover{border-color:var(--champ);color:var(--champ)}
+.bottomNav{
+  background:rgba(22,11,17,.84)!important;
+  backdrop-filter:blur(22px) saturate(145%);
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+  box-shadow:0 -10px 30px rgba(0,0,0,.16)
+}
+.bottomNav button{position:relative;min-height:48px}
+.bottomNav button span{display:grid;place-items:center;width:34px;height:27px;border-radius:12px}
+.bottomNav button span svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bottomNav button.active{background:transparent;color:var(--champ)}
+.bottomNav button.active span{background:linear-gradient(145deg,rgba(217,67,104,.2),rgba(231,200,158,.1));box-shadow:inset 0 0 0 1px rgba(231,200,158,.12);animation:navPop .28s ease both}
+@keyframes navPop{from{transform:translateY(4px) scale(.88)}to{transform:translateY(0) scale(1)}}
+.bottomNav button.active::after{content:"";position:absolute;bottom:1px;width:14px;height:2px;border-radius:2px;background:var(--ruj)}
+.discoverHead{background:rgba(22,11,17,.86)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.premiumHero{position:relative;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.premiumHero::before{content:"";position:absolute;width:190px;height:190px;right:-75px;top:-95px;border-radius:50%;border:1px solid rgba(231,200,158,.24);box-shadow:0 0 0 16px rgba(231,200,158,.035),0 0 0 34px rgba(231,200,158,.025);animation:slowOrbit 18s linear infinite}
+@keyframes slowOrbit{to{transform:rotate(360deg)}}
+.premiumHero>*{position:relative;z-index:1}
+.premiumHero .crown{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:16px;background:rgba(231,200,158,.1);border:1px solid rgba(231,200,158,.22);animation:crownFloat 3.5s ease-in-out infinite}
+@keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.storyModal.on{animation:modalFade .24s ease both}
+.storyModal.on .storyCard{animation:modalRise .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes modalRise{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+input,select,textarea{transition:border-color .2s,box-shadow .2s,background .2s}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12)}
+.chatBar{background:rgba(22,11,17,.78);backdrop-filter:blur(18px)}
+.m{animation:messageIn .22s ease both}
+@keyframes messageIn{from{opacity:0;transform:translateY(5px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+#toast{backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+@media(min-width:760px){
+  body{display:flex;justify-content:center}
+  .screen{width:min(100%,560px);min-height:100dvh;border-left:1px solid rgba(231,200,158,.08);border-right:1px solid rgba(231,200,158,.08);box-shadow:0 0 80px rgba(0,0,0,.22)}
+  #sChat.on{height:100dvh}
+  .bottomNav{left:50%;right:auto;width:min(100%,560px);transform:translateX(-50%)}
+  .storyModal{position:fixed}
+}
+@media(max-width:360px){
+  .wrap{padding-left:13px;padding-right:13px}
+  .discoverWrap{padding-left:12px;padding-right:12px}
+  .headline{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
@@ -552,10 +660,10 @@
     </div>
   </div>
   <nav class="bottomNav" id="bottomNav" aria-label="Ana gezinme">
-    <button class="active" data-nav="home"><span>⌂</span>Ana sayfa</button>
-    <button data-nav="discover"><span>✧</span>Keşfet</button>
-    <button data-nav="chats"><span>♡</span>Sohbetler</button>
-    <button data-nav="profile"><span>◉</span>Profil</button>
+    <button class="active" data-nav="home" aria-label="Ana sayfa"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Ana sayfa</button>
+    <button data-nav="discover" aria-label="Keşfet"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-2.8z"/></svg></span>Keşfet</button>
+    <button data-nav="chats" aria-label="Sohbetler"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg></span>Sohbetler</button>
+    <button data-nav="profile" aria-label="Profil"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Profil</button>
   </nav>
 </section>
 
