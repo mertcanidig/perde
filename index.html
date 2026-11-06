@@ -523,6 +523,42 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
+
+/* ===== PERDE DUEL / MINI GAMES ===== */
+.gameLaunch{border:1px solid rgba(232,196,143,.28);background:linear-gradient(135deg,rgba(215,51,91,.22),rgba(232,196,143,.10));color:var(--champ);border-radius:13px;padding:8px 10px;font-size:11px;font-weight:800;white-space:nowrap;display:flex;align-items:center;gap:5px;box-shadow:0 5px 18px rgba(0,0,0,.14);transition:transform .2s,box-shadow .2s}
+.gameLaunch span{font-size:15px}.gameLaunch:active{transform:scale(.94)}
+.gameOverlay{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.gameOverlay[hidden]{display:none!important}
+.gameBackdrop{position:absolute;inset:0;background:rgba(8,3,7,.72);backdrop-filter:blur(8px);animation:gameFade .2s ease both}
+.gameSheet{position:relative;width:min(100%,560px);max-height:min(88dvh,820px);overflow:auto;padding:12px 19px calc(22px + env(safe-area-inset-bottom));border:1px solid rgba(232,196,143,.2);border-bottom:0;border-radius:27px 27px 0 0;background:linear-gradient(160deg,#351725 0%,#21101a 60%,#190b12 100%);box-shadow:0 -18px 60px rgba(0,0,0,.42);animation:gameRise .32s cubic-bezier(.2,.8,.2,1) both}
+.gameGrab{width:42px;height:4px;border-radius:9px;background:rgba(244,234,223,.24);margin:0 auto 17px}
+.gameSheetHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.gameSheetHead h2{font:500 25px/1.15 var(--serif);margin-top:4px}
+.gameClose{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.04);font-size:22px;color:var(--muted)}
+.gameIntro{color:var(--muted);font-size:12px;margin:-8px 0 16px;line-height:1.55}
+.gameChoices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gameChoice{position:relative;text-align:left;min-height:126px;padding:14px;border:1px solid rgba(232,196,143,.16);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));overflow:hidden;transition:transform .2s,border-color .2s,background .2s}
+.gameChoice:active{transform:scale(.97)}
+.gameChoice .gEmoji{font-size:25px;display:block;margin-bottom:8px;filter:drop-shadow(0 4px 12px rgba(215,51,91,.24))}
+.gameChoice b{display:block;font-size:13px;color:var(--ivory)}.gameChoice small{display:block;color:var(--muted);font-size:10px;line-height:1.4;margin-top:4px}
+.gameChoice::after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-38px;bottom:-48px;border:1px solid rgba(232,196,143,.16);box-shadow:0 0 0 12px rgba(232,196,143,.025)}
+.gameConsent{margin-top:14px;padding:12px;border:1px solid rgba(232,196,143,.15);border-radius:15px;background:rgba(0,0,0,.13);font-size:11px;color:var(--muted);line-height:1.5}
+.gameConsent strong{color:var(--champ)}
+.gameCard{border:1px solid rgba(232,196,143,.18);border-radius:21px;padding:16px;background:radial-gradient(circle at 100% 0,rgba(215,51,91,.18),transparent 45%),rgba(255,255,255,.035);animation:gameCardIn .28s ease both}
+.gameMeta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.gameProgress{height:5px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden;margin:11px 0 17px}.gameProgress span{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--ruj),var(--champ));transition:width .35s ease}
+.gamePrompt{font:500 22px/1.25 var(--serif);margin:12px 0 8px;color:var(--ivory)}
+.gameHint{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:14px}
+.gameField{width:100%;border:1px solid rgba(232,196,143,.22);border-radius:13px;padding:13px 14px;background:rgba(0,0,0,.2);color:var(--ivory);font:600 14px var(--sans);outline:none}
+.gameField:focus{border-color:var(--champ);box-shadow:0 0 0 3px rgba(232,196,143,.1)}
+.gameActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.gameActions .btn{flex:1;min-width:120px}
+.gameScore{display:flex;gap:8px;margin:14px 0}.gameScore>div{flex:1;border:1px solid rgba(232,196,143,.13);border-radius:13px;padding:10px;background:rgba(0,0,0,.12)}.gameScore b{display:block;font:500 22px var(--serif);color:var(--champ)}.gameScore small{font-size:10px;color:var(--muted)}
+.gameWait{text-align:center;padding:24px 8px;color:var(--muted);font-size:12px}.gameWait .orbit{width:54px;height:54px;border:1px solid rgba(232,196,143,.3);border-top-color:var(--ruj);border-radius:50%;margin:0 auto 13px;animation:gameSpin 1.4s linear infinite}.gameResult{text-align:center;padding:14px 4px}.gameTrophy{font-size:44px;animation:gameTrophy 1.8s ease-in-out infinite}.gameResult h3{font:500 28px var(--serif);margin:7px 0}.gamePenalty{margin:14px 0;padding:14px;border:1px solid rgba(232,196,143,.24);border-radius:16px;background:rgba(232,196,143,.07);text-align:left}.gamePenalty small{color:var(--champ);font-size:10px;font-weight:800;letter-spacing:.08em}.gamePenalty p{margin-top:5px;font-size:13px;line-height:1.5}
+.gameTag{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:30px;background:rgba(215,51,91,.14);border:1px solid rgba(215,51,91,.2);font-size:10px;color:#F1B5C3}
+@keyframes gameFade{from{opacity:0}to{opacity:1}}@keyframes gameRise{from{transform:translateY(45px);opacity:.6}to{transform:translateY(0);opacity:1}}@keyframes gameCardIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes gameSpin{to{transform:rotate(360deg)}}@keyframes gameTrophy{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+@media(max-width:390px){.gameSheet{padding-left:14px;padding-right:14px}.gameChoice{min-height:118px;padding:11px}.gameSheetHead h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.gameOverlay *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
@@ -714,6 +750,7 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
     <button class="ibtn" id="btnLeave" aria-label="Sohbetten ayrıl"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="ctitle"><b id="chatTitle">Gizli biri</b><span id="chatSub"></span></div>
     <button class="ibtn" id="btnReport" aria-label="Şikâyet et"><svg viewBox="0 0 24 24"><path d="M6 21V4M6 5h11l-2 4 2 4H6"/></svg></button>
+    <button class="gameLaunch" id="btnGame" type="button" aria-label="Oyunları aç"><span>✦</span> Oyun</button>
     <button class="next" id="btnNext" aria-label="Sonraki kişi"><span>Sonraki</span><svg viewBox="0 0 24 24"><path d="M5 12h13M12 6l6 6-6 6"/></svg></button>
   </div>
   <div class="msgs" id="msgs"></div>
@@ -865,7 +902,7 @@ function demoBackend() {
   const save = d => localStorage.setItem(K, JSON.stringify(d));
   const err = code => Object.assign(new Error(code), { code });
   const REPLIES = ['Selam, nasılsın?', 'Nerelisin tam olarak?', 'Bugün neler yaptın?', 'Haha, güzelmiş 😄', 'Bence de.', 'Müzik dinlemeyi sever misin?', 'Biraz yorgunum ama iyiyim.', 'Anlat biraz kendinden.'];
-  let cb = null, timers = [], room = null, sub = null;
+  let cb = null, timers = [], room = null, sub = null, gameCb = null;
   let incoming = [], sent = [], invT = [], cbIn = null, cbSent = null, shownDemoInvite = false;
   let grp = null, grpSub = null, grpT = [];
   const confWatch = new Set();
@@ -928,6 +965,8 @@ function demoBackend() {
     },
     async typing() {},
     async markRead() {},
+    async watchGame(id, cb) { gameCb = cb; cb(room && room.game ? room.game : null); return () => { if (gameCb === cb) gameCb = null; }; },
+    async setGame(id, game) { if (!room) throw new Error('room-missing'); room.game = { ...game }; if (gameCb) gameCb(room.game); },
 
     /* --- Davetler --- */
     watchInvites(uid, { onIncoming, onSent }) {
@@ -1291,6 +1330,12 @@ async function firebaseBackend() {
       return () => { u1(); u2(); };
     },
     send: (id, uid, text) => F.addDoc(F.collection(db, 'rooms', id, 'messages'), { from: uid, text, createdAt: F.serverTimestamp() }),
+    watchGame(id, cb) {
+      return F.onSnapshot(F.doc(db, 'rooms', id, 'games', 'current'), snap => cb(snap.exists() ? snap.data() : null), e => { console.warn('game listener', e); });
+    },
+    setGame(id, game) {
+      return F.setDoc(F.doc(db, 'rooms', id, 'games', 'current'), { ...game, updatedAt: Date.now() });
+    },
     typing: (id, uid) => F.updateDoc(F.doc(db, 'rooms', id), { ['typing.' + uid]: Date.now() }).catch(() => {}),
     async markRead(id, ids) {
       const b = F.writeBatch(db);
@@ -1348,7 +1393,7 @@ async function firebaseBackend() {
    ========================================================= */
 let B = null;
 const S = { user: null, roomId: null, room: null, msgs: [], unsub: null, mode: 'login', gender: '', tone: 0, waitT: null, leaving: false,
-  incoming: [], sent: [], ready: null, handled: new Set(), inviteWait: null, group: false, gid: null, g: null, cTab: 'feed' };
+  incoming: [], sent: [], ready: null, handled: new Set(), inviteWait: null, group: false, gid: null, g: null, cTab: 'feed', game: null, gameUnsub: null };
 
 const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TONES[(p && p.tone) || 0]}">${((p && p.nickname) || '?').trim().charAt(0).toUpperCase()}</span>`;
 
@@ -1484,6 +1529,9 @@ function enterRoom(rid) {
   $('#chatSub').textContent = '';
   renderMsgs();
   show('sChat');
+  if (S.gameUnsub) S.gameUnsub();
+  S.game = null;
+  S.gameUnsub = B.watchGame ? B.watchGame(rid, g => { const prev=S.game; S.game = g; if(g && g.status==='pending' && g.createdBy!==S.user.uid && (!prev || prev.status!=='pending')) toast('Sana bir oyun daveti geldi!'); if ($('#gameOverlay') && !$('#gameOverlay').hidden) renderGame(); updateGameButton(); }) : null;
   S.unsub = B.openRoom(rid, {
     onRoom: r => {
       S.room = r;
@@ -1563,8 +1611,141 @@ function renderMsgs() {
   }
   if (near || S.msgs.length < 2 || S.typing) box.scrollTop = box.scrollHeight;
 }
+
+/* =========================================================
+   PERDE DUEL — iki tarafın onayıyla, 3 turluk mini oyunlar
+   ========================================================= */
+const GAME_TYPES = {
+  truth: { title:'Doğruluk mu Cesaret mi?', icon:'🎭', desc:'Eğlenceli sorular ve zararsız mini görevler.' },
+  word: { title:'Kelime Savaşı', icon:'🔤', desc:'Harf ve kategoriye uygun kelimeyi bul.' },
+  guess: { title:'Aklımdakini Bul', icon:'🧠', desc:'İpuçlarından aklındaki kelimeyi tahmin et.' }
+};
+const GAME_PENALTIES = [
+  'Kaybeden, karşı tarafa art arda 3 samimi iltifat yazar.',
+  'Kaybeden, sonraki 5 mesajında seçilen emojiyi kullanır.',
+  'Kaybeden, tek cümlelik komik bir tekerleme uydurur.',
+  'Kaybeden, karşı tarafa eğlenceli bir lakap bulur.',
+  'Kaybeden, 2 mesaj boyunca kafiyeli konuşmayı dener.',
+  'Kaybeden, en sevdiği masum çocukluk anısını anlatır.'
+];
+const TRUTH_PROMPTS = ['En son neye kahkaha attın?','Bir günlüğüne görünmez olsan ilk ne yapardın?','Çocukken inandığın en komik şey neydi?','Seni anında mutlu eden küçük şey ne?','Kendinde en sevdiğin özellik hangisi?','Bugüne kadar aldığın en güzel iltifat neydi?'];
+const DARE_PROMPTS = ['Karşı tarafa 2 içten iltifat et.','3 mesaj boyunca sadece emojilerle konuş.','Bir cümlelik komik bir tekerleme yaz.','Sevdiğin bir şarkıyı emojilerle anlat.','Bir hayvanı yazıyla taklit et.','Kendine eğlenceli bir lakap tak.'];
+const WORD_TASKS = [
+  ['A','Hayvan'],['K','Yiyecek'],['M','Şehir veya ülke'],['S','Eşya'],['T','Meslek'],['B','Hayvan'],['D','Yiyecek'],['E','Eşya'],['G','Şehir veya ülke'],['P','Meslek']
+];
+let gameBusy = false;
+const gamePartner = () => S.room && S.room.members ? S.room.members.find(x => x !== S.user.uid) : null;
+const gameMe = () => S.user && S.user.uid;
+function updateGameButton(){ const b=$('#btnGame'); if(!b)return; const g=S.game; b.classList.toggle('hasGame',!!g && ['pending','active'].includes(g.status)); b.innerHTML=g&&g.status==='active'?'<span>●</span> Oyun sürüyor':g&&g.status==='pending'&&g.createdBy!==gameMe()?'<span>✦</span> Davet!':'<span>✦</span> Oyun'; }
+function openGameSheet(){
+  if(!S.roomId || S.group) return toast('Oyunlar yalnızca bire bir anonim sohbette kullanılabilir.');
+  if(S.room && S.room.status==='ended') return toast('Bu sohbet sona ermiş.');
+  $('#gameOverlay').hidden=false; document.body.style.overflow='hidden'; renderGame();
+}
+function closeGameSheet(){ const o=$('#gameOverlay'); if(o)o.hidden=true; document.body.style.overflow=''; }
+function gameEsc(t){return esc(t||'');}
+function gameIntro(){
+  return `<p class="gameIntro">Bir oyun seç, davet gönder. Oyun ancak ikiniz de kabul edince başlar. Her oyun <b>3 tur</b> sürer.</p>
+  <div class="gameChoices">
+    ${Object.entries(GAME_TYPES).map(([k,v])=>`<button class="gameChoice" type="button" data-game-pick="${k}"><span class="gEmoji">${v.icon}</span><b>${v.title}</b><small>${v.desc}</small></button>`).join('')}
+  </div>
+  <div class="gameConsent"><strong>🎁 Tatlı bir rekabet, tatlı bir ceza.</strong><br>Kaybedene oyun sonunda küçük ve zararsız bir sohbet görevi çıkar. Özel bilgi, fotoğraf, para veya iletişim bilgisi istenmez. İsteyen her görevi pas geçebilir.</div>`;
+}
+function renderGame(){
+  const box=$('#gameContent'); if(!box)return;
+  const g=S.game;
+  if(!g || ['closed','declined'].includes(g.status)){
+    $('#gameSheetTitle').textContent='Sohbetin oyun zamanı'; box.innerHTML=gameIntro(); return;
+  }
+  const me=gameMe(), partner=gamePartner(), mine=g.createdBy===me;
+  $('#gameSheetTitle').textContent=GAME_TYPES[g.type]?.title||'Perde Düellosu';
+  if(g.status==='pending'){
+    box.innerHTML=mine?`<div class="gameCard"><div class="gameMeta"><span class="gameTag">Davet gönderildi</span><span>3 TUR</span></div><div class="gamePrompt">Karşı tarafın kararını bekliyoruz…</div><p class="gameHint">Davet kabul edilirse ${gameEsc(GAME_TYPES[g.type].title)} başlayacak.</p><div class="gamePenalty"><small>OLASI KAYBEDEN GÖREVİ</small><p>${gameEsc(g.penalty)}</p></div><div class="gameActions"><button class="btn quiet" id="gameCancel">Daveti iptal et</button></div></div>`
+    :`<div class="gameCard"><div class="gameMeta"><span class="gameTag">Oyun daveti</span><span>3 TUR</span></div><div class="gamePrompt">Sana bir düello daveti var! ${GAME_TYPES[g.type].icon}</div><p class="gameHint">${gameEsc(GAME_TYPES[g.type].title)} oynamak ister misin?</p><div class="gamePenalty"><small>KAYBEDENİN GÖREVİ</small><p>${gameEsc(g.penalty)}</p></div><div class="gameActions"><button class="btn primary" id="gameAccept">Kabul et</button><button class="btn quiet" id="gameDecline">Şimdi değil</button></div></div>`;
+    $('#gameCancel')?.addEventListener('click',()=>writeGame({...g,status:'closed'}));
+    $('#gameAccept')?.addEventListener('click',()=>writeGame({...g,status:'active',round:1,phase:'play',turn:g.createdBy,score:{[g.players[0]]:0,[g.players[1]]:0},history:[],challenge:nextChallenge(g.type)}));
+    $('#gameDecline')?.addEventListener('click',()=>writeGame({...g,status:'declined'}));
+    return;
+  }
+  if(g.status==='active'){
+    const myTurn=g.turn===me, scores=g.score||{}, round=Math.min(3,g.round||1), pct=(round/3)*100;
+    let inner='';
+    if(g.phase==='play'){
+      if(g.type==='truth') inner=myTurn?`<div class="gamePrompt">Bu tur hangisini seçiyorsun?</div><p class="gameHint">Seçimini yap; sana özel, eğlenceli bir görev gelsin.</p><div class="gameActions"><button class="btn primary" id="truthPick">💬 Doğruluk</button><button class="btn quiet" id="darePick">⚡ Cesaret</button></div>`:`<div class="gameWait"><div class="orbit"></div>Karşı taraf bu tur için doğruluk veya cesaret seçiyor…</div>`;
+      if(g.type==='word') inner=myTurn?`<div class="gamePrompt">${gameEsc(g.challenge?.letter)} harfiyle ${gameEsc(g.challenge?.category||'kelime')} bul!</div><p class="gameHint">Aklına gelen ilk uygun kelimeyi yaz. Son kararı rakibin verecek.</p><input class="gameField" id="gameAnswer" maxlength="32" placeholder="Kelimen burada…"><div class="gameActions"><button class="btn primary" id="gameSubmit">Kelimeyi gönder</button></div>`:`<div class="gameWait"><div class="orbit"></div>Rakibin kelimesini düşünüyor…</div>`;
+      if(g.type==='guess') inner=myTurn?`<div class="gamePrompt">Aklından bir kelime tut ve ipucu ver.</div><p class="gameHint">Kelimenin kendisini yazma. Rakibinin tahmin edebileceği tek bir ipucu paylaş.</p><input class="gameField" id="gameAnswer" maxlength="90" placeholder="İpucunu yaz…"><div class="gameActions"><button class="btn primary" id="gameSubmit">İpucunu gönder</button></div>`:`<div class="gameWait"><div class="orbit"></div>Rakibin ipucu hazırlıyor…</div>`;
+    } else if(g.phase==='answer'){
+      if(g.type==='truth') inner=g.turn===me?`<div class="gameTag">${g.challenge?.kind==='dare'?'⚡ Cesaret':'💬 Doğruluk'}</div><div class="gamePrompt">${gameEsc(g.challenge?.text)}</div><p class="gameHint">Cevabını veya yaptığın görevi sohbette paylaş. Hazır olduğunda gönder.</p><input class="gameField" id="gameAnswer" maxlength="180" placeholder="Cevabını yaz…"><div class="gameActions"><button class="btn primary" id="gameSubmit">Tamamladım</button><button class="btn quiet" id="gamePass">Pas geç</button></div>`:`<div class="gamePrompt">${gameEsc(g.challenge?.text)}</div><div class="gameWait"><div class="orbit"></div>Karşı tarafın cevabı bekleniyor…</div>`;
+      if(g.type==='word') inner=g.turn===me?`<div class="gamePrompt">${gameEsc(g.challenge?.letter)} harfiyle ${gameEsc(g.challenge?.category)}!</div><div class="gameTag">Cevabın gönderildi</div><p class="gameHint">Rakibin kelimenin uygun olup olmadığına karar verecek.</p>`:`<div class="gamePrompt">Rakibin kelimesi: “${gameEsc(g.answer)}”</div><p class="gameHint">${gameEsc(g.challenge?.letter)} harfi ve ${gameEsc(g.challenge?.category)} kategorisine uyuyor mu?</p><div class="gameActions"><button class="btn primary" id="gameJudgeYes">Geçerli kelime</button><button class="btn quiet" id="gameJudgeNo">Geçersiz</button></div>`;
+      if(g.type==='guess') inner=g.turn===me?`<div class="gamePrompt">İpucun: ${gameEsc(g.answer)}</div><div class="gameWait"><div class="orbit"></div>Rakibin tahminini bekle…</div>`:`<div class="gamePrompt">İpucu: ${gameEsc(g.answer)}</div><p class="gameHint">Aklındaki kelimeyi tahmin et.</p><input class="gameField" id="gameAnswer" maxlength="40" placeholder="Tahminin…"><div class="gameActions"><button class="btn primary" id="gameSubmit">Tahmini gönder</button></div>`;
+    } else if(g.phase==='judge'){
+      inner=g.type==='guess'
+        ? (g.turn===me
+          ? `<div class="gamePrompt">Tahmin: “${gameEsc(g.answer||'')}”</div><p class="gameHint">Aklındaki kelimeyi doğru bildi mi?</p><div class="gameActions"><button class="btn primary" id="gameJudgeYes">Bildi 🎉</button><button class="btn quiet" id="gameJudgeNo">Bilemedi</button></div>`
+          : `<div class="gamePrompt">Tahminin gönderildi.</div><div class="gameWait"><div class="orbit"></div>Kelimeyi tutan kişinin değerlendirmesi bekleniyor…</div>`)
+        : (g.turn===me
+          ? `<div class="gamePrompt">${g.type==='truth'?'Cevabın karşı tarafa iletildi.':'Kelimen karşı tarafın değerlendirmesinde.'}</div><div class="gameWait"><div class="orbit"></div>Karşı tarafın değerlendirmesi bekleniyor…</div>`
+          : `<div class="gamePrompt">${g.type==='truth'?'Cevap gönderildi.':'Kelime gönderildi.'}</div><p class="gameHint">${gameEsc(g.answer||'')} </p><div class="gameActions"><button class="btn primary" id="gameJudgeYes">Başarılı</button><button class="btn quiet" id="gameJudgeNo">Başarısız</button></div>`);
+    }
+    box.innerHTML=`<div class="gameCard"><div class="gameMeta"><span class="gameTag">${GAME_TYPES[g.type].icon} ${GAME_TYPES[g.type].title}</span><span>${round} / 3. TUR</span></div><div class="gameProgress"><span style="width:${pct}%"></span></div><div class="gameScore"><div><b>${scores[g.players[0]]||0}</b><small>Oyuncu 1</small></div><div><b>${scores[g.players[1]]||0}</b><small>Oyuncu 2</small></div></div>${inner}<p class="gameHint" style="margin:14px 0 0">${myTurn?'Sıra sende':'Rakibinin sırası'}</p></div>`;
+    $('#truthPick')?.addEventListener('click',()=>chooseTruth('truth'));
+    $('#darePick')?.addEventListener('click',()=>chooseTruth('dare'));
+    $('#gameSubmit')?.addEventListener('click',submitGameAnswer);
+    $('#gamePass')?.addEventListener('click',()=>judgeRound(false));
+    $('#gameJudgeYes')?.addEventListener('click',()=>judgeRound(true));
+    $('#gameJudgeNo')?.addEventListener('click',()=>judgeRound(false));
+    return;
+  }
+  if(g.status==='finished'){
+    const scores=g.score||{}, a=scores[g.players[0]]||0,b=scores[g.players[1]]||0;
+    const winner=a===b?null:(a>b?g.players[0]:g.players[1]), loser=winner?g.players.find(x=>x!==winner):null;
+    box.innerHTML=`<div class="gameCard gameResult"><div class="gameTrophy">${winner===me?'🏆':winner?'🎉':'🤝'}</div><h3>${winner===me?'Düelloyu kazandın!':winner?'Güzel oyundu!':'Berabere!'}</h3><p class="gameHint">3 turun sonunda skor ${a} – ${b}.</p><div class="gamePenalty"><small>${loser===me?'SENİN GÖREVİN':loser?'KAYBEDENİN GÖREVİ':'BERABERLİK GÖREVİ'}</small><p>${gameEsc(g.penalty)} <br><small>İstemiyorsan pas geçebilirsin.</small></p></div><div class="gameActions"><button class="btn primary" id="gameDoPenalty">Görevi yaptım</button><button class="btn quiet" id="gameSkipPenalty">Pas geç</button></div></div>`;
+    $('#gameDoPenalty')?.addEventListener('click',()=>{closeGameSheet();toast('Harika! Sohbete devam 😄');});
+    $('#gameSkipPenalty')?.addEventListener('click',()=>{closeGameSheet();toast('Görev pas geçildi. Önemli olan eğlenmek!');});
+  }
+}
+function nextChallenge(type){
+  if(type==='word'){const x=WORD_TASKS[Math.floor(Math.random()*WORD_TASKS.length)];return {letter:x[0],category:x[1]};}
+  return null;
+}
+async function writeGame(g){
+  if(gameBusy)return; gameBusy=true;
+  try{await B.setGame(S.roomId,g);}catch(e){console.error(e);toast('Oyun güncellenemedi. Firestore izinlerini kontrol et.');}
+  finally{gameBusy=false;}
+}
+async function createGame(type){
+  if(!S.roomId||!S.room||S.room.status!=='open')return toast('Aktif bir bire bir sohbet gerekli.');
+  if(S.game&&['pending','active'].includes(S.game.status))return toast('Bu sohbette zaten bir oyun var.');
+  const players=S.room.members||[], penalty=GAME_PENALTIES[Math.floor(Math.random()*GAME_PENALTIES.length)];
+  const g={id:'current',type,status:'pending',createdBy:gameMe(),players,round:1,phase:'play',turn:gameMe(),score:{[players[0]]:0,[players[1]]:0},history:[],challenge:nextChallenge(type),penalty,createdAt:Date.now()};
+  await writeGame(g);
+}
+function chooseTruth(kind){const pool=kind==='truth'?TRUTH_PROMPTS:DARE_PROMPTS;const text=pool[Math.floor(Math.random()*pool.length)];writeGame({...S.game,phase:'answer',challenge:{kind,text},answer:null});}
+function submitGameAnswer(){
+  const input=$('#gameAnswer'), answer=(input?.value||'').trim(); if(!answer)return toast('Önce cevabını yaz.');
+  if(LEAK.test(answer))return toast('Oyun sırasında kişisel iletişim bilgisi paylaşma.');
+  const g=S.game;
+  if(g.type==='truth')writeGame({...g,phase:'judge',answer});
+  else if(g.type==='guess' && g.phase==='play')writeGame({...g,phase:'answer',answer});
+  else writeGame({...g,phase:'judge',answer});
+}
+function judgeRound(success){
+  const g=S.game, scores={...(g.score||{})}, other=g.players.find(x=>x!==g.turn);
+  // Turun kazananı: başarılıysa hamleyi yapan, değilse rakibi.
+  const winner=g.type==='guess'?(success?other:g.turn):(success?g.turn:other); scores[winner]=(scores[winner]||0)+1;
+  const history=[...(g.history||[]),{round:g.round,winner,success}];
+  if(g.round>=3){writeGame({...g,status:'finished',phase:'finished',score:scores,history});return;}
+  const nextTurn=other;
+  writeGame({...g,round:g.round+1,turn:nextTurn,phase:'play',score:scores,history,answer:null,challenge:nextChallenge(g.type)});
+}
+$('#btnGame')?.addEventListener('click',openGameSheet);
+$('#gameContent')?.addEventListener('click',e=>{const b=e.target.closest('[data-game-pick]');if(b)createGame(b.dataset.gamePick);});
+$('#gameOverlay')?.addEventListener('click',e=>{if(e.target.closest('[data-game-close]'))closeGameSheet();});
+
 function leaveRoom() {
   if (S.unsub) S.unsub(); S.unsub = null;
+  if (S.gameUnsub) S.gameUnsub(); S.gameUnsub = null; S.game = null;
+  closeGameSheet();
   S.roomId = null; S.room = null; S.msgs = [];
   goHome();
 }
@@ -1776,7 +1957,7 @@ async function startGroup() {
 }
 $('#btnGroup').onclick = startGroup;
 function enterGroup(gid) {
-  S.gid = gid; S.group = true; S.g = null; S.roomId = null; S.room = null; S.msgs = [];
+  S.gid = gid; S.group = true; S.g = null; if(S.gameUnsub)S.gameUnsub(); S.gameUnsub=null; S.game=null; S.roomId = null; S.room = null; S.msgs = [];
   $('#chatTitle').textContent = 'Grup sohbeti'; $('#chatSub').textContent = ''; $('#btnNext').hidden = true;
   renderMsgs(); show('sChat');
   S.unsub = B.watchGroup(gid, {
@@ -2008,5 +2189,19 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   B.init(onUser);
 })();
 </script>
+
+<!-- ============ PERDE OYUNLARI ============ -->
+<div class="gameOverlay" id="gameOverlay" hidden>
+  <div class="gameBackdrop" data-game-close></div>
+  <section class="gameSheet" role="dialog" aria-modal="true" aria-labelledby="gameSheetTitle">
+    <div class="gameGrab"></div>
+    <header class="gameSheetHead">
+      <div><span class="eyebrow">PERDE'DE BİRLİKTE</span><h2 id="gameSheetTitle">Sohbetin oyun zamanı</h2></div>
+      <button class="gameClose" type="button" data-game-close aria-label="Kapat">×</button>
+    </header>
+    <div id="gameContent"></div>
+  </section>
+</div>
+
 </body>
 </html>
