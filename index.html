@@ -559,6 +559,22 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
 @media(max-width:390px){.gameSheet{padding-left:14px;padding-right:14px}.gameChoice{min-height:118px;padding:11px}.gameSheetHead h2{font-size:23px}}
 @media(prefers-reduced-motion:reduce){.gameOverlay *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
+
+/* ---------- İlk açılış / karşılama ekranı ---------- */
+#sWelcome{position:relative;overflow:hidden;justify-content:space-between;padding:30px 25px 22px;background:radial-gradient(ellipse at 50% 36%,rgba(130,43,70,.25),transparent 48%),linear-gradient(155deg,#1d0d16 0%,#160b11 55%,#10080d 100%)}
+#sWelcome:before,#sWelcome:after{content:"";position:absolute;border:1px solid rgba(231,200,158,.09);border-radius:50%;pointer-events:none}
+#sWelcome:before{width:310px;height:310px;top:17%;left:-205px;box-shadow:0 0 0 24px rgba(231,200,158,.018),0 0 0 54px rgba(231,200,158,.012)}
+#sWelcome:after{width:260px;height:260px;right:-190px;bottom:9%;box-shadow:0 0 0 22px rgba(217,67,104,.025)}
+.welcomeTop{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}.welcomeTop .brand{font-size:21px;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:9px}.welcomeTop .brand [data-venn]{display:inline-flex}.welcomeBadge{font-size:8px;letter-spacing:.16em;color:var(--champ);border:1px solid rgba(231,200,158,.2);padding:7px 10px;border-radius:30px;background:rgba(231,200,158,.045)}
+.welcomeContent{position:relative;z-index:1;width:100%;max-width:430px;margin:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 0 28px}
+.welcomeOrb{width:142px;height:142px;border-radius:50%;display:grid;place-items:center;position:relative;margin:0 auto 29px;background:radial-gradient(circle,rgba(217,67,104,.19),rgba(217,67,104,.035) 58%,transparent 70%);animation:welcomeFloat 5s ease-in-out infinite}
+.welcomeOrb:before,.welcomeOrb:after{content:"";position:absolute;inset:7px;border:1px solid rgba(231,200,158,.23);border-radius:50%;box-shadow:0 0 35px rgba(217,67,104,.1)}.welcomeOrb:after{inset:-8px;border-style:dashed;border-color:rgba(231,200,158,.13);animation:welcomeOrbit 28s linear infinite}
+.welcomeOrb [data-venn]{width:78px;height:78px;display:grid;place-items:center;filter:drop-shadow(0 8px 24px rgba(217,67,104,.35))}.welcomeOrb [data-venn] svg{width:100%;height:100%}.welcomeOrb i,.welcomeOrb b{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--champ);box-shadow:0 0 15px var(--champ)}.welcomeOrb i{top:13px;right:28px}.welcomeOrb b{bottom:18px;left:17px;width:5px;height:5px;background:var(--ruj)}
+.welcomeEyebrow{font-size:9px;font-weight:800;letter-spacing:.24em;color:var(--champ);margin:0 0 14px}.welcomeTitle{font:500 clamp(31px,8vw,42px)/1.12 var(--serif);letter-spacing:-.025em;color:var(--ivory);margin:0}.welcomeTitle em{font-style:italic;color:#e7c89e}.welcomeText{max-width:310px;color:var(--muted);font-size:13px;line-height:1.7;margin:17px auto 28px}.welcomeActions{width:100%;max-width:330px;display:grid;gap:10px}.welcomeActions .btn{width:100%;min-height:51px;border-radius:15px;font-size:13px}.welcomeActions .primary{display:flex;align-items:center;justify-content:center;gap:12px}.welcomeActions .primary span{font-size:18px;transition:transform .2s}.welcomeActions .primary:active span{transform:translateX(4px)}.welcomeRegister{border:1px solid rgba(231,200,158,.22)!important;background:rgba(255,255,255,.025)!important;color:var(--ivory)!important}.welcomeTerms{max-width:290px;color:rgba(220,203,207,.48);font-size:9px;line-height:1.6;margin:18px auto 0}.welcomeBottom{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px;color:rgba(220,203,207,.35);font-size:8px;letter-spacing:.14em}.welcomeBottom span:first-child{color:rgba(231,200,158,.58);font-weight:800}
+@keyframes welcomeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes welcomeOrbit{to{transform:rotate(360deg)}}
+@media(max-height:700px){.welcomeOrb{width:112px;height:112px;margin-bottom:18px}.welcomeOrb [data-venn]{width:65px;height:65px}.welcomeText{margin:12px auto 18px}.welcomeContent{padding:10px 0}}
+@media(prefers-reduced-motion:reduce){.welcomeOrb,.welcomeOrb:after{animation:none}}
+
 </style>
 </head>
 <body>
@@ -566,6 +582,26 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
 <!-- ============ AÇILIŞ ============ -->
 <section id="sSplash" class="screen on" aria-label="Yükleniyor">
   <div data-venn></div>
+</section>
+
+<!-- ============ KARŞILAMA / LANDING ============ -->
+<section id="sWelcome" class="screen" aria-label="Perde'ye hoş geldin">
+  <div class="welcomeTop">
+    <div class="brand"><span data-venn></span><span data-brand>Perde</span></div>
+    <span class="welcomeBadge">ANONİM SOSYAL DÜNYA</span>
+  </div>
+  <div class="welcomeContent">
+    <div class="welcomeOrb" aria-hidden="true"><span data-venn="main"></span><i></i><b></b></div>
+    <p class="welcomeEyebrow">KENDİN OL, KİMLİĞİNİ SAKLA</p>
+    <h1 class="welcomeTitle">Bazen en güzel<br><em>sohbetler</em> yabancılarla başlar.</h1>
+    <p class="welcomeText">Yeni insanlarla tanış, düşüncelerini paylaş ve Perde'nin ardındaki hikâyeleri keşfet.</p>
+    <div class="welcomeActions">
+      <button class="btn primary" id="welcomeLogin" type="button">Giriş yap <span aria-hidden="true">→</span></button>
+      <button class="btn quiet welcomeRegister" id="welcomeRegister" type="button">Yeni hesap oluştur</button>
+    </div>
+    <p class="welcomeTerms">Devam ederek 18 yaşından büyük olduğunu ve topluluk kurallarını kabul ettiğini onaylarsın.</p>
+  </div>
+  <div class="welcomeBottom"><span>PERDE</span><span>GERÇEK SOHBET · ANONİM BAĞLANTI</span></div>
 </section>
 
 <!-- ============ GİRİŞ / KAYIT ============ -->
@@ -1400,7 +1436,7 @@ const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TO
 function onUser(u) {
   S.user = u;
   if (!u || u.unverified) stopLoops();
-  if (!u) { setMode('login'); show('sAuth'); return; }
+  if (!u) { show('sWelcome'); return; }
   if (u.unverified) { $('#verifyMail').textContent = u.email; show('sVerify'); return; }
   u.profile ? goHome() : openProfile(true);
 }
@@ -1436,6 +1472,8 @@ function setMode(m) {
 }
 $('#tabLogin').onclick = () => setMode('login');
 $('#tabReg').onclick = () => setMode('register');
+$('#welcomeLogin').onclick = () => { setMode('login'); show('sAuth'); $('#inEmail').focus({preventScroll:true}); };
+$('#welcomeRegister').onclick = () => { setMode('register'); show('sAuth'); $('#inEmail').focus({preventScroll:true}); };
 
 $('#authForm').addEventListener('submit', async e => {
   e.preventDefault();
@@ -2179,6 +2217,7 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   fillCountries($('#wantSel'), { any: true, value: localStorage.getItem('perde_want') || 'ANY' });
   $('#demoBadge').hidden = !DEMO;
   setMode('login');
+  show('sWelcome');
 
   addEventListener('pagehide', () => { try { B && B.cancelMatch(); } catch (e) {} });
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
