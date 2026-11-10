@@ -1,4 +1,4 @@
-const CACHE = 'perde-social-v2-public-feed';
+const CACHE = 'perde-social-v3-cafe-rooms';
 const SHELL = ['./','./index.html','./manifest.json','./icons/icon.svg'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL))));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))));

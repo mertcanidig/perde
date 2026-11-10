@@ -660,6 +660,9 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
 .guestWelcome>div{display:grid;gap:5px}.guestWelcome strong{font-size:15px;letter-spacing:-.02em}.guestWelcome small{color:var(--muted);font-size:12px;line-height:1.45}.guestWelcome .eyebrow{font-size:9px;color:var(--champ);letter-spacing:.15em}
 .guestOnlyHide{display:none!important}
 
+
+/* Perde 2.0 – keşfet, profil ve kafe odaları */
+.dailyFold{padding:0!important;overflow:hidden}.dailyFold summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px;cursor:pointer}.dailyFold summary::-webkit-details-marker{display:none}.dailyFold summary strong{display:block;font:700 17px/1.35 var(--sans);margin:5px 0}.dailyFold summary small{display:block;color:var(--muted);font-size:11px}.dailyChevron{font-style:normal;font-size:24px;color:#f0c58f;transition:transform .2s}.dailyFold[open] .dailyChevron{transform:rotate(180deg)}.dailyInside{padding:0 17px 17px}.dailyInside>p{color:var(--muted);font-size:12px}.storyRing{background:transparent!important;border:2px dotted #e7a2b5!important;padding:4px!important}.storyBubble.add .storyRing{border:2px dotted #f1c994!important;background:transparent!important}.storyRing i{border:1px solid rgba(255,255,255,.14)!important}.cafeCreateOpen{width:100%;margin:5px 0 15px}.cafeFilters{padding:15px;margin-bottom:16px}.cafeFilters .field{margin:8px 0}.cafeRoomCard{padding:16px;margin:10px 0;border:1px solid rgba(232,196,143,.16);border-radius:18px;background:linear-gradient(145deg,rgba(58,27,43,.88),rgba(26,12,20,.98))}.cafeRoomTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.cafeRoomCard h3{margin:0 0 5px;font-size:17px}.cafeRoomMeta{color:var(--muted);font-size:12px;line-height:1.6}.cafeRoomActions{display:flex;gap:8px;margin-top:13px}.cafeRoomActions button{flex:1}.cafeModal{position:fixed;inset:0;z-index:120;background:#09050bdc;display:none;align-items:flex-end;justify-content:center;padding:14px}.cafeModal.on{display:flex}.cafeModalCard{width:min(100%,520px);max-height:90dvh;overflow:auto;padding:20px;border:1px solid rgba(240,204,152,.2);border-radius:24px;background:#1c1019;box-shadow:0 20px 80px #0009}.cafeModalHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.cafeModalHead h3{margin:0}.cafeModalCard .field{margin:11px 0}.cafeModalCard input,.cafeModalCard select{width:100%}.profilePosts{margin:25px 0}.profilePosts .sectionTitle{margin-top:22px}.myPostDelete{color:#f2a5b4!important}.postCard .postActions button{background:none;border:0;color:#e6b8c5}.cafeEmpty{padding:18px;text-align:center;color:var(--muted);border:1px dashed rgba(240,204,152,.2);border-radius:16px}
 </style>
 </head>
 <body>
@@ -769,24 +772,27 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
     <div class="discoverHead"><div><div class="eyebrow">Perde topluluğu</div><h2>Keşfet</h2></div><span class="pill">Anonim alan</span></div>
     <div class="sectionTitle"><h3>24 saatlik notlar</h3><button class="ghost" id="storyCreateBtn" type="button">+ Ekle</button></div>
     <div class="storyRail" id="storyRail"><div class="emptyState">Notlar yükleniyor…</div></div>
-    <div class="dailyCard">
-      <div class="eyebrow">Günün sorusu</div><h3 id="dailyQuestion">Bugün kendine hangi konuda teşekkür ederdin?</h3>
-      <p>Yanıtın anonim paylaşılır. Kişisel iletişim bilgisi yazma.</p>
+    <details class="dailyCard dailyFold">
+      <summary><span><span class="eyebrow">GÜNÜN SORUSU · DOKUN VE AÇ</span><strong id="dailyQuestion">Bugün kendine hangi konuda teşekkür ederdin?</strong><small>Anonim yanıtını paylaş veya topluluğun yanıtlarını oku.</small></span><i class="dailyChevron">⌄</i></summary>
+      <div class="dailyInside"><p>Yanıtın anonim paylaşılır. Kişisel iletişim bilgisi yazma.</p>
       <textarea id="dailyAnswerText" maxlength="240" placeholder="Aklından geçenleri yaz…"></textarea>
       <div class="dailyAnswer"><button class="btn primary sm" id="dailySend" type="button">Yanıtla</button><button class="btn quiet sm" id="dailySee" type="button">Yanıtları gör</button></div>
-      <div id="dailyAnswers" hidden></div>
-    </div>
+      <div id="dailyAnswers" hidden></div></div>
+    </details>
     <div class="sectionTitle"><h3>Topluluktan</h3><span class="miniLabel">Son paylaşımlar</span></div>
-    <div class="composeCard">
-      <textarea id="postText" maxlength="280" placeholder="Aklından geçen kısa bir şey paylaş…"></textarea>
-      <div class="postActions"><span class="miniLabel">Kimliğin ve e-postan görünmez.</span><button id="postSend" type="button">Paylaş ↗</button></div>
-    </div>
     <div id="postFeed"><div class="emptyState">Paylaşımlar yükleniyor…</div></div>
     <div class="premiumHero"><div class="crown">♛</div><div class="eyebrow">Perde Plus</div><h2>Daha fazlasını keşfet.</h2><p>Perde deneyimini kişiselleştiren ayrıcalıklar yakında.</p><button class="btn primary" id="openPremium" type="button">Üyeliği keşfet</button></div>
   </div>
   <div class="discoverWrap" id="chatsView" hidden>
-    <div class="discoverHead"><div><div class="eyebrow">Bağlantıların</div><h2>Sohbetler</h2></div></div>
-    <div id="recentChats"><div class="emptyState">Sohbetlerin yükleniyor…</div></div>
+    <div class="discoverHead"><div><div class="eyebrow">AYNI MEKÂNDA BULUŞ</div><h2>Kafe odaları</h2><p class="miniLabel">Bulunduğun kafeyi seç, aynı odadaki kişilerle anonim eşleş.</p></div></div>
+    <button class="btn primary cafeCreateOpen" id="cafeCreateOpen" type="button">＋ Oda oluştur</button>
+    <div class="cafeFilters card"><div class="sectionTitle"><h3>Odaları keşfet</h3><span class="miniLabel">Filtrele</span></div>
+      <div class="row2 field"><div><label for="cafeFilterCountry">Ülke</label><select id="cafeFilterCountry"></select></div><div><label for="cafeFilterCity">İl</label><input id="cafeFilterCity" placeholder="Örn. Bursa"></div></div>
+      <div class="row2 field"><div><label for="cafeFilterDistrict">İlçe</label><input id="cafeFilterDistrict" placeholder="Örn. Nilüfer"></div><div><label for="cafeFilterName">Kafe adı</label><input id="cafeFilterName" placeholder="Kafe ara"></div></div>
+      <button class="btn quiet sm" id="cafeFilterClear" type="button">Filtreleri temizle</button>
+    </div>
+    <div id="cafeRoomList"><div class="emptyState">Kafe odaları yükleniyor…</div></div>
+    <div class="sectionTitle"><h3>Son sohbetlerin</h3></div><div id="recentChats"></div>
     <div class="sectionTitle"><h3>Bekleyen davetler</h3></div><div id="pendingInvites"></div>
   </div>
   <div class="discoverWrap" id="premiumView" hidden>
@@ -801,7 +807,7 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
     </div>
   </div>
   <nav class="bottomNav" id="bottomNav" aria-label="Ana gezinme">
-    <button class="active" data-nav="feed" aria-label="Akış"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Akış</button>
+    <button class="active" data-nav="feed" aria-label="Keşfet"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Keşfet</button>
     <button data-nav="match" aria-label="Tanış"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-2.8z"/></svg></span>Tanış</button>
     <button data-nav="chats" aria-label="Sohbetler"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg></span>Sohbetler</button>
     <button data-nav="profile" aria-label="Profil"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Profil</button>
@@ -889,6 +895,12 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
     </div>
     <button class="btn primary" id="pSave" type="button">Kaydet</button>
 
+    <div class="profilePosts" id="profilePosts">
+      <div class="sectionTitle"><h3>Keşfet'te paylaş</h3><span class="miniLabel">Anonim yayınlanır</span></div>
+      <div class="composeCard"><textarea id="profilePostText" maxlength="280" placeholder="Aklından geçenleri toplulukla paylaş…"></textarea><div class="postActions"><span class="miniLabel">Paylaşımın profilinde de görünür.</span><button id="profilePostSend" type="button">Paylaş ↗</button></div></div>
+      <div class="sectionTitle"><h3>Paylaşımlarım</h3></div><div id="myPostList"><div class="emptyState">Paylaşımların burada listelenir.</div></div>
+    </div>
+
     <div class="zone" id="pZone">
       <button class="btn quiet" id="btnLogout" type="button">Çıkış yap</button>
       <button class="btn danger" id="btnDelete" type="button">Hesabı sil</button>
@@ -912,6 +924,7 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
     <div class="storyComposerFoot"><small><b id="storyCharCount">0</b>/160 · Kimliğin gizli kalır</small><button class="btn primary" id="storyPublish" type="button">Hikâyeyi paylaş ↗</button></div>
   </div>
 </div>
+<div class="cafeModal" id="cafeModal"><div class="cafeModalCard" role="dialog" aria-modal="true" aria-labelledby="cafeModalTitle"><div class="cafeModalHead"><div><div class="eyebrow">YENİ BULUŞMA NOKTASI</div><h3 id="cafeModalTitle">Kafe odası oluştur</h3></div><button class="ibtn" id="cafeModalClose" type="button" aria-label="Kapat">×</button></div><div class="field"><label for="cafeCountry">Ülke</label><select id="cafeCountry"></select></div><div class="field"><label for="cafeCity">İl</label><input id="cafeCity" maxlength="40" placeholder="Örn. Bursa"></div><div class="field"><label for="cafeDistrict">İlçe</label><input id="cafeDistrict" maxlength="40" placeholder="Örn. Nilüfer"></div><div class="field"><label for="cafeName">Kafe adı</label><input id="cafeName" maxlength="70" placeholder="Örn. ... Coffee"></div><p class="miniLabel">Oda herkese açık listelenir. Ev/kişisel adres paylaşma; yalnızca halka açık kafe adı kullan.</p><button class="btn primary" id="cafeCreateSubmit" type="button">Odayı oluştur</button></div></div>
 <div id="toast" role="status"></div>
 
 <div class="dlg" id="dlg" hidden>
@@ -1160,6 +1173,12 @@ function demoBackend() {
   const localWrite = (k,v) => localStorage.setItem(k,JSON.stringify(v));
   api.createPost = async (me,text) => { const a=localRead('perde_posts'); a.unshift({id:'p'+Date.now(),author:me.uid,country:me.profile.country,text,createdAt:Date.now()}); localWrite('perde_posts',a); };
   api.listPosts = async () => localRead('perde_posts');
+  api.listMyPosts = async me => localRead('perde_posts').filter(x=>x.author===me.uid);
+  api.deletePost = async (me,id) => localWrite('perde_posts',localRead('perde_posts').filter(x=>!(x.id===id&&x.author===me.uid)));
+  api.listCafeRooms = async filters => localRead('perde_cafe_rooms').filter(x=>x.status==='open').filter(x=>!filters.country||x.country===filters.country).filter(x=>!filters.city||x.city.toLowerCase().includes(filters.city.toLowerCase())).filter(x=>!filters.district||x.district.toLowerCase().includes(filters.district.toLowerCase())).filter(x=>!filters.name||x.name.toLowerCase().includes(filters.name.toLowerCase()));
+  api.createCafeRoom = async (me,data) => {const a=localRead('perde_cafe_rooms');const x={id:'c'+Date.now(),...data,owner:me.uid,status:'open',members:1,createdAt:Date.now()};a.unshift(x);localWrite('perde_cafe_rooms',a);return x.id;};
+  api.joinCafeRoom = async (me,id) => id;
+  api.findCafeMatch = async () => null;
   api.reportPost = async () => {};
   api.createStory = async (me,text) => { const a=localRead('perde_stories'); a.unshift({id:'s'+Date.now(),author:me.uid,country:me.profile.country,text,createdAt:Date.now(),expiresAt:Date.now()+DAY}); localWrite('perde_stories',a); };
   api.listStories = async () => localRead('perde_stories').filter(x=>x.expiresAt>Date.now());
@@ -1484,6 +1503,12 @@ async function firebaseBackend() {
       const q=F.query(F.collection(db,'discoverPosts'),F.orderBy('createdAt','desc'),F.limit(40));
       const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()}));
     },
+    async listMyPosts(me) { const q=F.query(F.collection(db,'discoverPosts'),F.where('author','==',me.uid),F.orderBy('createdAt','desc'),F.limit(50)); const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()})); },
+    async deletePost(me,id) { const ref=F.doc(db,'discoverPosts',id); const snap=await F.getDoc(ref); if(!snap.exists()||snap.data().author!==me.uid) throw new Error('not-owner'); return F.deleteDoc(ref); },
+    async listCafeRooms(filters={}) { const q=F.query(F.collection(db,'cafeRooms'),F.where('status','==','open'),F.limit(100)); const snap=await F.getDocs(q); return snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).filter(x=>(!filters.country||x.country===filters.country)&&(!filters.city||String(x.city||'').toLocaleLowerCase('tr').includes(filters.city.toLocaleLowerCase('tr')))&&(!filters.district||String(x.district||'').toLocaleLowerCase('tr').includes(filters.district.toLocaleLowerCase('tr')))&&(!filters.name||String(x.name||'').toLocaleLowerCase('tr').includes(filters.name.toLocaleLowerCase('tr')))); },
+    async createCafeRoom(me,data) { const ref=await F.addDoc(F.collection(db,'cafeRooms'),{...data,owner:me.uid,status:'open',membersCount:1,createdAt:Date.now()}); await F.setDoc(F.doc(db,'cafeRooms',ref.id,'participants',me.uid),{uid:me.uid,status:'idle',joinedAt:Date.now(),country:me.profile.country}); return ref.id; },
+    async joinCafeRoom(me,id) { const pref=F.doc(db,'cafeRooms',id,'participants',me.uid),rref=F.doc(db,'cafeRooms',id); await F.runTransaction(db,async tx=>{const ps=await tx.get(pref);if(!ps.exists()){tx.set(pref,{uid:me.uid,status:'idle',joinedAt:Date.now(),country:me.profile.country});tx.update(rref,{membersCount:F.increment(1)});}else if(ps.data().status!=='matched'){tx.set(pref,{uid:me.uid,status:'idle',country:me.profile.country},{merge:true});}}); return id; },
+    async findCafeMatch(me,id) { const col=F.collection(db,'cafeRooms',id,'participants'); const mine=F.doc(col,me.uid); const mineSnap=await F.getDoc(mine); if(mineSnap.exists()&&mineSnap.data().status==='matched'&&mineSnap.data().roomId)return mineSnap.data().roomId; const q=F.query(col,F.where('status','==','waiting'),F.limit(10)); const snap=await F.getDocs(q); const other=snap.docs.find(d=>d.id!==me.uid); if(!other){await F.setDoc(mine,{uid:me.uid,status:'waiting',joinedAt:Date.now(),country:me.profile.country},{merge:true});return null;} const roomRef=F.doc(F.collection(db,'rooms')); await F.runTransaction(db,async tx=>{const os=await tx.get(other.ref);if(!os.exists()||os.data().status!=='waiting')throw new Error('retry');tx.set(roomRef,{members:[me.uid,other.id],info:{[me.uid]:{country:me.profile.country},[other.id]:{country:os.data().country||'TR'}},status:'open',type:'cafe',cafeRoomId:id,createdAt:F.serverTimestamp()});tx.set(mine,{uid:me.uid,status:'matched',roomId:roomRef.id},{merge:true});tx.update(other.ref,{status:'matched',roomId:roomRef.id});});return roomRef.id; },
     async reportPost(me, post) {
       return F.addDoc(F.collection(db,'reports'),{reporter:me.uid,reported:post.author,roomId:'post:'+post.id,messages:[{from:post.author,text:post.text}],createdAt:F.serverTimestamp(),kind:'post'});
     },
@@ -1536,8 +1561,7 @@ function updateGuestUI(){
   $('#btnProfile').setAttribute('aria-label',guest?'Giriş yap':'Profilim');
   $('#storyCreateBtn').textContent=guest?'Katıl':'＋ Ekle';
   $('#dailyAnswerText').disabled=guest; $('#dailySend').disabled=guest;
-  $('#postText').disabled=guest; $('#postSend').disabled=guest;
-  if(guest){$('#dailyAnswerText').placeholder='Yanıtlamak için giriş yap…';$('#postText').placeholder='Paylaşım yapmak için giriş yap…';}
+  if(guest){$('#dailyAnswerText').placeholder='Yanıtlamak için giriş yap…';}
 }
 
 /* ---------- Çevrimiçi sayacı ---------- */
@@ -2153,7 +2177,9 @@ function openProfile(first) {
   $('#pTitle').textContent = first ? 'Profilini tamamla' : 'Profilim';
   $('#pBack').style.visibility = first ? 'hidden' : 'visible';
   $('#pZone').hidden = first;
+  $('#profilePosts').hidden = first;
   paintProfile(); show('sProfile');
+  if(!first) loadMyPosts();
 }
 $('#pBack').onclick = goHome;
 $('#pSave').onclick = async () => {
@@ -2196,7 +2222,7 @@ function setHomeTab(tab) {
   $('#premiumView').hidden = true;
   $$('#bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===tab));
   if (tab==='feed') loadDiscover();
-  if (tab==='chats') loadRecentChats();
+  if (tab==='chats') { loadRecentChats(); loadCafeRooms(); }
 }
 async function loadDiscover(force=false) {
   if (discoverLoaded && !force) return;
@@ -2238,8 +2264,8 @@ function openStory(index) {
   activeStoryIndex=Math.max(0,Math.min(index,activeStories.length-1));
   const item=activeStories[activeStoryIndex];
   $('#storyModalText').textContent=item.text||'';
-  $('#storyViewerName').textContent=item.author===S.user.uid?'Sen': 'Anonim biri';
-  $('#storyViewerAvatar').textContent=item.author===S.user.uid?'S':'✦';
+  $('#storyViewerName').textContent=S.user?.uid&&item.author===S.user.uid?'Sen': 'Anonim biri';
+  $('#storyViewerAvatar').textContent=S.user?.uid&&item.author===S.user.uid?'S':'✦';
   $('#storyModalMeta').textContent=cname(item.country||'TR')+' · 24 saatlik hikâye';
   $('#storyProgressBar').style.width=((activeStoryIndex+1)/activeStories.length*100)+'%';
   $('#storyModal').classList.add('on');
@@ -2274,16 +2300,16 @@ async function createStory() {
 }
 $('#storyPublish').onclick=createStory;
 $('#storyCreateBtn').onclick=()=>{if(requireLogin())showStoryComposer();};
-$('#postSend').onclick=async()=>{
-  if(!requireLogin())return;
-  const value=$('#postText').value.trim();
+async function publishPostFrom(inputId){
+  if(!requireLogin())return;const value=$(inputId).value.trim();
   if(value.length<3||value.length>280)return toast('Paylaşım 3–280 karakter olmalı.');
   if(LEAK.test(value))return toast('Telefon, e-posta, bağlantı veya sosyal medya bilgisi paylaşma.');
-  const b=$('#postSend');b.disabled=true;
-  try{await B.createPost(S.user,value);$('#postText').value='';toast('Paylaşımın yayınlandı.');await loadDiscover(true);}
+  try{await B.createPost(S.user,value);$(inputId).value='';toast('Paylaşımın Keşfet’te yayınlandı.');await loadDiscover(true);await loadMyPosts();}
   catch(e){console.error(e);toast('Paylaşım yapılamadı.');}
-  finally{b.disabled=false;}
-};
+}
+$('#profilePostSend').onclick=()=>publishPostFrom('#profilePostText');
+async function loadMyPosts(){if(!S.user?.profile)return;const box=$('#myPostList');box.innerHTML='<div class="emptyState">Yükleniyor…</div>';try{const rows=await B.listMyPosts(S.user);box.innerHTML=rows.length?rows.map(x=>`<article class="postCard"><div class="postMeta"><span class="postAvatar">✦</span><span><b>Senin anonim paylaşımın</b><br>${esc(relTime(x.createdAt||Date.now()))}</span></div><div class="postText">${esc(x.text)}</div><div class="postActions"><span class="miniLabel">Keşfet'te yayınlandı</span><button class="myPostDelete" data-my-post-delete="${esc(x.id)}" type="button">Sil</button></div></article>`).join(''):'<div class="emptyState">Henüz paylaşımın yok. İlk paylaşımını buradan yapabilirsin.</div>'; }catch(e){console.error(e);box.innerHTML='<div class="emptyState">Paylaşımların yüklenemedi.</div>';}}
+$('#myPostList').addEventListener('click',async e=>{const b=e.target.closest('[data-my-post-delete]');if(!b)return;if(!await ask('Paylaşım silinsin mi?','Bu paylaşım Keşfet ve profilinden kaldırılır.','Sil'))return;try{await B.deletePost(S.user,b.dataset.myPostDelete);toast('Paylaşım silindi.');await loadMyPosts();await loadDiscover(true);}catch(err){console.error(err);toast('Paylaşım silinemedi.');}});
 $('#postFeed').addEventListener('click',async e=>{
   const b=e.target.closest('[data-post-report]');if(!b)return;if(!requireLogin())return;
   const post=(await B.listPosts()).find(x=>x.id===b.dataset.postReport);if(!post)return;
@@ -2315,6 +2341,18 @@ async function loadRecentChats(){
   const inv=$('#pendingInvites');
   inv.innerHTML=(S.incoming||[]).filter(x=>x.status==='pending').map(x=>`<div class="chatRow"><span class="postAvatar">♡</span><div class="chatInfo"><strong>Anonim davet</strong><small>${esc(x.note||'Seninle sohbet etmek istiyor.')}</small></div><span class="pill">Bekliyor</span></div>`).join('')||'<p class="miniLabel">Bekleyen davet yok.</p>';
 }
+// Kafe odaları: herkese açık mekan odaları, içerideki kişiler arasında anonim birebir eşleşme.
+fillCountries($('#cafeCountry'),{value:'TR'});fillCountries($('#cafeFilterCountry'),{any:true,value:''});
+const cafeModal=$('#cafeModal');
+$('#cafeCreateOpen').onclick=()=>{if(!requireLogin())return;cafeModal.classList.add('on');};
+$('#cafeModalClose').onclick=()=>cafeModal.classList.remove('on');
+cafeModal.addEventListener('click',e=>{if(e.target===cafeModal)cafeModal.classList.remove('on');});
+$('#cafeCreateSubmit').onclick=async()=>{if(!requireLogin())return;const data={country:$('#cafeCountry').value,city:$('#cafeCity').value.trim(),district:$('#cafeDistrict').value.trim(),name:$('#cafeName').value.trim()};if(!data.city||!data.district||!data.name)return toast('Ülke, il, ilçe ve kafe adını doldur.');const b=$('#cafeCreateSubmit');b.disabled=true;try{const id=await B.createCafeRoom(S.user,data);cafeModal.classList.remove('on');$('#cafeCity').value=$('#cafeDistrict').value=$('#cafeName').value='';toast('Kafe odan oluşturuldu.');await loadCafeRooms();}catch(e){console.error(e);toast('Oda oluşturulamadı. Firestore izinlerini kontrol et.');}finally{b.disabled=false;}};
+async function loadCafeRooms(){const box=$('#cafeRoomList');box.innerHTML='<div class="emptyState">Kafeler aranıyor…</div>';try{const f={country:$('#cafeFilterCountry').value,city:$('#cafeFilterCity').value.trim(),district:$('#cafeFilterDistrict').value.trim(),name:$('#cafeFilterName').value.trim()};const rows=await B.listCafeRooms(f);box.innerHTML=rows.length?rows.map(r=>`<article class="cafeRoomCard"><div class="cafeRoomTop"><div><h3>☕ ${esc(r.name)}</h3><div class="cafeRoomMeta">${flag(r.country)} ${esc(cname(r.country))} · ${esc(r.city)} / ${esc(r.district)}</div></div><span class="pill">${Number(r.membersCount||1)} kişi</span></div><div class="cafeRoomActions"><button class="btn primary sm" data-cafe-join="${esc(r.id)}" type="button">Odaya gir ve eşleş</button></div></article>`).join(''):'<div class="cafeEmpty">Bu filtrelerde açık oda bulunamadı. İlk odayı sen oluşturabilirsin.</div>';}catch(e){console.error(e);box.innerHTML='<div class="emptyState">Odalar yüklenemedi. Firestore izinlerini kontrol et.</div>';}}
+['cafeFilterCountry','cafeFilterCity','cafeFilterDistrict','cafeFilterName'].forEach(id=>$(id).addEventListener(id==='cafeFilterCountry'?'change':'input',()=>{clearTimeout(window.cafeFilterTimer);window.cafeFilterTimer=setTimeout(loadCafeRooms,250);}));
+$('#cafeFilterClear').onclick=()=>{$('#cafeFilterCountry').value='';$('#cafeFilterCity').value=$('#cafeFilterDistrict').value=$('#cafeFilterName').value='';loadCafeRooms();};
+$('#cafeRoomList').addEventListener('click',async e=>{const b=e.target.closest('[data-cafe-join]');if(!b||!requireLogin())return;const id=b.dataset.cafeJoin;b.disabled=true;try{await B.joinCafeRoom(S.user,id);const rid=await B.findCafeMatch(S.user,id);if(rid){toast('Eşleşme bulundu!');matched(rid);}else{toast('Odaya katıldın. Bir kişi daha eşleşmeye hazır olduğunda bağlantı kurulacak.');b.textContent='Eşleşme aranıyor…';const timer=setInterval(async()=>{if(!S.user?.profile){clearInterval(timer);return;}try{const found=await B.findCafeMatch(S.user,id);if(found){clearInterval(timer);matched(found);}}catch(err){console.warn(err);}},4000);setTimeout(()=>clearInterval(timer),180000);}}catch(err){console.error(err);toast('Odaya katılınamadı.');b.disabled=false;}});
+
 $('#bottomNav').addEventListener('click',e=>{
   const b=e.target.closest('[data-nav]');if(!b)return;
   const tab=b.dataset.nav;
