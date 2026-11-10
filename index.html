@@ -934,6 +934,23 @@ input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,7
   </div>
 </div>
 
+<script>
+// Modül kodunda beklenmeyen bir hata oluşursa açılış perdesinde takılı kalma.
+window.addEventListener('error', function (event) {
+  console.error('Perde arayüz hatası:', event.error || event.message);
+  const splash = document.getElementById('sSplash');
+  const auth = document.getElementById('sAuth');
+  if (splash && splash.classList.contains('on') && auth) {
+    splash.classList.remove('on'); auth.classList.add('on');
+    const err = document.getElementById('authErr');
+    if (err) err.textContent = 'Bir yükleme hatası oluştu. Sayfayı yenileyip tekrar dene.';
+  }
+});
+window.addEventListener('unhandledrejection', function (event) {
+  console.error('Perde beklenmeyen işlem hatası:', event.reason);
+});
+</script>
+
 <script type="module">
 
 /* =========================================================
@@ -2378,6 +2395,19 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
 
 /* ---------- Başlat ---------- */
 (async function boot() {
+  // Güvenlik ağı: modül/Firebase yüklemesi gecikirse boş renkli ekranda kalma.
+  const bootWatchdog = setTimeout(() => {
+    if ($('#sSplash')?.classList.contains('on')) {
+      console.warn('Perde açılış zaman aşımı: misafir Keşfet ekranı gösteriliyor.');
+      show('sHome');
+      setHomeTab('feed');
+      updateGuestUI();
+      const feed = $('#postFeed');
+      if (feed && feed.textContent.includes('Paylaşımlar yükleniyor')) {
+        feed.innerHTML = '<div class="emptyState">İçerikler yüklenemedi. İnternet bağlantını kontrol edip sayfayı yenile.</div>';
+      }
+    }
+  }, 7000);
   document.title = BRAND.name;
   $$('[data-brand]').forEach(el => el.textContent = BRAND.name);
   $$('[data-venn]').forEach(el => { el.innerHTML = vennSvg(el.dataset.venn || ''); });
@@ -2392,7 +2422,16 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   }
   try { B = DEMO ? demoBackend() : await firebaseBackend(); }
   catch (e) { console.error(e); show('sAuth'); $('#authErr').textContent = 'Sunucuya bağlanılamadı. İnternetini kontrol edip sayfayı yenile.'; return; }
-  B.init(onUser);
+  try {
+    B.init(onUser);
+  } catch (e) {
+    console.error('Perde başlatma hatası:', e);
+    clearTimeout(bootWatchdog);
+    show('sAuth');
+    $('#authErr').textContent = 'Uygulama başlatılamadı. Sayfayı yenileyip tekrar dene.';
+  }
+  // Firebase oturum kontrolü normal şekilde başladı; zaman aşımı güvenlik ağını kapat.
+  setTimeout(() => clearTimeout(bootWatchdog), 12000);
 })();
 
 </script>
