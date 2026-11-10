@@ -14,11 +14,12 @@
 <title>Perde</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
+
   :root{
     --bg:#1A0A12;          /* Gece bordosu */
     --surface:#2A1320;     /* Kadife */
@@ -560,20 +561,104 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
 @media(prefers-reduced-motion:reduce){.gameOverlay *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 
-/* ---------- İlk açılış / karşılama ekranı ---------- */
-#sWelcome{position:relative;overflow:hidden;justify-content:space-between;padding:30px 25px 22px;background:radial-gradient(ellipse at 50% 36%,rgba(130,43,70,.25),transparent 48%),linear-gradient(155deg,#1d0d16 0%,#160b11 55%,#10080d 100%)}
-#sWelcome:before,#sWelcome:after{content:"";position:absolute;border:1px solid rgba(231,200,158,.09);border-radius:50%;pointer-events:none}
-#sWelcome:before{width:310px;height:310px;top:17%;left:-205px;box-shadow:0 0 0 24px rgba(231,200,158,.018),0 0 0 54px rgba(231,200,158,.012)}
-#sWelcome:after{width:260px;height:260px;right:-190px;bottom:9%;box-shadow:0 0 0 22px rgba(217,67,104,.025)}
-.welcomeTop{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}.welcomeTop .brand{font-size:21px;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:9px}.welcomeTop .brand [data-venn]{display:inline-flex}.welcomeBadge{font-size:8px;letter-spacing:.16em;color:var(--champ);border:1px solid rgba(231,200,158,.2);padding:7px 10px;border-radius:30px;background:rgba(231,200,158,.045)}
-.welcomeContent{position:relative;z-index:1;width:100%;max-width:430px;margin:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 0 28px}
-.welcomeOrb{width:142px;height:142px;border-radius:50%;display:grid;place-items:center;position:relative;margin:0 auto 29px;background:radial-gradient(circle,rgba(217,67,104,.19),rgba(217,67,104,.035) 58%,transparent 70%);animation:welcomeFloat 5s ease-in-out infinite}
-.welcomeOrb:before,.welcomeOrb:after{content:"";position:absolute;inset:7px;border:1px solid rgba(231,200,158,.23);border-radius:50%;box-shadow:0 0 35px rgba(217,67,104,.1)}.welcomeOrb:after{inset:-8px;border-style:dashed;border-color:rgba(231,200,158,.13);animation:welcomeOrbit 28s linear infinite}
-.welcomeOrb [data-venn]{width:78px;height:78px;display:grid;place-items:center;filter:drop-shadow(0 8px 24px rgba(217,67,104,.35))}.welcomeOrb [data-venn] svg{width:100%;height:100%}.welcomeOrb i,.welcomeOrb b{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--champ);box-shadow:0 0 15px var(--champ)}.welcomeOrb i{top:13px;right:28px}.welcomeOrb b{bottom:18px;left:17px;width:5px;height:5px;background:var(--ruj)}
-.welcomeEyebrow{font-size:9px;font-weight:800;letter-spacing:.24em;color:var(--champ);margin:0 0 14px}.welcomeTitle{font:500 clamp(31px,8vw,42px)/1.12 var(--serif);letter-spacing:-.025em;color:var(--ivory);margin:0}.welcomeTitle em{font-style:italic;color:#e7c89e}.welcomeText{max-width:310px;color:var(--muted);font-size:13px;line-height:1.7;margin:17px auto 28px}.welcomeActions{width:100%;max-width:330px;display:grid;gap:10px}.welcomeActions .btn{width:100%;min-height:51px;border-radius:15px;font-size:13px}.welcomeActions .primary{display:flex;align-items:center;justify-content:center;gap:12px}.welcomeActions .primary span{font-size:18px;transition:transform .2s}.welcomeActions .primary:active span{transform:translateX(4px)}.welcomeRegister{border:1px solid rgba(231,200,158,.22)!important;background:rgba(255,255,255,.025)!important;color:var(--ivory)!important}.welcomeTerms{max-width:290px;color:rgba(220,203,207,.48);font-size:9px;line-height:1.6;margin:18px auto 0}.welcomeBottom{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px;color:rgba(220,203,207,.35);font-size:8px;letter-spacing:.14em}.welcomeBottom span:first-child{color:rgba(231,200,158,.58);font-weight:800}
-@keyframes welcomeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes welcomeOrbit{to{transform:rotate(360deg)}}
-@media(max-height:700px){.welcomeOrb{width:112px;height:112px;margin-bottom:18px}.welcomeOrb [data-venn]{width:65px;height:65px}.welcomeText{margin:12px auto 18px}.welcomeContent{padding:10px 0}}
-@media(prefers-reduced-motion:reduce){.welcomeOrb,.welcomeOrb:after{animation:none}}
+/* ---------- Perde sosyal akış arayüzü ---------- */
+#sHome{background:#12070d}
+#sHome>.bar{position:sticky;top:0;z-index:30;max-width:100%;padding:12px 18px;background:rgba(26,10,18,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(244,234,223,.07)}
+#sHome .brand{font-size:25px}
+#sHome .discoverWrap{width:100%;max-width:620px;margin:0 auto;padding:8px 16px 110px}
+.discoverHead{padding:12px 4px 18px}
+.discoverHead h2{font:600 29px/1.15 var(--serif);letter-spacing:-.03em}
+.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--champ);font-weight:800;margin-bottom:6px}
+.storyRail{display:flex;gap:13px;overflow-x:auto;padding:5px 1px 18px;scrollbar-width:none}
+.storyRail::-webkit-scrollbar{display:none}
+.storyBubble{flex:0 0 66px;width:66px;display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:0;color:#d9c8cb;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.storyRing{width:62px;height:62px;border-radius:50%;padding:3px;display:grid;place-items:center;background:linear-gradient(145deg,#f2c88f,#d7335b,#8e477f)}
+.storyRing i{font-style:normal;width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#29131f;border:2px solid #1a0a12;font-size:22px;color:#f1c2cf}
+.storyBubble.add .storyRing{background:linear-gradient(145deg,#e8c48f,#d7335b)}
+.dailyCard,.composeCard,.postCard,.premiumHero{border:1px solid rgba(232,196,143,.13);border-radius:19px;background:linear-gradient(145deg,rgba(58,27,43,.88),rgba(34,14,25,.96));box-shadow:0 12px 32px rgba(0,0,0,.14)}
+.dailyCard{padding:17px;margin:5px 0 22px}
+.dailyCard h3{font-size:21px;margin:3px 0 7px}
+.dailyCard>p{font-size:12px;color:var(--muted);margin-bottom:12px}
+.dailyCard textarea,.composeCard textarea{width:100%;min-height:76px;resize:vertical;border-radius:13px;border:1px solid rgba(232,196,143,.15);background:rgba(10,4,8,.35);padding:12px;color:var(--ivory);font:500 14px/1.5 var(--sans)}
+.dailyAnswer,.postActions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.sectionTitle{display:flex;align-items:center;justify-content:space-between;margin:20px 3px 11px}
+.sectionTitle h3{font-size:19px}
+.composeCard{padding:14px;margin-bottom:13px}
+.composeCard .postActions button{border:0;border-radius:30px;padding:9px 16px;background:var(--ruj);font-size:12px;font-weight:800;color:white}
+.postCard{padding:15px;margin:11px 0;animation:gameCardIn .28s ease both}
+.postMeta{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11px;line-height:1.45}
+.postMeta b{color:var(--ivory);font-size:12px}
+.postAvatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d7335b,#75446e);color:#fff;font-size:17px}
+.postText{font-size:14px;line-height:1.65;color:#f5e9e4;margin:14px 1px;white-space:pre-wrap;overflow-wrap:anywhere}
+.postActions{border-top:1px solid rgba(244,234,223,.07);padding-top:10px}
+.postActions button,.ghost{background:none;border:0;color:#d9a8b6;font-size:11px;font-weight:700}
+.bottomNav{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:620px;margin:0 auto;padding:9px 12px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);background:rgba(24,8,16,.94);backdrop-filter:blur(22px);border-top:1px solid rgba(244,234,223,.09)}
+.bottomNav button{border:0;background:none;color:#8e7881;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0}
+.bottomNav button span{width:28px;height:25px;display:grid;place-items:center}
+.bottomNav svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bottomNav button.active{color:#f2c4d0}.bottomNav button.active span{filter:drop-shadow(0 0 8px rgba(215,51,91,.4))}
+.premiumHero{padding:22px;margin-top:22px}.premiumHero h2{font-size:26px}.premiumHero p{font-size:12px;color:var(--muted);margin:7px 0 15px}
+#homeMain{max-width:620px;padding:20px 18px 110px;margin:0 auto}
+#homeMain .headline{font-size:28px}
+#homeMain .stage{margin:26px auto}
+#homeMain .quick{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#homeMain .panel{border-radius:18px}
+@media(min-width:700px){#sHome .discoverWrap{padding-left:24px;padding-right:24px}.postCard,.dailyCard,.composeCard{border-radius:22px}}
+@media(prefers-reduced-motion:reduce){.postCard{animation:none}}
+
+/* ---------- Hikâyeler: sosyal medya görünümü ---------- */
+.storyRail{gap:14px;padding:8px 2px 17px;align-items:flex-start}
+.storyBubble{flex:0 0 70px;width:70px;gap:7px;color:#e9dce0;font-size:10px;letter-spacing:.01em}
+.storyRing{width:66px;height:66px;padding:3px;background:conic-gradient(from 20deg,#f5d39d,#d7335b,#9b5a9a,#f5d39d);box-shadow:0 5px 18px rgba(215,51,91,.17)}
+.storyRing i{background:radial-gradient(circle at 35% 25%,#4a2538,#1b0c14 72%);border:2px solid #170912;font-size:21px;font-weight:700;color:#f5cbd5}
+.storyBubble.add .storyRing{background:linear-gradient(145deg,#e8c48f,#d7335b);position:relative}
+.storyBubble.add .storyRing i{background:#26121c;color:#f3c98f;font-size:27px}
+.storyBubble>span:last-child{max-width:70px;overflow:hidden;text-overflow:ellipsis}
+.storyModal{z-index:100;background:rgba(7,3,6,.96);padding:14px;backdrop-filter:blur(14px)}
+.storyViewer{position:relative;width:min(100%,420px);height:min(760px,88dvh);min-height:420px;border-radius:25px;overflow:hidden;display:flex;flex-direction:column;padding:15px 17px 18px;background:radial-gradient(ellipse at 15% 12%,rgba(215,51,91,.35),transparent 48%),radial-gradient(ellipse at 90% 90%,rgba(232,196,143,.14),transparent 42%),linear-gradient(150deg,#482034,#1b0b14 70%);border:1px solid rgba(245,211,157,.25);box-shadow:0 25px 90px #0009}
+.storyProgress{height:3px;border-radius:8px;background:#ffffff30;overflow:hidden;margin-bottom:16px}
+.storyProgress i{display:block;height:100%;width:0;background:#f4d5a7;border-radius:8px;transition:width .25s ease}
+.storyViewerTop{display:flex;align-items:center;gap:10px;color:#fff}
+.storyViewerAvatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#f2c88f,#d7335b);border:2px solid #fff5;font-weight:800}
+.storyViewerTop>div{display:flex;flex-direction:column;gap:2px;flex:1}.storyViewerTop b{font-size:12px}.storyViewerTop small{font-size:10px;color:#e7cbd4}
+.storyViewerTop button,.storyComposerHead button{border:0;background:#ffffff16;color:white;border-radius:50%;width:34px;height:34px;font-size:24px;line-height:1}
+.storyViewer .storyText{flex:1;display:grid;place-items:center;text-align:center;padding:28px 12px;font:500 clamp(25px,6vw,34px)/1.4 var(--serif);color:#fff4ef;overflow-wrap:anywhere;white-space:pre-wrap;text-shadow:0 3px 25px #0006}
+.storyViewerBottom{display:flex;align-items:center;justify-content:space-between;color:#d6b7c2;font-size:9px;letter-spacing:.13em;font-weight:800}
+.storyViewerBottom div{display:flex;gap:8px}.storyViewerBottom button{width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#ffffff12;color:#fff;font-size:26px;line-height:1}
+.storyComposer{position:fixed;inset:0;z-index:105;background:rgba(7,3,6,.82);backdrop-filter:blur(12px);display:none;align-items:flex-end;justify-content:center;padding:16px}
+.storyComposer.on{display:flex;animation:modalFade .2s ease both}
+.storyComposerCard{width:min(100%,480px);padding:20px;border-radius:25px 25px 20px 20px;background:linear-gradient(150deg,#3c1b2b,#1b0b14);border:1px solid rgba(232,196,143,.24);box-shadow:0 25px 80px #0009;animation:modalRise .28s ease both}
+.storyComposerHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.storyComposerHead h3{font:500 26px var(--serif);color:#fff0eb}
+.storyPreview{min-height:135px;border-radius:18px;padding:17px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle at 20% 15%,#9b385b,#35172a 60%,#1c0c15);border:1px solid #ffffff18;margin-bottom:13px}
+.storyPreview span{font-size:24px;color:#f2c88f;margin-bottom:9px}.storyPreview p{font:500 20px/1.4 var(--serif);color:#fff1ed;overflow-wrap:anywhere;white-space:pre-wrap}
+.storyComposer textarea{width:100%;min-height:92px;resize:none;border:1px solid rgba(232,196,143,.2);border-radius:14px;background:#10070c;color:#fff0eb;padding:13px;font:500 14px/1.5 var(--sans);outline:none}
+.storyComposer textarea:focus{border-color:#d78a9f;box-shadow:0 0 0 3px #d7335b20}
+.storyComposerFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}.storyComposerFoot small{font-size:10px;color:#c7aeb7}.storyComposerFoot small b{color:#f2c88f}
+.storyComposerFoot .btn{white-space:nowrap;padding:11px 15px;font-size:11px}
+@media(max-width:390px){.storyViewer{height:88dvh;min-height:390px}.storyComposerCard{padding:16px}.storyComposerFoot .btn{padding:10px 12px}}
+
+
+/* PERDE 2026 — premium polish layer */
+:root{--bg:#10070d;--surface:#20101a;--surface2:#2c1724;--line:rgba(244,234,223,.12);--ivory:#fff5ee;--muted:#bda6ae;--ruj:#e44870;--champ:#f0cc98}
+body{background-color:#10070d;background-image:radial-gradient(ellipse at 50% -12%,rgba(145,38,78,.28),transparent 52%),radial-gradient(ellipse at 100% 45%,rgba(100,49,92,.10),transparent 40%)}
+.screen{min-height:100svh}.bar{padding-top:max(15px,env(safe-area-inset-top))}.brand{font-family:var(--sans);font-weight:800;letter-spacing:-.06em}
+.hero,.headline{letter-spacing:-.045em;line-height:1.08}.authMain{padding-top:clamp(34px,8vh,78px);padding-bottom:38px}
+.hero{font-size:clamp(35px,9vw,48px);max-width:12ch}.lede{font-size:15px;line-height:1.7;color:#d1bdc3;margin:18px 0 25px}
+.tabs{padding:5px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--line);display:flex;gap:5px;margin-bottom:20px}
+.tab{flex:1;border:0;border-radius:12px;padding:12px 8px;background:transparent;color:var(--muted);font-weight:800}.tab[aria-selected=true]{background:linear-gradient(135deg,#e44870,#a72e59);color:white;box-shadow:0 7px 20px rgba(228,72,112,.22)}
+.field{margin-bottom:15px}.field label{font-size:12px;letter-spacing:.02em}input,select{min-height:51px;border-radius:14px;background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.13);font-size:15px}
+input:focus,select:focus{border-color:var(--ruj);box-shadow:0 0 0 3px rgba(228,72,112,.13)}.btn{min-height:49px;border-radius:14px;font-size:14px;letter-spacing:.01em}
+.btn.primary{background:linear-gradient(135deg,#f05a7d,#bf315d);box-shadow:0 10px 24px rgba(191,49,93,.23);color:#fff}.btn.quiet,.linkBtn{background:rgba(255,255,255,.055);border:1px solid var(--line);color:#e7cbd4}
+.foot{font-size:12px;line-height:1.7;color:#a9909a;margin-top:22px}#sHome>.bar{padding-left:20px;padding-right:20px}#homeMain .headline{font-size:clamp(27px,7vw,34px)}
+.storyRail{gap:14px;padding:10px 2px 21px}.storyBubble{font-size:11px;font-weight:700;color:#d9c8cf}.storyRing{width:68px;height:68px;padding:3px;background:conic-gradient(from 210deg,#f4cf9d,#e44870,#9c6bc1,#f4cf9d)}.storyRing i{background:#1a0d15;border:2px solid #10070d}.storyBubble.add .storyRing{background:linear-gradient(145deg,#f4cf9d,#e44870)}
+.dailyCard,.composeCard,.postCard,.premiumHero{border-color:rgba(240,204,152,.16);background:linear-gradient(150deg,rgba(47,23,36,.96),rgba(25,11,19,.98));box-shadow:0 15px 36px rgba(0,0,0,.22)}.dailyCard{padding:19px}.dailyCard h3{font-size:22px}.postCard{padding:17px}.postText{font-size:14px;line-height:1.75}
+.bottomNav{padding-top:11px;background:rgba(17,7,13,.94);border-color:rgba(255,255,255,.09)}.bottomNav button{font-size:10px}.bottomNav button.active{color:#ff9ab1}.avBtn{border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 4px rgba(255,255,255,.035)}#toast{backdrop-filter:blur(15px)}
+@media(min-width:600px){.authMain{padding-top:65px}.hero{font-size:52px}}
+
+
+.guestWelcome{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px;margin:8px 0 20px;border:1px solid rgba(231,200,158,.2);border-radius:20px;background:linear-gradient(125deg,rgba(128,29,60,.34),rgba(231,200,158,.08));box-shadow:0 14px 38px rgba(0,0,0,.18)}
+.guestWelcome>div{display:grid;gap:5px}.guestWelcome strong{font-size:15px;letter-spacing:-.02em}.guestWelcome small{color:var(--muted);font-size:12px;line-height:1.45}.guestWelcome .eyebrow{font-size:9px;color:var(--champ);letter-spacing:.15em}
+.guestOnlyHide{display:none!important}
 
 </style>
 </head>
@@ -582,26 +667,6 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
 <!-- ============ AÇILIŞ ============ -->
 <section id="sSplash" class="screen on" aria-label="Yükleniyor">
   <div data-venn></div>
-</section>
-
-<!-- ============ KARŞILAMA / LANDING ============ -->
-<section id="sWelcome" class="screen" aria-label="Perde'ye hoş geldin">
-  <div class="welcomeTop">
-    <div class="brand"><span data-venn></span><span data-brand>Perde</span></div>
-    <span class="welcomeBadge">ANONİM SOSYAL DÜNYA</span>
-  </div>
-  <div class="welcomeContent">
-    <div class="welcomeOrb" aria-hidden="true"><span data-venn="main"></span><i></i><b></b></div>
-    <p class="welcomeEyebrow">KENDİN OL, KİMLİĞİNİ SAKLA</p>
-    <h1 class="welcomeTitle">Bazen en güzel<br><em>sohbetler</em> yabancılarla başlar.</h1>
-    <p class="welcomeText">Yeni insanlarla tanış, düşüncelerini paylaş ve Perde'nin ardındaki hikâyeleri keşfet.</p>
-    <div class="welcomeActions">
-      <button class="btn primary" id="welcomeLogin" type="button">Giriş yap <span aria-hidden="true">→</span></button>
-      <button class="btn quiet welcomeRegister" id="welcomeRegister" type="button">Yeni hesap oluştur</button>
-    </div>
-    <p class="welcomeTerms">Devam ederek 18 yaşından büyük olduğunu ve topluluk kurallarını kabul ettiğini onaylarsın.</p>
-  </div>
-  <div class="welcomeBottom"><span>PERDE</span><span>GERÇEK SOHBET · ANONİM BAĞLANTI</span></div>
 </section>
 
 <!-- ============ GİRİŞ / KAYIT ============ -->
@@ -697,6 +762,10 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
     </div>
   </div>
   <div class="discoverWrap" id="discoverView" hidden>
+    <div class="guestWelcome" id="guestWelcome" hidden>
+      <div><span class="eyebrow">PERDE'YE HOŞ GELDİN</span><strong>Önce keşfet, hazır olduğunda katıl.</strong><small>Herkese açık paylaşımları ve hikâyeleri giriş yapmadan inceleyebilirsin.</small></div>
+      <button class="btn primary sm" id="guestJoin" type="button">Giriş yap / Katıl</button>
+    </div>
     <div class="discoverHead"><div><div class="eyebrow">Perde topluluğu</div><h2>Keşfet</h2></div><span class="pill">Anonim alan</span></div>
     <div class="sectionTitle"><h3>24 saatlik notlar</h3><button class="ghost" id="storyCreateBtn" type="button">+ Ekle</button></div>
     <div class="storyRail" id="storyRail"><div class="emptyState">Notlar yükleniyor…</div></div>
@@ -732,8 +801,8 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
     </div>
   </div>
   <nav class="bottomNav" id="bottomNav" aria-label="Ana gezinme">
-    <button class="active" data-nav="home" aria-label="Ana sayfa"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Ana sayfa</button>
-    <button data-nav="discover" aria-label="Keşfet"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-2.8z"/></svg></span>Keşfet</button>
+    <button class="active" data-nav="feed" aria-label="Akış"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Akış</button>
+    <button data-nav="match" aria-label="Tanış"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-2.8z"/></svg></span>Tanış</button>
     <button data-nav="chats" aria-label="Sohbetler"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg></span>Sohbetler</button>
     <button data-nav="profile" aria-label="Profil"><span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Profil</button>
   </nav>
@@ -827,7 +896,22 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
   </div>
 </section>
 
-<div class="storyModal" id="storyModal"><div class="storyCard"><div class="eyebrow">24 saatlik not</div><div class="storyText" id="storyModalText"></div><div class="miniLabel" id="storyModalMeta"></div><button class="btn quiet" id="storyModalClose" type="button">Kapat</button></div></div>
+<div class="storyModal" id="storyModal" aria-label="Hikâye görüntüleyici">
+  <div class="storyViewer" role="dialog" aria-modal="true">
+    <div class="storyProgress"><i id="storyProgressBar"></i></div>
+    <div class="storyViewerTop"><span class="storyViewerAvatar" id="storyViewerAvatar">✦</span><div><b id="storyViewerName">Anonim biri</b><small id="storyModalMeta">24 saatlik hikâye</small></div><button id="storyModalClose" type="button" aria-label="Kapat">×</button></div>
+    <div class="storyText" id="storyModalText"></div>
+    <div class="storyViewerBottom"><span>PERDE · ANONİM HİKÂYELER</span><div><button id="storyPrev" type="button" aria-label="Önceki hikâye">‹</button><button id="storyNext" type="button" aria-label="Sonraki hikâye">›</button></div></div>
+  </div>
+</div>
+<div class="storyComposer" id="storyComposer" aria-label="Hikâye oluştur">
+  <div class="storyComposerCard" role="dialog" aria-modal="true" aria-labelledby="storyComposerTitle">
+    <div class="storyComposerHead"><div><div class="eyebrow">24 SAATLİK PAYLAŞIM</div><h3 id="storyComposerTitle">Bir hikâye bırak.</h3></div><button id="storyComposerClose" type="button" aria-label="Kapat">×</button></div>
+    <div class="storyPreview"><span>✦</span><p id="storyPreviewText">Aklından geçenleri burada paylaş…</p></div>
+    <textarea id="storyInput" maxlength="160" placeholder="Bugün ne söylemek istersin?" aria-label="Hikâye metni"></textarea>
+    <div class="storyComposerFoot"><small><b id="storyCharCount">0</b>/160 · Kimliğin gizli kalır</small><button class="btn primary" id="storyPublish" type="button">Hikâyeyi paylaş ↗</button></div>
+  </div>
+</div>
 <div id="toast" role="status"></div>
 
 <div class="dlg" id="dlg" hidden>
@@ -838,6 +922,7 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(217,67,104,.12
 </div>
 
 <script type="module">
+
 /* =========================================================
    AYARLAR — burayı kendi Firebase bilgilerinle doldur
    (boş bırakırsan uygulama "önizleme modunda" çalışır)
@@ -1436,9 +1521,23 @@ const avatar = (p, big) => `<span class="av${big ? ' big' : ''}" style="--t:${TO
 function onUser(u) {
   S.user = u;
   if (!u || u.unverified) stopLoops();
-  if (!u) { show('sWelcome'); return; }
+  if (!u) { setMode('login'); show('sHome'); setHomeTab('feed'); updateGuestUI(); return; }
   if (u.unverified) { $('#verifyMail').textContent = u.email; show('sVerify'); return; }
   u.profile ? goHome() : openProfile(true);
+}
+function requireLogin(message='Bu özelliği kullanmak için Perde’ye katılmalısın.') {
+  if (S.user && S.user.profile) return true;
+  toast(message); setMode('login'); show('sAuth'); return false;
+}
+function updateGuestUI(){
+  const guest=!S.user || !S.user.profile;
+  $('#guestWelcome').hidden=!guest;
+  $('#btnProfile').textContent=guest?'Giriş': '';
+  $('#btnProfile').setAttribute('aria-label',guest?'Giriş yap':'Profilim');
+  $('#storyCreateBtn').textContent=guest?'Katıl':'＋ Ekle';
+  $('#dailyAnswerText').disabled=guest; $('#dailySend').disabled=guest;
+  $('#postText').disabled=guest; $('#postSend').disabled=guest;
+  if(guest){$('#dailyAnswerText').placeholder='Yanıtlamak için giriş yap…';$('#postText').placeholder='Paylaşım yapmak için giriş yap…';}
 }
 
 /* ---------- Çevrimiçi sayacı ---------- */
@@ -1472,8 +1571,6 @@ function setMode(m) {
 }
 $('#tabLogin').onclick = () => setMode('login');
 $('#tabReg').onclick = () => setMode('register');
-$('#welcomeLogin').onclick = () => { setMode('login'); show('sAuth'); $('#inEmail').focus({preventScroll:true}); };
-$('#welcomeRegister').onclick = () => { setMode('register'); show('sAuth'); $('#inEmail').focus({preventScroll:true}); };
 
 $('#authForm').addEventListener('submit', async e => {
   e.preventDefault();
@@ -1521,13 +1618,15 @@ function goHome() {
   $('#btnProfile').innerHTML = avatar(p);
   $('#homeStatus').textContent = `Hoş geldin ${p.nickname}. Hazır olunca eşleş.`;
   show('sHome');
-  setHomeTab('home');
+  updateGuestUI();
+  setHomeTab('feed');
   renderCards();
   startLoops();
   maybeInstall();
 }
 
-$('#btnProfile').onclick = () => openProfile(false);
+$('#btnProfile').onclick = () => { if (!requireLogin()) return; openProfile(false); };
+$('#guestJoin').onclick = () => { setMode('register'); show('sAuth'); };
 
 function showWait() {
   $('#waitTitle').textContent = 'Aranıyor…';
@@ -2091,12 +2190,12 @@ const dayKey = () => new Date().toISOString().slice(0,10);
 const todayQuestion = () => DAILY_QUESTIONS[Math.floor(Date.now()/DAY)%DAILY_QUESTIONS.length];
 function setHomeTab(tab) {
   const home = $('#sHome');
-  $('#homeMain').hidden = tab !== 'home';
-  $('#discoverView').hidden = tab !== 'discover';
+  $('#homeMain').hidden = tab !== 'match';
+  $('#discoverView').hidden = tab !== 'feed';
   $('#chatsView').hidden = tab !== 'chats';
   $('#premiumView').hidden = true;
   $$('#bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.nav===tab));
-  if (tab==='discover') loadDiscover();
+  if (tab==='feed') loadDiscover();
   if (tab==='chats') loadRecentChats();
 }
 async function loadDiscover(force=false) {
@@ -2122,33 +2221,61 @@ function renderPostFeed(posts) {
     <div class="postActions"><span class="miniLabel">Perde topluluğundan</span><button type="button" data-post-report="${esc(p.id)}">⚑ Şikâyet</button></div>
   </article>`).join('');
 }
+let activeStories=[];
+let activeStoryIndex=0;
+let storyTimer=null;
 function renderStories(stories) {
+  activeStories=stories.slice();
   const el=$('#storyRail');
-  const own=stories.filter(x=>x.author===S.user.uid);
-  const add=`<button class="storyBubble add" type="button" id="storyAddBubble"><span class="storyRing"><i>＋</i></span>Not ekle</button>`;
-  const cards=stories.map(x=>`<button class="storyBubble" type="button" data-story="${esc(x.id)}" data-text="${esc(x.text)}" data-country="${esc(x.country||'TR')}"><span class="storyRing"><i>✦</i></span>${x.author===S.user.uid?'Sen':esc(cname(x.country||'TR'))}</button>`).join('');
+  const add=`<button class="storyBubble add" type="button" id="storyAddBubble"><span class="storyRing"><i>＋</i></span><span>Hikâye ekle</span></button>`;
+  const cards=stories.map((x,i)=>`<button class="storyBubble" type="button" data-story-index="${i}"><span class="storyRing"><i>${(S.user && x.author===S.user.uid)?'S':'✦'}</i></span><span>${(S.user && x.author===S.user.uid)?'Sen':esc(cname(x.country||'TR'))}</span></button>`).join('');
   el.innerHTML=add+cards;
-  $('#storyAddBubble').onclick=createStory;
-  el.querySelectorAll('[data-story]').forEach(b=>b.onclick=()=>openStory(b.dataset.text,b.dataset.country));
+  $('#storyAddBubble').onclick=()=>{if(requireLogin())showStoryComposer();};
+  el.querySelectorAll('[data-story-index]').forEach(b=>b.onclick=()=>openStory(Number(b.dataset.storyIndex)));
 }
-function openStory(text,country) {
-  $('#storyModalText').textContent=text;
-  $('#storyModalMeta').textContent=cname(country)+' · 24 saatlik not';
+function openStory(index) {
+  if(!activeStories.length)return;
+  activeStoryIndex=Math.max(0,Math.min(index,activeStories.length-1));
+  const item=activeStories[activeStoryIndex];
+  $('#storyModalText').textContent=item.text||'';
+  $('#storyViewerName').textContent=item.author===S.user.uid?'Sen': 'Anonim biri';
+  $('#storyViewerAvatar').textContent=item.author===S.user.uid?'S':'✦';
+  $('#storyModalMeta').textContent=cname(item.country||'TR')+' · 24 saatlik hikâye';
+  $('#storyProgressBar').style.width=((activeStoryIndex+1)/activeStories.length*100)+'%';
   $('#storyModal').classList.add('on');
+  clearTimeout(storyTimer);
+  storyTimer=setTimeout(()=>{if(activeStoryIndex<activeStories.length-1)openStory(activeStoryIndex+1);else closeStory();},6500);
 }
-$('#storyModalClose').onclick=()=>$('#storyModal').classList.remove('on');
-$('#storyModal').addEventListener('click',e=>{if(e.target.id==='storyModal')$('#storyModal').classList.remove('on');});
+function closeStory(){clearTimeout(storyTimer);$('#storyModal').classList.remove('on');}
+$('#storyModalClose').onclick=closeStory;
+$('#storyModal').addEventListener('click',e=>{if(e.target.id==='storyModal')closeStory();});
+$('#storyPrev').onclick=()=>{clearTimeout(storyTimer);if(activeStoryIndex>0)openStory(activeStoryIndex-1);};
+$('#storyNext').onclick=()=>{clearTimeout(storyTimer);if(activeStoryIndex<activeStories.length-1)openStory(activeStoryIndex+1);else closeStory();};
+function showStoryComposer(){
+  $('#storyInput').value='';$('#storyCharCount').textContent='0';$('#storyPreviewText').textContent='Aklından geçenleri burada paylaş…';
+  $('#storyComposer').classList.add('on');setTimeout(()=>$('#storyInput').focus(),100);
+}
+function closeStoryComposer(){$('#storyComposer').classList.remove('on');}
+$('#storyComposerClose').onclick=closeStoryComposer;
+$('#storyComposer').addEventListener('click',e=>{if(e.target.id==='storyComposer')closeStoryComposer();});
+$('#storyInput').addEventListener('input',()=>{
+  const value=$('#storyInput').value;
+  $('#storyCharCount').textContent=value.length;
+  $('#storyPreviewText').textContent=value.trim()||'Aklından geçenleri burada paylaş…';
+});
 async function createStory() {
-  const text=prompt('24 saat sonra kaybolacak kısa notunu yaz (en fazla 160 karakter):');
-  if(text===null)return;
-  const value=text.trim();
-  if(value.length<2||value.length>160)return toast('Not 2–160 karakter olmalı.');
+  const value=$('#storyInput').value.trim();
+  if(value.length<2||value.length>160)return toast('Hikâye 2–160 karakter olmalı.');
   if(LEAK.test(value))return toast('İletişim bilgisi veya sosyal medya adresi paylaşma.');
-  try { await B.createStory(S.user,value); toast('24 saatlik notun paylaşıldı.'); await loadDiscover(true); }
-  catch(e){console.error(e);toast('Not paylaşılamadı.');}
+  const button=$('#storyPublish');button.disabled=true;
+  try { await B.createStory(S.user,value);closeStoryComposer();toast('Hikâyen 24 saatliğine paylaşıldı.');await loadDiscover(true); }
+  catch(e){console.error(e);toast('Hikâye paylaşılamadı.');}
+  finally{button.disabled=false;}
 }
-$('#storyCreateBtn').onclick=createStory;
+$('#storyPublish').onclick=createStory;
+$('#storyCreateBtn').onclick=()=>{if(requireLogin())showStoryComposer();};
 $('#postSend').onclick=async()=>{
+  if(!requireLogin())return;
   const value=$('#postText').value.trim();
   if(value.length<3||value.length>280)return toast('Paylaşım 3–280 karakter olmalı.');
   if(LEAK.test(value))return toast('Telefon, e-posta, bağlantı veya sosyal medya bilgisi paylaşma.');
@@ -2158,12 +2285,13 @@ $('#postSend').onclick=async()=>{
   finally{b.disabled=false;}
 };
 $('#postFeed').addEventListener('click',async e=>{
-  const b=e.target.closest('[data-post-report]');if(!b)return;
+  const b=e.target.closest('[data-post-report]');if(!b)return;if(!requireLogin())return;
   const post=(await B.listPosts()).find(x=>x.id===b.dataset.postReport);if(!post)return;
   if(!await ask('Paylaşımı şikâyet et?','İçerik incelenmek üzere yönetime iletilir.','Şikâyet et'))return;
   try{await B.reportPost(S.user,post);toast('Şikâyetin alındı.');}catch(err){console.error(err);toast('Şikâyet gönderilemedi.');}
 });
 $('#dailySend').onclick=async()=>{
+  if(!requireLogin())return;
   const value=$('#dailyAnswerText').value.trim(),qid=dayKey();
   if(value.length<2||value.length>240)return toast('Yanıt 2–240 karakter olmalı.');
   if(LEAK.test(value))return toast('İletişim bilgisi paylaşma.');
@@ -2190,11 +2318,12 @@ async function loadRecentChats(){
 $('#bottomNav').addEventListener('click',e=>{
   const b=e.target.closest('[data-nav]');if(!b)return;
   const tab=b.dataset.nav;
-  if(tab==='profile'){openProfile(false);return;}
+  if(tab==='profile'){if(requireLogin())openProfile(false);return;}
+  if(tab==='match'||tab==='chats'){if(!requireLogin())return;}
   setHomeTab(tab);
 });
 $('#openPremium').onclick=()=>{$('#homeMain').hidden=true;$('#discoverView').hidden=true;$('#chatsView').hidden=true;$('#premiumView').hidden=false;};
-$('#premiumBack').onclick=()=>setHomeTab('discover');
+$('#premiumBack').onclick=()=>setHomeTab('feed');
 
 /* ---------- Ana ekrana ekle ---------- */
 let deferred = null;
@@ -2217,7 +2346,7 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   fillCountries($('#wantSel'), { any: true, value: localStorage.getItem('perde_want') || 'ANY' });
   $('#demoBadge').hidden = !DEMO;
   setMode('login');
-  show('sWelcome');
+  updateGuestUI();
 
   addEventListener('pagehide', () => { try { B && B.cancelMatch(); } catch (e) {} });
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
@@ -2227,6 +2356,7 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   catch (e) { console.error(e); show('sAuth'); $('#authErr').textContent = 'Sunucuya bağlanılamadı. İnternetini kontrol edip sayfayı yenile.'; return; }
   B.init(onUser);
 })();
+
 </script>
 
 <!-- ============ PERDE OYUNLARI ============ -->
@@ -2242,5 +2372,6 @@ $('#instX').onclick = () => { localStorage.setItem('perde_inst', '1'); $('#inst'
   </section>
 </div>
 
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.error));}</script>
 </body>
 </html>
