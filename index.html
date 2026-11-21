@@ -20,7 +20,7 @@
     --yellow:#FFE08A;
     --text:#4A2C5A;
     --text-strong:#3D1F4A;
-    --muted:#A988BC;
+    --muted:#8A6AA2;
     --muted-soft:#C9AED9;
     --line:rgba(255,126,182,.22);
     --cream:#FFF6FA;
@@ -241,9 +241,9 @@
   .icon-btn:active{transform:scale(.92)}
   .icon-btn:disabled{opacity:.35;pointer-events:none}
   .pills{flex:1;display:flex;gap:4px}
-  .pills i{flex:1;height:6px;border-radius:99px;background:rgba(255,126,182,.15);
+  .pills i{flex:1;height:6px;border-radius:99px;background:rgba(255,126,182,.28);
     transition:background .3s, transform .3s}
-  .pills i.cur{background:rgba(255,126,182,.4);transform:scaleY(1.6)}
+  .pills i.cur{background:rgba(255,126,182,.6);transform:scaleY(1.6)}
   .pills i.done{background:linear-gradient(90deg,var(--rose),var(--peach))}
   .count{min-width:36px;text-align:right;font-family:'Space Grotesk',sans-serif;
     font-weight:700;font-size:13px;color:var(--muted)}
@@ -430,18 +430,17 @@
   .share-loading .spinner{width:36px;height:36px;margin:0 auto 14px;border-radius:50%;
     border:3px solid rgba(255,126,182,.22);border-top-color:var(--rose);animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .share-preview{flex:1 1 auto;min-height:0;margin:0 auto 14px;
-    display:flex;align-items:center;justify-content:center;
+  .share-preview{flex:0 0 auto;margin:0 auto 12px;display:flex;justify-content:center;
     animation:prevIn .45s cubic-bezier(.2,.85,.25,1) both}
   @keyframes prevIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-  .share-preview img{max-height:100%;max-width:100%;height:auto;width:auto;display:block;
-    aspect-ratio:9/16;border-radius:18px;
+  .share-preview img{display:block;aspect-ratio:9/16;width:auto;max-width:100%;object-fit:contain;
+    height:clamp(200px,calc(var(--app-h,100dvh) - 330px),560px);border-radius:18px;
     box-shadow:0 20px 50px -10px rgba(255,126,182,.55),0 0 40px -10px rgba(200,155,255,.35),inset 0 0 0 1px rgba(255,255,255,.6)}
-  .share-actions{display:flex;flex:0 0 auto;margin-bottom:10px}
+  .share-actions{display:flex;gap:8px;flex:0 0 auto;margin-bottom:8px}
   .share-btn{padding:14px 16px;border-radius:16px;border:1.5px solid var(--rose-soft);
     background:#fff;color:var(--text-strong);font-family:'Space Grotesk',sans-serif;
     font-size:14px;font-weight:600;cursor:pointer;transition:all .22s;
-    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;}
+    display:flex;align-items:center;justify-content:center;gap:8px;flex:1;min-width:0;}
   .share-btn:hover{background:#FFF0F6;border-color:var(--rose);transform:translateY(-1px)}
   .share-btn:active{transform:translateY(0) scale(.98)}
   .share-btn.primary{background:linear-gradient(120deg,var(--rose),var(--peach));color:#fff;
@@ -449,7 +448,18 @@
   .share-btn.primary:hover{box-shadow:0 16px 40px -10px rgba(255,126,182,.9)}
   .share-bottom{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto;
     padding-top:12px;border-top:1px solid rgba(255,126,182,.15)}
+  .share-link{background:none;border:0;color:var(--rose-deep);font-weight:700;font-size:12.5px;
+    cursor:pointer;padding:4px 10px;border-radius:10px}
+  .share-link:hover{background:rgba(255,126,182,.12)}
   .share-hint{font-size:11px;color:var(--muted);text-align:center;line-height:1.5}
+  html[data-h=s] .share-head p,html[data-h=xs] .share-head p{display:none}
+  .solve-row{display:flex;gap:8px;margin-top:14px;width:min(340px,100%);animation:fadeUp .9s .38s both}
+  .solve-row input{flex:1;min-width:0;padding:11px 14px;border-radius:999px;text-align:center;
+    background:#fff;border:1.5px solid var(--rose-soft);color:var(--text);font-size:14px;outline:none;
+    transition:border-color .2s, box-shadow .2s}
+  .solve-row input:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(255,126,182,.14)}
+  .solve-row input::placeholder{color:var(--muted-soft)}
+  .solve-row .ghost-btn{white-space:nowrap}
   @media(max-width:400px){
     .share-modal-inner{padding:18px 14px 16px;border-radius:22px}
     .share-head h3{font-size:17px}
@@ -499,6 +509,10 @@
         Kendin hakkında 10 soruyu yanıtla, tek link paylaş. Arkadaşların <strong>cevaplarını tahmin etsin</strong>, kim seni ne kadar tanıyor anında gör 🎯
       </p>
       <button class="cta" id="createBtn">Testini Oluştur ✨</button>
+      <div class="solve-row">
+        <input id="solveInput" placeholder="Arkadaşının test numarası" inputmode="numeric" maxlength="6" />
+        <button class="ghost-btn" id="solveGo">Çöz 🎯</button>
+      </div>
       <div class="hint">Testler ve sonuçlar bulutta saklanır ☁️ · perde.pro</div>
     </div>
   </section>
@@ -553,7 +567,11 @@
       <p class="sub" id="doneSub"></p>
 
       <div class="row-actions" id="doneActions" hidden>
-        <button class="cta small" id="shareResultBtn">🔗 Sonucumu Paylaş</button>
+        <button class="cta small" id="shareResultBtn">📸 Sonucumu Paylaş</button>
+        <button class="ghost-btn" id="sendOwnerBtn" hidden><span>🔗</span>Sonucu test sahibine gönder</button>
+      </div>
+      <div class="row-actions" style="margin-top:10px">
+        <button class="ghost-btn" id="doneCreateBtn"><span>✨</span>Kendi testini oluştur</button>
       </div>
       <p class="small-note" id="doneNote"></p>
     </div>
@@ -601,9 +619,11 @@
     </div>
     <div class="share-actions" id="shareActions" hidden>
       <button class="share-btn primary" id="shareNative">📤 Paylaş</button>
+      <button class="share-btn" id="shareSave">💾 Kaydet</button>
     </div>
     <div class="share-bottom" id="shareBottom" hidden>
-      <p class="share-hint">💡 Görsele uzun basıp telefonuna kaydedebilirsin</p>
+      <button class="share-link" id="shareCopy">🔗 Test linkini kopyala</button>
+      <p class="share-hint">💡 Hikayede link çıkartması için linki kopyala</p>
     </div>
   </div>
 </div>
@@ -1137,19 +1157,19 @@
   }
 
   function sendResult(id, result) {
-    const note = $('#doneNote'), actions = $('#doneActions');
+    const note = $('#doneNote'), actions = $('#doneActions'), owner = $('#sendOwnerBtn');
     const t = tests[id];
-    actions.hidden = false;
+    actions.hidden = false; owner.hidden = true;
     if (t && t.cloud) {
       note.textContent = 'Sonucun test sahibine gönderiliyor… ⏳';
       cloudAddResult(id, result).then(ok => {
-        note.textContent = ok
-          ? 'Sonucun test sahibine otomatik iletildi ✅ · İstersen hikayende de paylaş!'
-          : 'Bağlantı sorunu: sonucunu test sahibine paylaşmak için aşağıdaki butonu kullan.';
+        if (ok) note.textContent = 'Sonucun test sahibine otomatik iletildi ✅ · İstersen hikayende de paylaş!';
+        else { note.textContent = 'Bağlantı sorunu: sonucunu aşağıdaki butonla test sahibine gönder.'; owner.hidden = false; }
         fit();
       });
     } else {
-      note.textContent = 'Bu test çevrimdışı: sonucunu paylaşmak için aşağıdaki butonu kullan.';
+      note.textContent = 'Bu test çevrimdışı oluşturulmuş: sonucunu aşağıdaki butonla test sahibine gönder.';
+      owner.hidden = false;
     }
     fit();
   }
@@ -1163,6 +1183,33 @@
   }
 
   $('#shareResultBtn').addEventListener('click', openShareModal);
+  $('#doneCreateBtn').addEventListener('click', () => startQuiz('setup'));
+  $('#sendOwnerBtn').addEventListener('click', async () => {
+    if (!lastDone) return;
+    const id = lastDone.id, t = tests[id];
+    if (!t) return;
+    const url = baseUrl() + '#t=' + id + '&d=' + encode({ n: t.creatorName, a: t.answers }) + '&r=' + encode(lastDone.result);
+    try { await navigator.clipboard.writeText(url); toast('Sonuç linki kopyalandı ✓ Test sahibine gönder'); }
+    catch (e) { prompt('Bu linki test sahibine gönder:', url); }
+  });
+
+  // Ana sayfadan test numarasıyla çözme (hikayedeki karttan gelenler için)
+  async function openSolveById(id) {
+    if (!tests[id]) {
+      toast('Test aranıyor… 🔎');
+      const t = await cloudGetTest(id);
+      if (t) { tests[id] = t; store.set('perde.tests', tests); }
+    }
+    if (tests[id]) startQuiz('solve', id);
+    else toast('Bu numaraya ait test bulunamadı 🕵️');
+  }
+  $('#solveGo').addEventListener('click', () => {
+    const id = $('#solveInput').value.trim();
+    if (!/^\d{6}$/.test(id)) { toast('6 haneli test numarası gir 🔢'); return; }
+    $('#solveInput').blur();
+    openSolveById(id);
+  });
+  $('#solveInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('#solveGo').click(); });
 
   const PAGE = 3;
   let chk = { id:'', page:0 };
@@ -1427,15 +1474,85 @@
     return minSize;
   }
 
+  // Eski tarayıcılar (iOS 15 ve öncesi) için roundRect yedeği
+  if (window.CanvasRenderingContext2D && !CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      this.moveTo(x + r, y);
+      this.arcTo(x + w, y, x + w, y + h, r);
+      this.arcTo(x + w, y + h, x, y + h, r);
+      this.arcTo(x, y + h, x, y, r);
+      this.arcTo(x, y, x + w, y, r);
+      this.closePath();
+      return this;
+    };
+  }
+
+  // Puana göre süslü yorumlar ({N} = çözen, {C} = test sahibi)
+  const CARD_COMMENTS = {
+    top: [
+      '{N}, {C} hakkında neredeyse her şeyi biliyor. Böyle arkadaş altın değerinde ✨',
+      'Tam isabet! {N} ile {C} arasında görünmez bir bağ var 🔮',
+      'Bu kadar iyi tanıyan arkadaş az bulunur. {C}, sakın bırakma 💜'
+    ],
+    good: [
+      '{C} hakkında çok şey biliyor. Birkaç küçük sürpriz kalmış, gerisi cepte 💕',
+      '{N}, {C} dosyasını neredeyse tamamlamış. Biraz daha sohbet, tam puan! 🎯',
+      'Sağlam bir dostluk! Birkaç ince detay kaçmış ama temel çok sağlam 💪'
+    ],
+    mid: [
+      'Yarısından fazlasını bildi. Bir kahve içip sohbet edince zirveye çıkarsınız ☕',
+      '{N} yolun yarısını geçti. {C} hâlâ birkaç sır saklıyor 🤫',
+      'Ortalamanın üstü! Biraz daha ortak zaman, çok daha yüksek puan 🌱'
+    ],
+    low: [
+      '{C} sandığından daha gizemli çıktı. Ortak bir yemek planı şart 🍕',
+      'Perde yarı aralandı! {N} için biraz daha tanışma vakti 🎀',
+      '{N} için ipuçları yetmedi. Ortak bir macera lazım 🧭'
+    ],
+    zero: [
+      'Perde daha aralanmadı bile. {N} ile {C} için tanışma seansı şart 🎭',
+      'Bu puanla ikinizin ilk buluşması sayılır. Hadi baştan tanışın 👋',
+      '{C} tam bir gizem! {N}, notlarını gözden geçir 😄'
+    ]
+  };
+  function commentFor(score, name, creator, seed) {
+    const key = score >= 9 ? 'top' : score >= 7 ? 'good' : score >= 5 ? 'mid' : score >= 3 ? 'low' : 'zero';
+    let h = 0; for (const ch of String(seed)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    const arr = CARD_COMMENTS[key];
+    return arr[h % arr.length].replace(/\{N\}/g, name).replace(/\{C\}/g, creator);
+  }
+  function wrapLines(ctx, text, maxW, maxLines) {
+    const words = text.split(' '), lines = [];
+    let cur = '';
+    words.forEach(w => {
+      const t = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t;
+    });
+    if (cur) lines.push(cur);
+    if (lines.length > maxLines) {
+      const keep = lines.slice(0, maxLines);
+      keep[maxLines - 1] = keep[maxLines - 1].replace(/\s*\S*$/, '') + '…';
+      return keep;
+    }
+    return lines;
+  }
+
   async function generateShareCard() {
-    try { await document.fonts.ready; } catch (e) {}
+    // Yazı tipleri en fazla 2,5 sn beklenir; yavaş bağlantıda kart takılı kalmaz
     try {
-      await Promise.all([
-        document.fonts.load('bold 80px "Space Grotesk"'),
-        document.fonts.load('600 40px "Space Grotesk"'),
-        document.fonts.load('500 32px "Inter"'),
-        document.fonts.load('600 32px "Inter"')
-      ]);
+      if (document.fonts) {
+        await Promise.race([
+          Promise.all([
+            document.fonts.ready,
+            document.fonts.load('bold 80px "Space Grotesk"'),
+            document.fonts.load('600 40px "Space Grotesk"'),
+            document.fonts.load('500 32px "Inter"'),
+            document.fonts.load('600 32px "Inter"')
+          ]),
+          new Promise(r => setTimeout(r, 2500))
+        ]);
+      }
     } catch (e) {}
 
     const d = lastDone;
@@ -1455,12 +1572,9 @@
     // arka plan — krem-pembe
     ctx.fillStyle = '#FFF6FA';
     ctx.fillRect(0, 0, W, H);
-    const orbs = [
-      [200, 320, 820, '255,184,217', .9],   // pembe
-      [900, 1620, 780, '184,230,213', .85], // mint pastel
-      [820, 980, 500, '255,212,184', .8]    // şeftali pastel
-    ];
-    orbs.forEach(([cx, cy, r, c, a]) => {
+    [[200, 320, 820, '255,184,217', .9],
+     [900, 1620, 780, '184,230,213', .85],
+     [820, 980, 500, '255,212,184', .8]].forEach(([cx, cy, r, c, a]) => {
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
       g.addColorStop(0, 'rgba(' + c + ',' + a + ')');
       g.addColorStop(1, 'rgba(' + c + ',0)');
@@ -1472,74 +1586,85 @@
     ctx.globalAlpha = .35;
     ctx.font = '58px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    [[90, 360, '🎀'], [990, 290, '🦄'], [130, 1440, '🌈'],
-     [960, 1520, '💕'], [500, 1800, '✨'], [960, 880, '🌸']]
+    [[90, 360, '🎀'], [990, 330, '🦄'], [110, 1180, '🌈'], [985, 700, '🌸'],
+     [130, 1520, '💕'], [960, 1560, '✨'], [200, 1790, '🎀'], [880, 1760, '💕']]
       .forEach(([x, y, e]) => ctx.fillText(e, x, y));
     ctx.globalAlpha = 1;
 
-    // PERDE logosu — pembe kutu
-    const logoGrad = ctx.createLinearGradient(400, 170, 460, 220);
+    // Instagram/TikTok arayüzü üstte ve altta ~250px'i kapatır: içerik 260–1660 arasında
+    // PERDE logosu
+    const logoGrad = ctx.createLinearGradient(400, 262, 460, 312);
     logoGrad.addColorStop(0, '#FF7EB6');
     logoGrad.addColorStop(1, '#FFB88C');
     ctx.save();
     ctx.shadowColor = 'rgba(255,126,182,.7)'; ctx.shadowBlur = 35;
     ctx.fillStyle = logoGrad;
-    ctx.beginPath(); ctx.roundRect(420, 170, 42, 42, 11); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(420, 262, 42, 42, 11); ctx.fill();
     ctx.restore();
     ctx.fillStyle = '#3D1F4A';
     ctx.font = 'bold 50px "Space Grotesk", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('P E R D E', 484, 197);
+    ctx.fillText('P E R D E', 484, 289);
 
-    // alt başlık
-    ctx.fillStyle = 'rgba(169,136,188,.95)';
+    ctx.fillStyle = 'rgba(138,106,162,.95)';
     ctx.font = '600 22px "Inter", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('ARKADAŞLIK TESTİ', W / 2, 250);
+    ctx.fillText('ARKADAŞLIK TESTİ', W / 2, 340);
 
-    // Perdi maskot
-    drawPerdi(ctx, W / 2, 560, 380, verdict.mood);
+    // Perdi
+    drawPerdi(ctx, W / 2, 540, 330, verdict.mood);
 
-    // skor ring
-    const cx = W / 2, cy = 920, r = 155, sw = 22;
+    // skor halkası
+    const cx = W / 2, cy = 855, r = 132, sw = 20;
     ctx.strokeStyle = 'rgba(255,126,182,.15)'; ctx.lineWidth = sw; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-    const ringGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-    ringGrad.addColorStop(0, '#FF7EB6');
-    ringGrad.addColorStop(.55, '#FFB88C');
-    ringGrad.addColorStop(1, '#C89BFF');
-    ctx.strokeStyle = ringGrad;
-    ctx.save();
-    ctx.shadowColor = 'rgba(255,126,182,.55)'; ctx.shadowBlur = 45;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pct);
-    ctx.stroke();
-    ctx.restore();
-
-    // skor rakamı
+    if (score > 0) {
+      const ringGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+      ringGrad.addColorStop(0, '#FF7EB6');
+      ringGrad.addColorStop(.55, '#FFB88C');
+      ringGrad.addColorStop(1, '#C89BFF');
+      ctx.strokeStyle = ringGrad;
+      ctx.save();
+      ctx.shadowColor = 'rgba(255,126,182,.55)'; ctx.shadowBlur = 45;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pct);
+      ctx.stroke();
+      ctx.restore();
+    }
     ctx.fillStyle = '#3D1F4A';
-    ctx.font = 'bold 148px "Space Grotesk", sans-serif';
+    ctx.font = 'bold 128px "Space Grotesk", sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(String(score), cx, cy - 24);
-    ctx.fillStyle = 'rgba(169,136,188,.9)';
-    ctx.font = '600 42px "Space Grotesk", sans-serif';
-    ctx.fillText('/ ' + total, cx, cy + 92);
+    ctx.fillText(String(score), cx, cy - 20);
+    ctx.fillStyle = 'rgba(138,106,162,.95)';
+    ctx.font = '600 38px "Space Grotesk", sans-serif';
+    ctx.fillText('/ ' + total, cx, cy + 76);
 
-    // verdict metni — pembe-lavanta gradient
-    const vSize = fitTextSize(ctx, verdict.t, 900, 78, 46);
+    // başlık
+    const vSize = fitTextSize(ctx, verdict.t, 900, 72, 44);
     ctx.font = 'bold ' + vSize + 'px "Space Grotesk", sans-serif';
-    const vGrad = ctx.createLinearGradient(cx - 400, 1220, cx + 400, 1220);
+    const vGrad = ctx.createLinearGradient(cx - 400, 1100, cx + 400, 1100);
     vGrad.addColorStop(0, '#FF5C94');
     vGrad.addColorStop(.5, '#FF7EB6');
     vGrad.addColorStop(1, '#C89BFF');
     ctx.fillStyle = vGrad;
-    ctx.fillText(verdict.t, cx, 1240);
+    ctx.fillText(verdict.t, cx, 1100);
 
-    // alt yazı
-    ctx.fillStyle = 'rgba(74,44,90,.88)';
-    ctx.font = '500 36px "Inter", sans-serif';
-    ctx.fillText(name + ', ' + creator + ' hakkında', cx, 1330);
-    ctx.fillText(score + ' / ' + total + ' doğru bildin', cx, 1382);
+    // kim kimi ne kadar tanıyor
+    ctx.fillStyle = '#3D1F4A';
+    let nSize = 36;
+    const who = name + ', ' + creator + ' hakkında';
+    do { ctx.font = '600 ' + nSize + 'px "Space Grotesk", sans-serif'; nSize -= 2; }
+    while (ctx.measureText(who).width > 900 && nSize > 22);
+    ctx.fillText(who, cx, 1168);
+    ctx.fillStyle = 'rgba(74,44,90,.85)';
+    ctx.font = '500 34px "Inter", sans-serif';
+    ctx.fillText(score + ' / ' + total + ' doğru bildi', cx, 1216);
+
+    // puana göre süslü yorum
+    ctx.fillStyle = 'rgba(74,44,90,.82)';
+    ctx.font = '500 32px "Inter", sans-serif';
+    const lines = wrapLines(ctx, commentFor(score, name, creator, d.result.rid), 840, 3);
+    lines.forEach((ln, i) => ctx.fillText(ln, cx, 1296 + i * 50));
 
     // ayraç
     const divG = ctx.createLinearGradient(280, 0, 800, 0);
@@ -1549,35 +1674,25 @@
     ctx.strokeStyle = divG; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(280, 1460); ctx.lineTo(800, 1460); ctx.stroke();
 
-    // CTA
+    // çağrı
     ctx.fillStyle = '#3D1F4A';
-    ctx.font = '600 44px "Space Grotesk", sans-serif';
-    ctx.fillText('Sen de dene 👇', cx, 1540);
+    ctx.font = '600 42px "Space Grotesk", sans-serif';
+    ctx.fillText('Sen kaç bilirsin? 👇', cx, 1508);
 
-    // test no
-    ctx.fillStyle = 'rgba(169,136,188,.9)';
-    ctx.font = '600 30px "Inter", sans-serif';
-    ctx.fillText('Test No:  ' + d.id, cx, 1608);
-
-    // url pill — pastel pembe
-    const pillW = 460, pillH = 76, pillX = (W - pillW) / 2, pillY = 1650;
+    const pillW = 700, pillH = 80, pillX = (W - pillW) / 2, pillY = 1556;
     ctx.fillStyle = 'rgba(255,126,182,.15)';
     ctx.strokeStyle = 'rgba(255,126,182,.55)'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.roundRect(pillX, pillY, pillW, pillH, 38);
+    ctx.beginPath(); ctx.roundRect(pillX, pillY, pillW, pillH, 40);
     ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#FF5C94';
-    ctx.font = '600 34px "Space Grotesk", sans-serif';
-    ctx.fillText('perde.pro', cx, pillY + pillH / 2 + 1);
-
-    // footer
-    ctx.fillStyle = 'rgba(169,136,188,.6)';
-    ctx.font = '500 22px "Inter", sans-serif';
-    ctx.fillText('perde.pro  ·  Arkadaşlık Testi', cx, 1860);
+    ctx.font = '600 33px "Space Grotesk", sans-serif';
+    ctx.fillText('perde.pro  ·  Test No: ' + d.id, cx, pillY + pillH / 2 + 1);
 
     return canvas;
   }
 
   let shareInited = false;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') $('#shareModal').classList.remove('show'); });
 
   async function openShareModal() {
     if (!lastDone) return;
@@ -1636,7 +1751,8 @@
   async function tryNativeShare() {
     if (!lastDone || !lastDone.cardFile) { downloadCard(); return; }
     const url = shareTestUrl();
-    const text = lastDone.result.name + ', ' + lastDone.result.score + '/' + lastDone.result.total + ' yaptı! Sen de dene 👉';
+    const ct = tests[lastDone.id];
+    const text = (ct ? ct.creatorName + ' hakkında ' : '') + lastDone.result.score + '/' + lastDone.result.total + ' bildim! Sen kaç bilirsin? 🎯';
     try {
       if (navigator.canShare && navigator.canShare({ files: [lastDone.cardFile] })) {
         await navigator.share({ files: [lastDone.cardFile], title: 'Perde — Arkadaşlık Testi', text: text + ' ' + url });
@@ -1652,6 +1768,12 @@
 
   function wireShareActions() {
     $('#shareNative').addEventListener('click', tryNativeShare);
+    $('#shareSave').addEventListener('click', downloadCard);
+    $('#shareCopy').addEventListener('click', async () => {
+      const url = shareTestUrl();
+      try { await navigator.clipboard.writeText(url); toast('Link kopyalandı ✓'); }
+      catch (e) { prompt('Test linki:', url); }
+    });
     $('#shareClose').addEventListener('click', () => $('#shareModal').classList.remove('show'));
     $('#shareModal').addEventListener('click', e => {
       if (e.target.id === 'shareModal') $('#shareModal').classList.remove('show');
