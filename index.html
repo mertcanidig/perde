@@ -92,10 +92,11 @@
   .ghost-btn span{font-size:15px;line-height:1}
 
   /* SAHNE */
-  .stage{position:relative;z-index:10;flex:1 1 auto;overflow:hidden;min-height:0}
+  .stage{position:relative;z-index:10;flex:1 1 auto;overflow:hidden;overflow:clip;min-height:0}
   .screen{position:absolute;inset:0;
     display:flex;align-items:center;justify-content:center;
     padding:4px 16px calc(14px + env(safe-area-inset-bottom));
+    overflow:hidden;overflow:clip;
     opacity:0;pointer-events:none;
     transform:translateY(26px) scale(.975);
     transition:opacity .45s ease, transform .55s cubic-bezier(.2,.85,.25,1);}
@@ -247,52 +248,101 @@
   .pills i.done{background:linear-gradient(90deg,var(--rose),var(--peach))}
   .count{min-width:36px;text-align:right;font-family:'Space Grotesk',sans-serif;
     font-weight:700;font-size:13px;color:var(--muted)}
-  .who{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+  .who{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;padding:6px 15px;border-radius:999px;
+    background:linear-gradient(100deg,#FFE0EC,#EEE3FF);border:1.5px solid #fff;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;color:var(--text-strong);
+    box-shadow:0 6px 16px -8px rgba(200,155,255,.9)}
 
   #qBody{width:100%;min-height:300px}
   .qslide{width:100%;display:flex;flex-direction:column;align-items:center}
 
-  .bubble{position:relative;width:100%;margin-top:14px;padding:14px 18px;border-radius:20px;
-    min-height:76px;display:flex;gap:12px;align-items:center;justify-content:center;
-    background:#FFF0F6;border:1.5px solid var(--rose-soft);}
-  .bubble::before{content:'';position:absolute;left:50%;top:-9px;margin-left:-9px;
-    border:9px solid transparent;border-bottom-color:var(--rose-soft);border-top:0}
-  .bubble::after{content:'';position:absolute;left:50%;top:-7px;margin-left:-8px;
-    border:8px solid transparent;border-bottom-color:#FFF0F6;border-top:0}
-  .b-emoji{font-size:28px;line-height:1;flex:0 0 auto}
-  .b-text{font-family:'Space Grotesk',sans-serif;font-weight:600;
-    font-size:clamp(16.5px,4.6vw,20px);line-height:1.3;color:var(--text-strong)}
+  .bubble{position:relative;width:100%;margin-top:20px;padding:16px 18px;border-radius:26px;
+    min-height:84px;display:flex;gap:12px;align-items:center;justify-content:center;
+    background:linear-gradient(#fff,#FFF3F9) padding-box,
+      linear-gradient(120deg,var(--rose),var(--lavender),var(--peach)) border-box;
+    border:2.5px solid transparent;
+    box-shadow:0 16px 36px -16px rgba(255,126,182,.75), 0 0 0 5px rgba(255,255,255,.5);}
+  .bubble::before{content:'';position:absolute;left:50%;top:-11px;width:16px;height:16px;margin-left:-8px;
+    background:#fff;border-left:2.5px solid var(--lavender);border-top:2.5px solid var(--lavender);
+    border-radius:5px 0 0 0;transform:rotate(45deg)}
+  .bubble::after{content:'✨';position:absolute;right:16px;top:-14px;font-size:18px;
+    animation:twinkle 2.4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:1}50%{transform:scale(1.28) rotate(14deg);opacity:.7}}
+  .b-badge{position:absolute;left:16px;top:-14px;padding:3px 12px;border-radius:999px;
+    background:linear-gradient(100deg,var(--rose-deep),var(--lavender));color:#fff;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.02em;
+    box-shadow:0 6px 14px -6px rgba(255,92,148,.85)}
+  .b-emoji{flex:0 0 auto;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+    font-size:26px;line-height:1;
+    background:linear-gradient(135deg,#FFE0EC,#EBDDFF);
+    box-shadow:inset 0 0 0 2.5px #fff, 0 8px 16px -8px rgba(200,155,255,.9);
+    animation:wob 3.4s ease-in-out infinite}
+  @keyframes wob{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(6deg) scale(1.08)}}
+  .b-text{font-family:'Space Grotesk',sans-serif;font-weight:700;text-align:left;
+    font-size:clamp(17px,4.8vw,21px);line-height:1.28;color:var(--text-strong)}
 
-  .opts{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;
-    min-height:184px;align-content:start}
-  .opt{display:flex;align-items:center;gap:10px;min-height:56px;
-    padding:10px 13px;border-radius:16px;
-    background:#fff;border:1.5px solid var(--rose-soft);
-    color:var(--text);font-size:14.5px;font-weight:500;text-align:left;cursor:pointer;
-    transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;
-    box-shadow:0 3px 10px -6px rgba(255,126,182,.25);}
-  .opt .e{font-size:25px;line-height:1;flex:0 0 auto;transition:transform .25s cubic-bezier(.2,1.4,.4,1)}
-  .opt:hover{background:#FFF5F9;border-color:var(--rose)}
-  .opt:hover .e{transform:scale(1.2) rotate(-8deg)}
-  .opt:active{transform:scale(.97)}
+  .opts{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;
+    min-height:206px;align-content:start}
+  .opts.enter .opt{animation:optIn .5s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i,0) * 55ms)}
+  @keyframes optIn{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:none}}
+  .opt{--ac:#FF7EB6;--acd:#FF5C94;--acs:#FFE3EF;--acb:rgba(255,126,182,.45);--act:#fff;
+    position:relative;display:flex;align-items:center;gap:10px;min-height:62px;
+    padding:8px 12px 8px 8px;border-radius:22px;
+    background:#fff;border:2px solid var(--acb);
+    color:var(--text-strong);font-family:'Space Grotesk',sans-serif;font-size:14.5px;font-weight:700;
+    line-height:1.15;text-align:left;cursor:pointer;
+    box-shadow:0 8px 18px -10px var(--ac);
+    transition:transform .2s cubic-bezier(.2,1.4,.4,1),box-shadow .2s,background .2s,border-color .2s;}
+  .opt:nth-child(6n+2){--ac:#B98BFF;--acd:#9A63F5;--acs:#EEE3FF;--acb:rgba(185,139,255,.5)}
+  .opt:nth-child(6n+3){--ac:#4FCFAB;--acd:#22A885;--acs:#DDF7EE;--acb:rgba(79,207,171,.5)}
+  .opt:nth-child(6n+4){--ac:#FFA05A;--acd:#FF7A2A;--acs:#FFE9DA;--acb:rgba(255,160,90,.5)}
+  .opt:nth-child(6n+5){--ac:#5DB9FF;--acd:#2F8FE8;--acs:#DFF1FF;--acb:rgba(93,185,255,.5)}
+  .opt:nth-child(6n+6){--ac:#FFC23D;--acd:#F5A60F;--acs:#FFF3CF;--acb:rgba(255,194,61,.55);--act:#4A2C00}
+  .opt .e{flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+    font-size:24px;line-height:1;background:var(--acs);
+    box-shadow:inset 0 0 0 2px #fff, 0 4px 10px -4px var(--ac);
+    transition:transform .3s cubic-bezier(.2,1.6,.4,1),background .2s}
+  .opt .t{flex:1;min-width:0}
+  .opt:hover{transform:translateY(-2px);border-color:var(--ac);box-shadow:0 14px 24px -12px var(--ac)}
+  .opt:hover .e{transform:scale(1.14) rotate(-8deg)}
+  .opt:active{transform:scale(.96)}
   .opt:nth-child(odd):last-child{grid-column:1/-1;justify-content:center}
-  .opt.sel{background:linear-gradient(100deg,var(--rose),var(--peach));
-    border-color:transparent;color:#fff;
-    box-shadow:0 8px 24px -8px rgba(255,126,182,.75);
-    animation:selpop .4s cubic-bezier(.2,1.5,.4,1);}
-  @keyframes selpop{0%{transform:scale(.94)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+  .opt:nth-child(odd):last-child .t{flex:0 1 auto}
+  .opt .ck{position:absolute;top:-8px;right:-5px;width:22px;height:22px;border-radius:50%;
+    display:none;place-items:center;background:#fff;color:var(--acd);
+    font-size:13px;font-weight:800;box-shadow:0 4px 10px rgba(0,0,0,.18)}
+  .opt.sel{background:linear-gradient(135deg,var(--ac),var(--acd));border-color:transparent;
+    color:var(--act);transform:translateY(-2px);
+    box-shadow:0 14px 28px -10px var(--ac);
+    animation:selpop .45s cubic-bezier(.2,1.5,.4,1);}
+  .opt.sel .e{background:rgba(255,255,255,.34);box-shadow:inset 0 0 0 2px rgba(255,255,255,.75)}
+  .opt.sel .t{text-shadow:0 1px 2px rgba(0,0,0,.16)}
+  .opt:nth-child(6n+6).sel .t{text-shadow:none}
+  .opt.sel .ck{display:grid;animation:pop .35s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes selpop{0%{transform:scale(.94)}60%{transform:translateY(-2px) scale(1.05)}100%{transform:translateY(-2px) scale(1)}}
 
-  .name-input{width:100%;margin-top:14px;padding:15px 18px;border-radius:15px;
-    background:#fff;border:1.5px solid var(--rose-soft);
-    color:var(--text);font-size:16px;font-family:'Inter',sans-serif;text-align:center;
-    outline:none;transition:border-color .2s, box-shadow .2s;
-    box-shadow:inset 0 1px 3px rgba(255,126,182,.08);}
-  .name-input:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(255,126,182,.14)}
-  .name-input::placeholder{color:var(--muted-soft)}
+  /* isim baloncuğu */
+  .name-bubble{position:relative;width:100%;margin-top:22px}
+  .name-input{width:100%;padding:17px 26px;border-radius:999px;text-align:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--text-strong);outline:none;
+    background:linear-gradient(#fff,#FFF6FA) padding-box,
+      linear-gradient(120deg,var(--rose),var(--lavender),var(--peach)) border-box;
+    border:2.5px solid transparent;
+    box-shadow:0 14px 30px -14px rgba(255,126,182,.8), 0 0 0 5px rgba(255,255,255,.5);
+    transition:box-shadow .25s, transform .25s cubic-bezier(.2,1.4,.4,1);}
+  .name-input:focus{transform:scale(1.025);
+    box-shadow:0 18px 38px -14px rgba(255,126,182,.95), 0 0 0 6px rgba(255,126,182,.2)}
+  .name-input::placeholder{color:var(--muted-soft);font-weight:600}
+  .name-bubble::before,.name-bubble::after{content:'';position:absolute;border-radius:50%;
+    background:#fff;border:2.5px solid var(--rose-soft)}
+  .name-bubble::before{right:44px;bottom:-15px;width:14px;height:14px}
+  .name-bubble::after{right:30px;bottom:-27px;width:8px;height:8px}
 
   .qfoot{width:100%;min-height:50px;margin-top:12px;display:flex;align-items:center;justify-content:center}
   .qfoot .cta{width:100%;animation-delay:0s;animation-duration:.4s}
-  .hint2{font-size:12.5px;color:var(--muted)}
+  .hint2{padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.78);
+    border:1.5px dashed var(--rose-soft);font-family:'Space Grotesk',sans-serif;
+    font-size:12.5px;font-weight:700;color:var(--muted)}
 
   /* OLUŞTURULDU */
   .testno-box{margin-top:16px;padding:16px;width:100%;border-radius:20px;text-align:center;
@@ -894,6 +944,9 @@
     if (window.scrollY || window.scrollX) window.scrollTo(0, 0);
     fit();
   }
+  // Odaklanma/scrollIntoView sahneyi kaydıramasın
+  ['.stage', ...[]].forEach(sel => $(sel).addEventListener('scroll', e => { e.target.scrollTop = 0; e.target.scrollLeft = 0; }));
+  $$('.screen').forEach(sc => sc.addEventListener('scroll', () => { sc.scrollTop = 0; sc.scrollLeft = 0; }));
   window.addEventListener('resize', setH);
   window.addEventListener('orientationchange', () => setTimeout(setH, 200));
   if (window.visualViewport) {
@@ -991,22 +1044,24 @@
       const msg = quiz.mode === 'setup'
         ? 'Selam, ben Perdi! Adın ne? Arkadaşların seni testte bu adla görecek.'
         : 'Selam, ben Perdi! Önce adını söyle, sonra ' + esc(quiz.creator) + ' hakkındaki soruları tahmin edelim.';
-      wrap.innerHTML = '<div class="bubble"><span class="b-text">' + msg + '</span></div>'
-        + '<input class="name-input" id="qName" placeholder="Adını yaz…" maxlength="20" autocomplete="off" enterkeyhint="go" value="' + esc(quiz.name) + '" />';
+      wrap.innerHTML = '<div class="bubble"><span class="b-badge">Merhaba!</span><span class="b-emoji">👋</span><span class="b-text">' + msg + '</span></div>'
+        + '<div class="name-bubble"><input class="name-input" id="qName" placeholder="Adını yaz… ✨" maxlength="20" autocomplete="off" enterkeyhint="go" value="' + esc(quiz.name) + '" /></div>';
     } else {
       const Q = QUESTIONS[i];
       setEmoji(m, Q.e); mood(m, 'think', 900);
-      wrap.innerHTML = '<div class="bubble"><span class="b-emoji">' + Q.e + '</span><span class="b-text">'
-        + esc(quiz.mode === 'setup' ? Q.me : Q.q) + '</span></div><div class="opts" id="qOpts"></div>';
+      wrap.innerHTML = '<div class="bubble"><span class="b-badge">Soru ' + (i + 1) + '/' + TOTAL + '</span><span class="b-emoji">' + Q.e + '</span><span class="b-text">'
+        + esc(quiz.mode === 'setup' ? Q.me : Q.q) + '</span></div><div class="opts enter" id="qOpts"></div>';
       const opts = $('#qOpts', wrap);
       Q.opts.forEach((o, oi) => {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'opt' + (quiz.answers[i] === oi ? ' sel' : '');
-        b.innerHTML = '<span class="e">' + o[1] + '</span><span class="t">' + esc(o[0]) + '</span>';
+        b.style.setProperty('--i', oi);
+        b.innerHTML = '<span class="e">' + o[1] + '</span><span class="t">' + esc(o[0]) + '</span><span class="ck">✓</span>';
         b.addEventListener('click', () => pick(oi, b));
         opts.appendChild(b);
       });
+      setTimeout(() => opts.classList.remove('enter'), 900);
     }
     updateFoot();
   }
