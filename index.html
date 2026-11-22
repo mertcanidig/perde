@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
 <title>Perde — Arkadaşlık Testi</title>
+<meta name="google-adsense-account" content="ca-pub-9738278501104768" />
+<meta name="description" content="Kendin hakkında 10 soruyu yanıtla, linkini paylaş; arkadaşların cevaplarını tahmin etsin. Seni kim ne kadar tanıyor, puanlarla gör!" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -344,6 +346,14 @@
     border:1.5px dashed var(--rose-soft);font-family:'Space Grotesk',sans-serif;
     font-size:12.5px;font-weight:700;color:var(--muted)}
 
+  /* REKLAM ALANI (AdSense ayarlanana kadar gizli) */
+  .ad-slot{margin-top:12px;width:100%;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .ad-label{font-size:10.5px;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  .ad-box{width:320px;max-width:100%;min-height:100px}
+  .legal{margin-top:10px;font-size:11.5px;animation:fadeUp .9s .5s both}
+  .legal a{color:var(--muted);text-decoration:none;font-weight:600;margin:0 7px}
+  .legal a:hover{color:var(--rose-deep);text-decoration:underline}
+
   /* OLUŞTURULDU */
   .testno-box{margin-top:16px;padding:16px;width:100%;border-radius:20px;text-align:center;
     background:radial-gradient(120% 140% at 50% 0%,#FFE0EC,rgba(255,255,255,.6));
@@ -564,6 +574,7 @@
         <button class="ghost-btn" id="solveGo">Çöz 🎯</button>
       </div>
       <div class="hint">Testler ve sonuçlar bulutta saklanır ☁️ · perde.pro</div>
+      <div class="legal"><a href="gizlilik.html">Gizlilik</a>·<a href="hakkinda.html">Hakkında</a>·<a href="iletisim.html">İletişim</a></div>
     </div>
   </section>
 
@@ -624,6 +635,7 @@
         <button class="ghost-btn" id="doneCreateBtn"><span>✨</span>Kendi testini oluştur</button>
       </div>
       <p class="small-note" id="doneNote"></p>
+      <div class="ad-slot" id="ad-done" hidden><span class="ad-label">Reklam</span><div class="ad-box"></div></div>
     </div>
   </section>
 
@@ -644,6 +656,7 @@
 
       <div id="resultsArea"></div>
       <div id="resultsShareArea"></div>
+      <div class="ad-slot" id="ad-check" hidden><span class="ad-label">Reklam</span><div class="ad-box"></div></div>
     </div>
   </section>
 
@@ -800,6 +813,31 @@
   function decode(str) { return JSON.parse(obf(b64d(str))); }
   function baseUrl() { return location.href.split('#')[0]; }
   function esc(str) { return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  /* ───────── REKLAM (Google AdSense) ─────────
+     AdSense onayı gelince client ve slots değerlerini doldur (örn. client: 'ca-pub-1234567890123456').
+     Boşken hiçbir reklam kodu yüklenmez. Reklamlar yalnızca sonuç ve kontrol ekranlarında gösterilir. */
+  const ADS = { client: 'ca-pub-9738278501104768', slots: { done: '', check: '' } };
+  let adScript = false;
+  const adShown = {};
+  function showAd(key) {
+    const slot = ADS.slots[key], box = $('#ad-' + key);
+    if (!ADS.client || !slot || !box || adShown[key]) return;
+    if (document.documentElement.dataset.h !== 'm') return;   // küçük ekranlarda yer açmak için gösterme
+    if (!adScript) {
+      adScript = true;
+      const sc = document.createElement('script');
+      sc.async = true; sc.crossOrigin = 'anonymous';
+      sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADS.client;
+      document.head.appendChild(sc);
+    }
+    adShown[key] = true;
+    $('.ad-box', box).innerHTML = '<ins class="adsbygoogle" style="display:inline-block;width:320px;height:100px" data-ad-client="'
+      + ADS.client + '" data-ad-slot="' + slot + '"></ins>';
+    box.hidden = false;
+    fit();
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  }
 
   let toastTimer;
   function toast(msg) {
@@ -1204,6 +1242,7 @@
     $('#doneSub').textContent = quiz.creator + ' hakkında ' + score + '/' + TOTAL + ' doğru bildin. Sonucun kaydedildi.';
     show('screen-done');
     sendResult(quiz.id, result);
+    setTimeout(() => showAd('done'), 700);
     countUp($('#doneScore'), score);
     const m = $('#screen-done .mascot');
     setEmoji(m, score >= 7 ? '🏆' : (score >= 5 ? '👏' : (score >= 3 ? '🤔' : '😅')));
@@ -1304,6 +1343,7 @@
       }
       area.innerHTML = html;
       mood(m, 'happy', 1500); hop(m);
+      showAd('check');
     }
 
     if (t) {
